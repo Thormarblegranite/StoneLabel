@@ -18,6 +18,8 @@ body {
     width: 90%;
     max-width: 700px;
     text-align: center;
+    overflow-y: auto;
+    height: 90vh;
 }
 
 h1 {
@@ -25,8 +27,12 @@ h1 {
     color: #007BFF;
 }
 
-form {
+.form-section {
     margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
 }
 
 label {
@@ -50,6 +56,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin: 10px 5px;
 }
 
 button:hover {
@@ -57,7 +64,6 @@ button:hover {
 }
 
 .label-preview {
-    display: none;
     border: 2px solid #007BFF;
     width: fit-content;
     height: 4in;
@@ -77,6 +83,14 @@ button:hover {
     right: 10px;
     font-weight: bold;
     color: #007BFF;
+}
+
+.label-preview .logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 50px;
+    height: auto;
 }
 
 #labelImage img {
