@@ -56,6 +56,8 @@ function addNewForm() {
         
         <label for="content${partCount}">Additional Content:</label>
         <textarea id="content${partCount}" name="content" rows="4" oninput="updatePreview(${partCount})"></textarea>
+        
+        <button type="button" onclick="deletePart(${partCount})">Delete Part</button>
     `;
 
     formsContainer.appendChild(newFormSection);
@@ -175,6 +177,13 @@ function generateQRCode(partNumber, jobName, width, areaName, material, address,
             qrCodeDiv.appendChild(img);
         }
     });
+}
+
+function deletePart(partNumber) {
+    const formSection = document.getElementById(`formSection${partNumber}`);
+    const labelPreview = document.getElementById(`labelPreview${partNumber}`);
+    formSection.remove();
+    labelPreview.remove();
 }
 
 function printLabels() {
