@@ -41,6 +41,9 @@ function addNewForm() {
         <button type="button" onclick="setPreset(${partCount}, 4)">4x4</button>
         <button type="button" onclick="setPreset(${partCount}, 6)">6x4</button>
         <button type="button" onclick="setPreset(${partCount}, 8)">8x4</button>
+
+        <label for="image${partCount}">Upload Image:</label>
+        <input type="file" id="image${partCount}" name="image" accept="image/*" required onchange="updatePreview(${partCount})">
         
         <label for="areaName${partCount}">Area Name:</label>
         <input type="text" id="areaName${partCount}" name="areaName" required oninput="updatePreview(${partCount})">
@@ -53,9 +56,6 @@ function addNewForm() {
         
         <label for="content${partCount}">Additional Content:</label>
         <textarea id="content${partCount}" name="content" rows="4" oninput="updatePreview(${partCount})"></textarea>
-        
-        <label for="image${partCount}">Upload Image:</label>
-        <input type="file" id="image${partCount}" name="image" accept="image/*" required onchange="updatePreview(${partCount})">
     `;
 
     formsContainer.appendChild(newFormSection);
@@ -141,9 +141,9 @@ function updatePreview(partNumber) {
 
     const logoDiv = document.getElementById(`logo${partNumber}`);
     if (customLogoURL) {
-        logoDiv.innerHTML = `<img src="${customLogoURL}" alt="Custom Logo" style="width:50px; height:auto;">`;
+        logoDiv.innerHTML = `<img src="${customLogoURL}" alt="Custom Logo" style="width:70px; height:auto;">`; // Increased size
     } else {
-        logoDiv.innerHTML = `<img src="assets/thorlogo.png" alt="Default Logo" style="width:50px; height:auto;">`;
+        logoDiv.innerHTML = `<img src="assets/thorlogo.png" alt="Default Logo" style="width:70px; height:auto;">`; // Increased size
     }
 
     if (imageInput) {
@@ -188,10 +188,10 @@ function printLabels() {
         const newWindow = window.open('', '', `width=${width * 100},height=${height * 100}`);  // Adjust dimensions
         newWindow.document.write('<html><head><title>Print Labels</title>');
         newWindow.document.write('<style>body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;}');
-        newWindow.document.write(`.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:${width * 1.0}in;height:${height * 1.0}in;padding:10px;background-color:white;position:relative;text-align:center;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);}`);
+        newWindow.document.write(`.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:${width * 1.0}in;height:${height * 1.0}in;padding:10px;background-color:white;position:relative;text-align:center;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);font-family:'Montserrat', sans-serif;}`);
         newWindow.document.write('.part-number{position:absolute;top:10px;right:10px;font-weight:bold;color:#007BFF;}');
-        newWindow.document.write('.logo{position:absolute;top:10px;left:10px;width:50px;height:auto;}');
-        newWindow.document.write('.horizontal-text{display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1.5em;padding:0 10px;box-sizing:border-box;}');
+        newWindow.document.write('.logo{position:absolute;top:10px;left:10px;width:70px;height:auto;}'); // Increased size
+        newWindow.document.write('.horizontal-text{display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1.5em;padding:0 10px;box-sizing:border-box;font-weight:bold;}'); // Bold text
         newWindow.document.write('.qr-code{position:absolute;top:20px;left:50%;transform:translate(-50%, 0);width:50px;height:50px;}</style>');
         newWindow.document.write('</head><body>');
         newWindow.document.write(label.outerHTML);

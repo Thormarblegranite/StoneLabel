@@ -93,6 +93,7 @@ button:active {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden; /* Ensures text doesn't overflow the sticker */
+    font-family: 'Montserrat', sans-serif; /* Ensure consistent font */
 }
 
 .label-preview .part-number {
@@ -107,17 +108,17 @@ button:active {
     position: absolute;
     top: 10px;
     left: 10px;
-    width: 50px;
+    width: 70px; /* Increased size */
     height: auto;
 }
 
 #labelImage {
     position: absolute;
-    top: 20%;
+    top: 30%;
     left: 50%;
-    transform: translate(-50%, -20%);
+    transform: translate(-50%, -30%);
     width: 75%;
-    height: 60%;
+    height: 40%;
 }
 
 #labelImage img {
@@ -139,6 +140,7 @@ button:active {
     font-size: 1.5em;
     padding: 0 10px;
     box-sizing: border-box;
+    font-weight: bold; /* Bold text */
 }
 
 #labelText span {
@@ -194,6 +196,7 @@ footer a:hover {
         margin: auto;
         box-shadow: none;
         border: none;
+        font-family: 'Montserrat', sans-serif; /* Ensure consistent font */
     }
     .qr-code {
         width: 50px;

@@ -5,33 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stone Label App</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>Stone Label Generator</h1>
-        
-        <label for="jobName">Job Name:</label>
-        <input type="text" id="jobName" name="jobName" required>
-
-        <label for="logo">Upload Logo (optional):</label>
-        <input type="file" id="logo" name="logo" accept="image/*">
-        
-        <p>Aesthetically Please Customers</p>
-
+        <div>
+            <label for="jobName">Job Name:</label>
+            <input type="text" id="jobName" name="jobName" required>
+        </div>
         <button id="addPartButton">Add Part</button>
-        <button id="printLabelsButton">Print Labels</button>
-
         <div id="formsContainer"></div>
+        <button id="printLabelsButton">Print Labels</button>
         <div id="labelsContainer"></div>
     </div>
-
     <footer>
         <p>Created By <a href="http://thormarblegranite.com" target="_blank">Thor Marble & Granite</a></p>
-        <img src="assets/thorlogo.png" alt="Thor Marble & Granite Logo" class="footer-logo">
+        <img src="assets/thorlogo.png" alt="Thor Logo" class="footer-logo">
     </footer>
-
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
