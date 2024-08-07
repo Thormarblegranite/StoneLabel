@@ -108,7 +108,7 @@ function updatePreview(partNumber) {
         <span>Address: ${address}</span>
         <span>${content}</span>
     `;
-    labelText.style.fontSize = `${0.3 * width}em`; // Make the font size responsive to the width
+    labelText.style.fontSize = `${1.5 / width}em`; // Make the font size responsive to the width
 
     const logoDiv = document.getElementById(`logo${partNumber}`);
     if (customLogoURL) {

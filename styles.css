@@ -55,10 +55,16 @@ button {
     margin: 10px 5px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
 }
 
 .form-section {
@@ -67,6 +73,11 @@ button:hover {
     padding: 10px;
     border-radius: 10px;
     background-color: #f9f9f9;
+    transition: transform 0.3s ease;
+}
+
+.form-section:hover {
+    transform: scale(1.02);
 }
 
 .label-preview {
@@ -105,7 +116,7 @@ button:hover {
     object-fit: contain;
     border-radius: 10px;
     position: absolute;
-    top: 30%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
