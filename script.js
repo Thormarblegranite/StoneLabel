@@ -102,5 +102,16 @@ function updatePreview(partNumber) {
 }
 
 function printLabels() {
-    window.print();
+    const labelsContainer = document.getElementById('labelsContainer');
+    const labels = labelsContainer.querySelectorAll('.label-preview');
+
+    labels.forEach((label, index) => {
+        const newWindow = window.open('', '', 'width=800,height=600');
+        newWindow.document.write('<html><head><title>Print Labels</title>');
+        newWindow.document.write('</head><body >');
+        newWindow.document.write(label.outerHTML);
+        newWindow.document.write('</body></html>');
+        newWindow.document.close();
+        newWindow.print();
+    });
 }

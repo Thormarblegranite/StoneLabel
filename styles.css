@@ -95,15 +95,22 @@ button:hover {
 
 #labelImage img {
     width: 100%;
-    height: auto;
+    max-height: 2in; /* Limit the height to fit nicely within the sticker */
+    object-fit: contain;
     border-radius: 10px;
 }
 
 #labelText {
     padding: 10px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    text-align: center;
 }
 
 #labelText p {
     margin: 5px 0;
     word-wrap: break-word;
+    font-size: 0.8em; /* Adjust the font size to fit the sticker */
 }
