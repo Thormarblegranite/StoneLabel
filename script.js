@@ -119,11 +119,11 @@ function createLabelPreview(partNumber) {
 function updatePreview(partNumber) {
     const jobName = document.getElementById('jobName').value;
     const width = document.getElementById(`width${partNumber}`).value;
-    const areaName = document.getElementById('areaName' + partNumber).value;
-    const material = document.getElementById('material' + partNumber).value;
-    const address = document.getElementById('address' + partNumber).value;
-    const content = document.getElementById('content' + partNumber).value;
-    const imageInput = document.getElementById('image' + partNumber).files[0];
+    const areaName = document.getElementById(`areaName${partNumber}`).value;
+    const material = document.getElementById(`material${partNumber}`).value;
+    const address = document.getElementById(`address${partNumber}`).value;
+    const content = document.getElementById(`content${partNumber}`).value;
+    const imageInput = document.getElementById(`image${partNumber}`).files[0];
 
     const labelPreview = document.getElementById(`labelPreview${partNumber}`);
     labelPreview.style.width = `${width * 0.95}in`;  // Adjusted to 95% of the given width
@@ -150,7 +150,7 @@ function updatePreview(partNumber) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const labelImage = document.getElementById(`labelImage${partNumber}`);
-            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:100%; height:100%; object-fit:contain; border-radius:10px;">`; // Adjust image size
+            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:100%; height:70%; object-fit:contain; border-radius:10px;">`; // Adjust image size
         };
         reader.readAsDataURL(imageInput);
     }
