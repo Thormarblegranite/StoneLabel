@@ -94,10 +94,14 @@ button:hover {
 }
 
 #labelImage img {
-    width: 100%;
-    max-height: 2in; /* Limit the height to fit nicely within the sticker */
+    width: 50%;
+    height: 50%;
     object-fit: contain;
     border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #labelText {
@@ -106,10 +110,10 @@ button:hover {
     justify-content: space-around;
     flex-wrap: wrap;
     text-align: center;
-    font-size: 0.8em; /* Adjust the font size to fit the sticker */
+    font-size: 0.6em; /* Adjust the font size to fit the sticker */
 }
 
 #labelText p {
-    margin: 5px 0;
+    margin: 2px;
     word-wrap: break-word;
 }
