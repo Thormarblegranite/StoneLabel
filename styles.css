@@ -27,14 +27,6 @@ h1 {
     color: #007BFF;
 }
 
-.form-section {
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-}
-
 label {
     display: block;
     margin: 10px 0 5px;
@@ -61,6 +53,14 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+.form-section {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
 }
 
 .label-preview {

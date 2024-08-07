@@ -1,4 +1,4 @@
-let partCount = 1;
+let partCount = 0;
 
 document.getElementById('addPartButton').addEventListener('click', function() {
     partCount++;
@@ -10,6 +10,12 @@ document.getElementById('printLabelsButton').addEventListener('click', function(
 });
 
 function addNewForm() {
+    const jobName = document.getElementById('jobName').value;
+    if (!jobName) {
+        alert('Please enter the job name.');
+        return;
+    }
+
     const formsContainer = document.getElementById('formsContainer');
     const newFormSection = document.createElement('div');
     newFormSection.classList.add('form-section');
@@ -19,9 +25,6 @@ function addNewForm() {
         <h2>Part ${partCount}</h2>
         <label for="width${partCount}">Sticker Width (2 - 8 inches):</label>
         <input type="number" id="width${partCount}" name="width" min="2" max="8" step="0.1" required oninput="updatePreview(${partCount})">
-        
-        <label for="jobName${partCount}">Job Name:</label>
-        <input type="text" id="jobName${partCount}" name="jobName" required oninput="updatePreview(${partCount})">
         
         <label for="areaName${partCount}">Area Name:</label>
         <input type="text" id="areaName${partCount}" name="areaName" required oninput="updatePreview(${partCount})">
@@ -72,8 +75,8 @@ function createLabelPreview(partNumber) {
 }
 
 function updatePreview(partNumber) {
+    const jobName = document.getElementById('jobName').value;
     const width = document.getElementById(`width${partNumber}`).value;
-    const jobName = document.getElementById(`jobName${partNumber}`).value;
     const areaName = document.getElementById(`areaName${partNumber}`).value;
     const material = document.getElementById(`material${partNumber}`).value;
     const address = document.getElementById(`address${partNumber}`).value;
@@ -96,7 +99,7 @@ function updatePreview(partNumber) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const labelImage = document.getElementById(`labelImage${partNumber}`);
-            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:50%; height:50%; object-fit:contain; border-radius:10px; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">`;
+            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image">`;
         };
         reader.readAsDataURL(imageInput);
     }
