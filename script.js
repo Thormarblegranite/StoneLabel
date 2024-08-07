@@ -131,12 +131,4 @@ function printLabels() {
 
     labels.forEach((label) => {
         const newWindow = window.open('', '', 'width=800,height=600');
-        newWindow.document.write('<html><head><title>Print Labels</title>');
-        newWindow.document.write('<style>body{margin:0;padding:0;}.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100vh;}.horizontal-text{display:flex;justify-content:space-around;width:100%;position:absolute;bottom:10px;}</style>');
-        newWindow.document.write('</head><body>');
-        newWindow.document.write(label.outerHTML);
-        newWindow.document.write('</body></html>');
-        newWindow.document.close();
-        newWindow.print();
-    });
-}
+        newWindow.document.write('<html><

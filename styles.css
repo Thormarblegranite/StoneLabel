@@ -114,7 +114,8 @@ button:hover {
     justify-content: space-around;
     width: 100%;
     position: absolute;
-    bottom: 10px;
+    top: 70%;
+    transform: translateY(-50%);
     text-align: center;
     font-size: 0.6em; /* Adjust the font size to fit the sticker */
 }
@@ -143,7 +144,7 @@ footer a:hover {
 }
 
 .footer-logo {
-    width: 50px;
+    width: 100px;
     height: auto;
     margin-top: 10px;
 }
