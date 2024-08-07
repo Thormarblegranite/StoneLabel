@@ -114,8 +114,7 @@ button:hover {
     justify-content: space-around;
     width: 100%;
     position: absolute;
-    top: 70%;
-    transform: translateY(-50%);
+    bottom: 10px;
     text-align: center;
     font-size: 0.6em; /* Adjust the font size to fit the sticker */
 }
