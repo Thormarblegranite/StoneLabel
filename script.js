@@ -2,7 +2,6 @@ let partCount = 0;
 let customLogoURL = null;
 
 document.getElementById('addPartButton').addEventListener('click', function() {
-    partCount++;
     addNewForm();
 });
 
@@ -22,6 +21,7 @@ document.getElementById('logo').addEventListener('change', function(event) {
 });
 
 function addNewForm() {
+    partCount++;
     const jobName = document.getElementById('jobName').value;
     if (!jobName) {
         alert('Please enter the job name.');
