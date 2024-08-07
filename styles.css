@@ -99,7 +99,7 @@ button:hover {
     object-fit: contain;
     border-radius: 10px;
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -111,9 +111,12 @@ button:hover {
     flex-wrap: wrap;
     text-align: center;
     font-size: 0.6em; /* Adjust the font size to fit the sticker */
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
 }
 
-#labelText p {
+#labelText span {
     margin: 2px;
     word-wrap: break-word;
 }

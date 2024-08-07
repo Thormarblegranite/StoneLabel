@@ -69,6 +69,7 @@ function createLabelPreview(partNumber) {
 
     const labelText = document.createElement('div');
     labelText.id = `labelText${partNumber}`;
+    labelText.classList.add('horizontal-text');
     labelPreview.appendChild(labelText);
 
     labelsContainer.appendChild(labelPreview);
@@ -88,18 +89,18 @@ function updatePreview(partNumber) {
 
     const labelText = document.getElementById(`labelText${partNumber}`);
     labelText.innerHTML = `
-        <p>Job Name: ${jobName}</p>
-        <p>Area Name: ${areaName}</p>
-        <p>Material: ${material}</p>
-        <p>Address: ${address}</p>
-        <p>${content}</p>
+        <span>Job Name: ${jobName}</span>
+        <span>Area Name: ${areaName}</span>
+        <span>Material: ${material}</span>
+        <span>Address: ${address}</span>
+        <span>${content}</span>
     `;
 
     if (imageInput) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const labelImage = document.getElementById(`labelImage${partNumber}`);
-            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:50%; height:50%; object-fit:contain; border-radius:10px; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">`;
+            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:50%; height:50%; object-fit:contain; border-radius:10px; position:absolute; top:30%; left:50%; transform:translate(-50%, -50%);">`;
         };
         reader.readAsDataURL(imageInput);
     }
@@ -109,10 +110,10 @@ function printLabels() {
     const labelsContainer = document.getElementById('labelsContainer');
     const labels = labelsContainer.querySelectorAll('.label-preview');
 
-    labels.forEach((label, index) => {
+    labels.forEach((label) => {
         const newWindow = window.open('', '', 'width=800,height=600');
         newWindow.document.write('<html><head><title>Print Labels</title>');
-        newWindow.document.write('<style>body{margin:0;padding:0;}.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100vh;}</style>');
+        newWindow.document.write('<style>body{margin:0;padding:0;}.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100vh;}.horizontal-text{display:flex;justify-content:space-around;width:100%;}</style>');
         newWindow.document.write('</head><body>');
         newWindow.document.write(label.outerHTML);
         newWindow.document.write('</body></html>');
