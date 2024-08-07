@@ -107,6 +107,7 @@ function updatePreview(partNumber) {
         <span>Address: ${address}</span>
         <span>${content}</span>
     `;
+    labelText.style.fontSize = `${0.6 * (2 / width)}em`; // Make the font size responsive to the width
 
     const logoDiv = document.getElementById(`logo${partNumber}`);
     if (customLogoURL) {
@@ -119,7 +120,7 @@ function updatePreview(partNumber) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const labelImage = document.getElementById(`labelImage${partNumber}`);
-            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:50%; height:50%; object-fit:contain; border-radius:10px; position:absolute; top:30%; left:50%; transform:translate(-50%, -50%);">`;
+            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:50%; height:50%; object-fit:contain; border-radius:10px; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">`;
         };
         reader.readAsDataURL(imageInput);
     }
