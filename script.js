@@ -103,15 +103,15 @@ function createLabelPreview(partNumber) {
     labelImage.id = `labelImage${partNumber}`;
     labelPreview.appendChild(labelImage);
 
-    const labelText = document.createElement('div');
-    labelText.id = `labelText${partNumber}`;
-    labelText.classList.add('horizontal-text');
-    labelPreview.appendChild(labelText);
-
     const qrCodeDiv = document.createElement('div');
     qrCodeDiv.classList.add('qr-code');
     qrCodeDiv.id = `qrCode${partNumber}`;
     labelPreview.appendChild(qrCodeDiv);
+
+    const labelText = document.createElement('div');
+    labelText.id = `labelText${partNumber}`;
+    labelText.classList.add('horizontal-text');
+    labelPreview.appendChild(labelText);
 
     labelsContainer.appendChild(labelPreview);
 }
@@ -184,7 +184,7 @@ function printLabels() {
         newWindow.document.write('.part-number{position:absolute;top:10px;right:10px;font-weight:bold;color:#007BFF;}');
         newWindow.document.write('.logo{position:absolute;top:10px;left:10px;width:50px;height:auto;}');
         newWindow.document.write('.horizontal-text{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1em;padding:0 10px;box-sizing:border-box;}');
-        newWindow.document.write('.qr-code{position:absolute;top:50px;left:50%;transform:translate(-50%, 0);}</style>');
+        newWindow.document.write('.qr-code{position:absolute;top:20px;left:50%;transform:translate(-50%, 0);}</style>');
         newWindow.document.write('</head><body>');
         newWindow.document.write(label.outerHTML);
         newWindow.document.write('</body></html>');
