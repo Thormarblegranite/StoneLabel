@@ -71,7 +71,7 @@ button:hover {
     margin-top: 20px;
     background-color: white;
     position: relative;
-    text-align: left;
+    text-align: center;
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -102,15 +102,14 @@ button:hover {
 
 #labelText {
     padding: 10px;
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
     text-align: center;
+    font-size: 0.8em; /* Adjust the font size to fit the sticker */
 }
 
 #labelText p {
     margin: 5px 0;
     word-wrap: break-word;
-    font-size: 0.8em; /* Adjust the font size to fit the sticker */
 }

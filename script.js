@@ -41,6 +41,7 @@ function addNewForm() {
 
     formsContainer.appendChild(newFormSection);
     createLabelPreview(partCount);
+    updatePreview(partCount); // Ensure initial preview is created
 }
 
 function createLabelPreview(partNumber) {
@@ -108,7 +109,8 @@ function printLabels() {
     labels.forEach((label, index) => {
         const newWindow = window.open('', '', 'width=800,height=600');
         newWindow.document.write('<html><head><title>Print Labels</title>');
-        newWindow.document.write('</head><body >');
+        newWindow.document.write('<style>body{margin:0;padding:0;} .label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100vh;}</style>');
+        newWindow.document.write('</head><body>');
         newWindow.document.write(label.outerHTML);
         newWindow.document.write('</body></html>');
         newWindow.document.close();
