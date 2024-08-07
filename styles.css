@@ -8,6 +8,7 @@ body {
     height: 100vh;
     margin: 0;
     color: #333;
+    overflow-y: auto;
 }
 
 .container {
@@ -104,7 +105,7 @@ button:hover {
     object-fit: contain;
     border-radius: 10px;
     position: absolute;
-    top: 30%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -114,8 +115,7 @@ button:hover {
     justify-content: space-around;
     width: 100%;
     position: absolute;
-    top: 70%;
-    transform: translateY(-50%);
+    bottom: 10px;
     text-align: center;
     font-size: 0.6em; /* Adjust the font size to fit the sticker */
 }
