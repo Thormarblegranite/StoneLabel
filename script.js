@@ -1,4 +1,5 @@
 let partCount = 0;
+let customLogoURL = null;
 
 document.getElementById('addPartButton').addEventListener('click', function() {
     partCount++;
@@ -7,6 +8,17 @@ document.getElementById('addPartButton').addEventListener('click', function() {
 
 document.getElementById('printLabelsButton').addEventListener('click', function() {
     printLabels();
+});
+
+document.getElementById('logo').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            customLogoURL = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
 });
 
 function addNewForm() {
@@ -58,10 +70,10 @@ function createLabelPreview(partNumber) {
     partNumberDiv.textContent = `Part ${partNumber}`;
     labelPreview.appendChild(partNumberDiv);
 
-    const logo = document.createElement('img');
-    logo.src = 'assets/thorlogo.png';
-    logo.classList.add('logo');
-    labelPreview.appendChild(logo);
+    const logoDiv = document.createElement('div');
+    logoDiv.classList.add('logo');
+    logoDiv.id = `logo${partNumber}`;
+    labelPreview.appendChild(logoDiv);
 
     const labelImage = document.createElement('div');
     labelImage.id = `labelImage${partNumber}`;
@@ -96,6 +108,13 @@ function updatePreview(partNumber) {
         <span>${content}</span>
     `;
 
+    const logoDiv = document.getElementById(`logo${partNumber}`);
+    if (customLogoURL) {
+        logoDiv.innerHTML = `<img src="${customLogoURL}" alt="Custom Logo" style="width:50px; height:auto;">`;
+    } else {
+        logoDiv.innerHTML = `<img src="assets/thorlogo.png" alt="Default Logo" style="width:50px; height:auto;">`;
+    }
+
     if (imageInput) {
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -113,7 +132,7 @@ function printLabels() {
     labels.forEach((label) => {
         const newWindow = window.open('', '', 'width=800,height=600');
         newWindow.document.write('<html><head><title>Print Labels</title>');
-        newWindow.document.write('<style>body{margin:0;padding:0;}.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100vh;}.horizontal-text{display:flex;justify-content:space-around;width:100%;}</style>');
+        newWindow.document.write('<style>body{margin:0;padding:0;}.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100vh;}.horizontal-text{display:flex;justify-content:space-around;width:100%;position:absolute;bottom:10px;}</style>');
         newWindow.document.write('</head><body>');
         newWindow.document.write(label.outerHTML);
         newWindow.document.write('</body></html>');

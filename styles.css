@@ -1,8 +1,8 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: url('background.jpg') no-repeat center center fixed;
-    background-size: cover;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to bottom right, #007BFF, #00FFFF);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -19,17 +19,19 @@ body {
     max-width: 700px;
     text-align: center;
     overflow-y: auto;
-    height: 90vh;
+    height: 80vh;
 }
 
 h1 {
     margin-bottom: 20px;
     color: #007BFF;
+    font-weight: 600;
 }
 
 label {
     display: block;
     margin: 10px 0 5px;
+    font-weight: 600;
 }
 
 input, textarea {
@@ -39,6 +41,7 @@ input, textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 }
 
 button {
@@ -49,6 +52,8 @@ button {
     border-radius: 4px;
     cursor: pointer;
     margin: 10px 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
 }
 
 button:hover {
@@ -105,18 +110,40 @@ button:hover {
 }
 
 #labelText {
-    padding: 10px;
     display: flex;
     justify-content: space-around;
-    flex-wrap: wrap;
-    text-align: center;
-    font-size: 0.6em; /* Adjust the font size to fit the sticker */
+    width: 100%;
     position: absolute;
     bottom: 10px;
-    width: 100%;
+    text-align: center;
+    font-size: 0.6em; /* Adjust the font size to fit the sticker */
 }
 
 #labelText span {
     margin: 2px;
     word-wrap: break-word;
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1em;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+footer a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.footer-logo {
+    width: 50px;
+    height: auto;
+    margin-top: 10px;
 }
