@@ -116,9 +116,9 @@ button:active {
     object-fit: contain;
     border-radius: 10px;
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -20%);
 }
 
 #labelText {
@@ -128,7 +128,7 @@ button:active {
     position: absolute;
     bottom: 10px;
     text-align: center;
-    font-size: 1em; /* Adjust the font size to fit the sticker */
+    font-size: 1em;
 }
 
 #labelText span {

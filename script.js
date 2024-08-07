@@ -36,7 +36,11 @@ function addNewForm() {
     newFormSection.innerHTML = `
         <h2>Part ${partCount}</h2>
         <label for="width${partCount}">Sticker Width (2 - 8 inches):</label>
-        <input type="number" id="width${partCount}" name="width" min="2" max="8" step="0.1" required oninput="updatePreview(${partCount})">
+        <input type="number" id="width${partCount}" name="width" min="2" max="8" step="0.1" value="6" required oninput="validateWidth(${partCount}); updatePreview(${partCount})">
+        
+        <button type="button" onclick="setPreset(${partCount}, 4)">4x4</button>
+        <button type="button" onclick="setPreset(${partCount}, 6)">6x4</button>
+        <button type="button" onclick="setPreset(${partCount}, 8)">8x4</button>
         
         <label for="areaName${partCount}">Area Name:</label>
         <input type="text" id="areaName${partCount}" name="areaName" required oninput="updatePreview(${partCount})">
@@ -57,6 +61,24 @@ function addNewForm() {
     formsContainer.appendChild(newFormSection);
     createLabelPreview(partCount);
     updatePreview(partCount); // Ensure initial preview is created
+}
+
+function setPreset(partNumber, width) {
+    const widthInput = document.getElementById(`width${partNumber}`);
+    widthInput.value = width;
+    updatePreview(partNumber);
+}
+
+function validateWidth(partNumber) {
+    const widthInput = document.getElementById(`width${partNumber}`);
+    let width = widthInput.value;
+    if (width < 2) {
+        width = 2;
+    } else if (width > 8) {
+        width = 8;
+    }
+    widthInput.value = width;
+    updatePreview(partNumber);
 }
 
 function createLabelPreview(partNumber) {
@@ -108,7 +130,7 @@ function updatePreview(partNumber) {
         <span>Address: ${address}</span>
         <span>${content}</span>
     `;
-    labelText.style.fontSize = `${1.5 / width}em`; // Make the font size responsive to the width
+    labelText.style.fontSize = `${width / 4}em`; // Make the font size responsive to the width
 
     const logoDiv = document.getElementById(`logo${partNumber}`);
     if (customLogoURL) {
@@ -121,7 +143,7 @@ function updatePreview(partNumber) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const labelImage = document.getElementById(`labelImage${partNumber}`);
-            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:50%; height:50%; object-fit:contain; border-radius:10px; position:absolute; top:30%; left:50%; transform:translate(-50%, -50%);">`;
+            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:50%; height:50%; object-fit:contain; border-radius:10px; position:absolute; top:20%; left:50%; transform:translate(-50%, -20%);">`;
         };
         reader.readAsDataURL(imageInput);
     }
@@ -132,10 +154,13 @@ function printLabels() {
     const labels = labelsContainer.querySelectorAll('.label-preview');
 
     labels.forEach((label) => {
-        const newWindow = window.open('', '', 'width=800,height=600');
+        const width = label.style.width;
+        const height = label.style.height;
+
+        const newWindow = window.open('', '', `width=${width},height=${height}`);
         newWindow.document.write('<html><head><title>Print Labels</title>');
-        newWindow.document.write('<style>body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;height:100vh;}');
-        newWindow.document.write('.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:fit-content;height:4in;padding:10px;margin-top:20px;background-color:white;position:relative;text-align:center;margin-bottom:20px;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);}');
+        newWindow.document.write('<style>body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;}');
+        newWindow.document.write(`.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:${width};height:${height};padding:10px;background-color:white;position:relative;text-align:center;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);}`);
         newWindow.document.write('.part-number{position:absolute;top:10px;right:10px;font-weight:bold;color:#007BFF;}');
         newWindow.document.write('.logo{position:absolute;top:10px;left:10px;width:50px;height:auto;}');
         newWindow.document.write('.horizontal-text{display:flex;justify-content:space-around;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1em;}</style>');
