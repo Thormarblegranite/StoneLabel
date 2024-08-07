@@ -191,7 +191,7 @@ function printLabels() {
         newWindow.document.write(`.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:${width}in;height:${height}in;padding:10px;background-color:white;position:relative;text-align:center;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);}`);
         newWindow.document.write('.part-number{position:absolute;top:10px;right:10px;font-weight:bold;color:#007BFF;}');
         newWindow.document.write('.logo{position:absolute;top:10px;left:10px;width:50px;height:auto;}');
-        newWindow.document.write('.horizontal-text{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1.5em;padding:0 10px;box-sizing:border-box;}');
+        newWindow.document.write('.horizontal-text{display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1.5em;padding:0 10px;box-sizing:border-box;}');
         newWindow.document.write('.qr-code{position:absolute;top:20px;left:50%;transform:translate(-50%, 0);width:50px;height:50px;}</style>');
         newWindow.document.write('</head><body>');
         newWindow.document.write(label.outerHTML);

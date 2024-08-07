@@ -113,11 +113,11 @@ button:active {
 
 #labelImage {
     position: absolute;
-    top: 20%;
+    top: 10%;
     left: 50%;
-    transform: translate(-50%, -20%);
+    transform: translate(-50%, 0);
     width: 75%;
-    height: 80%;
+    height: 60%;
 }
 
 #labelImage img {
@@ -129,9 +129,9 @@ button:active {
 
 #labelText {
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* Ensuring text is horizontal */
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     width: 100%;
     position: absolute;
     bottom: 10px;
