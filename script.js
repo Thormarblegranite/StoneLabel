@@ -119,11 +119,11 @@ function createLabelPreview(partNumber) {
 function updatePreview(partNumber) {
     const jobName = document.getElementById('jobName').value;
     const width = document.getElementById(`width${partNumber}`).value;
-    const areaName = document.getElementById(`areaName${partNumber}`).value;
-    const material = document.getElementById(`material${partNumber}`).value;
-    const address = document.getElementById(`address${partNumber}`).value;
-    const content = document.getElementById(`content${partNumber}`).value;
-    const imageInput = document.getElementById(`image${partNumber}`).files[0];
+    const areaName = document.getElementById('areaName' + partNumber).value;
+    const material = document.getElementById('material' + partNumber).value;
+    const address = document.getElementById('address' + partNumber).value;
+    const content = document.getElementById('content' + partNumber).value;
+    const imageInput = document.getElementById('image' + partNumber).files[0];
 
     const labelPreview = document.getElementById(`labelPreview${partNumber}`);
     labelPreview.style.width = `${width * 0.95}in`;  // Adjusted to 95% of the given width
@@ -181,22 +181,25 @@ function printLabels() {
     const labelsContainer = document.getElementById('labelsContainer');
     const labels = labelsContainer.querySelectorAll('.label-preview');
 
-    labels.forEach((label) => {
-        const width = label.style.width.replace('in', '');
-        const height = label.style.height.replace('in', '');
+    const printWindow = window.open('', '', 'width=800,height=600');
+    printWindow.document.write('<html><head><title>Print Labels</title>');
+    printWindow.document.write('<style>body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;}');
+    printWindow.document.write('.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;padding:10px;background-color:white;position:relative;text-align:center;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);font-family:"Montserrat", sans-serif;}');
+    printWindow.document.write('.part-number{position:absolute;top:10px;right:10px;font-weight:bold;color:#007BFF;}');
+    printWindow.document.write('.logo{position:absolute;top:10px;left:10px;width:70px;height:auto;}'); // Increased size
+    printWindow.document.write('.horizontal-text{display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1.5em;padding:0 10px;box-sizing:border-box;font-weight:bold;}'); // Bold text
+    printWindow.document.write('.qr-code{position:absolute;top:5%;left:50%;transform:translate(-50%, -5%);width:60px;height:60px;}</style>'); // Adjusted size and position
+    printWindow.document.write('</head><body>');
 
-        const newWindow = window.open('', '', `width=${width * 100},height=${height * 100}`);  // Adjust dimensions
-        newWindow.document.write('<html><head><title>Print Labels</title>');
-        newWindow.document.write('<style>body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;}');
-        newWindow.document.write(`.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:${width * 1.0}in;height:${height * 1.0}in;padding:10px;background-color:white;position:relative;text-align:center;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);font-family:'Montserrat', sans-serif;}`);
-        newWindow.document.write('.part-number{position:absolute;top:10px;right:10px;font-weight:bold;color:#007BFF;}');
-        newWindow.document.write('.logo{position:absolute;top:10px;left:10px;width:70px;height:auto;}'); // Increased size
-        newWindow.document.write('.horizontal-text{display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1.5em;padding:0 10px;box-sizing:border-box;font-weight:bold;}'); // Bold text
-        newWindow.document.write('.qr-code{position:absolute;top:5%;left:50%;transform:translate(-50%, -5%);width:60px;height:60px;}</style>'); // Adjusted size and position
-        newWindow.document.write('</head><body>');
-        newWindow.document.write(label.outerHTML);
-        newWindow.document.write('</body></html>');
-        newWindow.document.close();
-        newWindow.print();
+    labels.forEach((label) => {
+        const labelClone = label.cloneNode(true);
+        labelClone.style.width = `${label.style.width.replace('in', '') * 0.95}in`;
+        labelClone.style.height = `${label.style.height.replace('in', '') * 0.95}in`;
+        printWindow.document.write(labelClone.outerHTML);
+        printWindow.document.write('<div style="page-break-before:always;"></div>');
     });
+
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
 }
