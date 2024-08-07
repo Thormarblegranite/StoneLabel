@@ -119,7 +119,7 @@ function updatePreview(partNumber) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const labelImage = document.getElementById(`labelImage${partNumber}`);
-            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:50%; height:50%; object-fit:contain; border-radius:10px; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">`;
+            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:50%; height:50%; object-fit:contain; border-radius:10px; position:absolute; top:30%; left:50%; transform:translate(-50%, -50%);">`;
         };
         reader.readAsDataURL(imageInput);
     }
@@ -132,7 +132,11 @@ function printLabels() {
     labels.forEach((label) => {
         const newWindow = window.open('', '', 'width=800,height=600');
         newWindow.document.write('<html><head><title>Print Labels</title>');
-        newWindow.document.write('<style>body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;height:100vh;}.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:fit-content;height:4in;padding:10px;margin-top:20px;background-color:white;position:relative;text-align:center;margin-bottom:20px;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);}.part-number{position:absolute;top:10px;right:10px;font-weight:bold;color:#007BFF;}.logo{position:absolute;top:10px;left:10px;width:50px;height:auto;}.horizontal-text{display:flex;justify-content:space-around;width:100%;position:absolute;bottom:10px;text-align:center;font-size:0.6em;}</style>');
+        newWindow.document.write('<style>body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;height:100vh;}');
+        newWindow.document.write('.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:fit-content;height:4in;padding:10px;margin-top:20px;background-color:white;position:relative;text-align:center;margin-bottom:20px;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);}');
+        newWindow.document.write('.part-number{position:absolute;top:10px;right:10px;font-weight:bold;color:#007BFF;}');
+        newWindow.document.write('.logo{position:absolute;top:10px;left:10px;width:50px;height:auto;}');
+        newWindow.document.write('.horizontal-text{display:flex;justify-content:space-around;width:100%;position:absolute;bottom:10px;text-align:center;font-size:0.6em;}</style>');
         newWindow.document.write('</head><body>');
         newWindow.document.write(label.outerHTML);
         newWindow.document.write('</body></html>');
