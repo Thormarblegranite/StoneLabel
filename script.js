@@ -150,7 +150,7 @@ function updatePreview(partNumber) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const labelImage = document.getElementById(`labelImage${partNumber}`);
-            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:70%; height:70%; object-fit:contain; border-radius:10px;">`;
+            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:75%; height:80%; object-fit:contain; border-radius:10px;">`;
         };
         reader.readAsDataURL(imageInput);
     }
@@ -166,6 +166,14 @@ function generateQRCode(partNumber, jobName, width, areaName, material, address,
     const size = Math.max(30, 50 * (width / 8)); // Adjust size based on width
     QRCode.toCanvas(qrCodeDiv, qrData, { width: size, height: size }, function(error) {
         if (error) console.error(error);
+        else {
+            const img = document.createElement('img');
+            img.src = qrCodeDiv.querySelector('canvas').toDataURL();
+            img.style.width = `${size}px`;
+            img.style.height = `${size}px`;
+            qrCodeDiv.innerHTML = '';
+            qrCodeDiv.appendChild(img);
+        }
     });
 }
 
