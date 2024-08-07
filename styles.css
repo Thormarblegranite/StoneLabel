@@ -117,7 +117,7 @@ button:hover {
     position: absolute;
     bottom: 10px;
     text-align: center;
-    font-size: 0.6em; /* Adjust the font size to fit the sticker */
+    font-size: 1em; /* Adjust the font size to fit the sticker */
 }
 
 #labelText span {
