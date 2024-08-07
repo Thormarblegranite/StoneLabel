@@ -83,7 +83,7 @@ button:active {
 .label-preview {
     border: 2px solid #007BFF;
     width: fit-content;
-    height: 4in;
+    height: 3.6in; /* 90% of 4 inches */
     padding: 10px;
     margin-top: 20px;
     background-color: white;
@@ -92,6 +92,7 @@ button:active {
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ensures text doesn't overflow the sticker */
 }
 
 .label-preview .part-number {
@@ -110,30 +111,49 @@ button:active {
     height: auto;
 }
 
+#labelImage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 #labelImage img {
     width: 50%;
     height: 50%;
     object-fit: contain;
     border-radius: 10px;
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -20%);
 }
 
 #labelText {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column; /* Ensure text stacks vertically */
+    align-items: center;
+    justify-content: center;
     width: 100%;
     position: absolute;
     bottom: 10px;
     text-align: center;
     font-size: 1em;
+    padding: 0 10px;
+    box-sizing: border-box; /* Prevents text from overflowing */
 }
 
 #labelText span {
     margin: 2px;
     word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Ensure text doesn't overflow */
+}
+
+.qr-code {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 50px;
+    height: 50px;
 }
 
 footer {

@@ -74,8 +74,10 @@ function validateWidth(partNumber) {
     let width = widthInput.value;
     if (width < 2) {
         width = 2;
+        alert('Width must be between 2 and 8 inches.');
     } else if (width > 8) {
         width = 8;
+        alert('Width must be between 2 and 8 inches.');
     }
     widthInput.value = width;
     updatePreview(partNumber);
@@ -106,6 +108,11 @@ function createLabelPreview(partNumber) {
     labelText.classList.add('horizontal-text');
     labelPreview.appendChild(labelText);
 
+    const qrCodeDiv = document.createElement('div');
+    qrCodeDiv.classList.add('qr-code');
+    qrCodeDiv.id = `qrCode${partNumber}`;
+    labelPreview.appendChild(qrCodeDiv);
+
     labelsContainer.appendChild(labelPreview);
 }
 
@@ -119,8 +126,8 @@ function updatePreview(partNumber) {
     const imageInput = document.getElementById(`image${partNumber}`).files[0];
 
     const labelPreview = document.getElementById(`labelPreview${partNumber}`);
-    labelPreview.style.width = `${width}in`;
-    labelPreview.style.height = '4in';
+    labelPreview.style.width = `${width * 0.9}in`;  // Adjusted to 90% of the given width
+    labelPreview.style.height = '3.6in';  // Adjusted to 90% of 4 inches
 
     const labelText = document.getElementById(`labelText${partNumber}`);
     labelText.innerHTML = `
@@ -130,7 +137,7 @@ function updatePreview(partNumber) {
         <span>Address: ${address}</span>
         <span>${content}</span>
     `;
-    labelText.style.fontSize = `${width / 4}em`; // Make the font size responsive to the width
+    labelText.style.fontSize = `${0.9 / width}em`; // Adjust font size based on width
 
     const logoDiv = document.getElementById(`logo${partNumber}`);
     if (customLogoURL) {
@@ -143,10 +150,23 @@ function updatePreview(partNumber) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const labelImage = document.getElementById(`labelImage${partNumber}`);
-            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:50%; height:50%; object-fit:contain; border-radius:10px; position:absolute; top:20%; left:50%; transform:translate(-50%, -20%);">`;
+            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:50%; height:50%; object-fit:contain; border-radius:10px;">`;
         };
         reader.readAsDataURL(imageInput);
     }
+
+    generateQRCode(partNumber, jobName, width, areaName, material, address, content);
+}
+
+function generateQRCode(partNumber, jobName, width, areaName, material, address, content) {
+    const qrCodeDiv = document.getElementById(`qrCode${partNumber}`);
+    qrCodeDiv.innerHTML = ''; // Clear previous QR code
+
+    const qrData = `Job Name: ${jobName}\nWidth: ${width}in\nArea Name: ${areaName}\nMaterial: ${material}\nAddress: ${address}\nContent: ${content}`;
+    const size = Math.max(30, 50 * (width / 8)); // Adjust size based on width
+    QRCode.toCanvas(qrCodeDiv, qrData, { width: size, height: size }, function(error) {
+        if (error) console.error(error);
+    });
 }
 
 function printLabels() {
@@ -154,16 +174,17 @@ function printLabels() {
     const labels = labelsContainer.querySelectorAll('.label-preview');
 
     labels.forEach((label) => {
-        const width = label.style.width;
-        const height = label.style.height;
+        const width = label.style.width.replace('in', '');
+        const height = label.style.height.replace('in', '');
 
-        const newWindow = window.open('', '', `width=${width},height=${height}`);
+        const newWindow = window.open('', '', `width=${width * 100},height=${height * 100}`);  // Adjust dimensions
         newWindow.document.write('<html><head><title>Print Labels</title>');
         newWindow.document.write('<style>body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;}');
-        newWindow.document.write(`.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:${width};height:${height};padding:10px;background-color:white;position:relative;text-align:center;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);}`);
+        newWindow.document.write(`.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:${width}in;height:${height}in;padding:10px;background-color:white;position:relative;text-align:center;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);}`);
         newWindow.document.write('.part-number{position:absolute;top:10px;right:10px;font-weight:bold;color:#007BFF;}');
         newWindow.document.write('.logo{position:absolute;top:10px;left:10px;width:50px;height:auto;}');
-        newWindow.document.write('.horizontal-text{display:flex;justify-content:space-around;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1em;}</style>');
+        newWindow.document.write('.horizontal-text{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1em;padding:0 10px;box-sizing:border-box;}');
+        newWindow.document.write('.qr-code{position:absolute;top:50px;left:50%;transform:translate(-50%, 0);}</style>');
         newWindow.document.write('</head><body>');
         newWindow.document.write(label.outerHTML);
         newWindow.document.write('</body></html>');
