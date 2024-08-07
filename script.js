@@ -150,7 +150,7 @@ function updatePreview(partNumber) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const labelImage = document.getElementById(`labelImage${partNumber}`);
-            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:75%; height:80%; object-fit:contain; border-radius:10px;">`;
+            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:100%; height:100%; object-fit:contain; border-radius:10px;">`; // Adjust image size
         };
         reader.readAsDataURL(imageInput);
     }
@@ -192,7 +192,7 @@ function printLabels() {
         newWindow.document.write('.part-number{position:absolute;top:10px;right:10px;font-weight:bold;color:#007BFF;}');
         newWindow.document.write('.logo{position:absolute;top:10px;left:10px;width:70px;height:auto;}'); // Increased size
         newWindow.document.write('.horizontal-text{display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1.5em;padding:0 10px;box-sizing:border-box;font-weight:bold;}'); // Bold text
-        newWindow.document.write('.qr-code{position:absolute;top:20px;left:50%;transform:translate(-50%, 0);width:50px;height:50px;}</style>');
+        newWindow.document.write('.qr-code{position:absolute;top:5%;left:50%;transform:translate(-50%, -5%);width:60px;height:60px;}</style>'); // Adjusted size and position
         newWindow.document.write('</head><body>');
         newWindow.document.write(label.outerHTML);
         newWindow.document.write('</body></html>');
