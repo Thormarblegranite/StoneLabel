@@ -1,5 +1,3 @@
-const apiBaseUrl = 'http://localhost:3000';
-
 document.getElementById('showRegister').addEventListener('click', function(event) {
     event.preventDefault();
     document.getElementById('loginForm').classList.add('hidden');
@@ -17,49 +15,72 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const usernameEmail = document.getElementById('usernameEmail').value;
     const password = document.getElementById('password').value;
 
-    const response = await fetch(`${apiBaseUrl}/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ usernameEmail, password })
-    });
+    try {
+        const userCredential = await firebase.auth().signInWithEmailAndPassword(usernameEmail, password);
+        console.log('Login successful', userCredential);
 
-    const result = await response.json();
-
-    if (response.ok) {
         document.getElementById('loginForm').classList.add('hidden');
         document.getElementById('labelForm').classList.remove('hidden');
         document.getElementById('vikingContainer').classList.add('hidden');
-    } else {
-        document.getElementById('loginError').textContent = result.message;
+    } catch (error) {
+        console.error('Login error', error);
+        document.getElementById('loginError').textContent = error.message;
     }
 });
 
 document.getElementById('registerForm').addEventListener('submit', async function(event) {
     event.preventDefault();
-    const newUsername = document.getElementById('newUsername').value;
     const newEmail = document.getElementById('newEmail').value;
     const newPassword = document.getElementById('newPassword').value;
 
-    const response = await fetch(`${apiBaseUrl}/register`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username: newUsername, email: newEmail, password: newPassword })
-    });
+    try {
+        const userCredential = await firebase.auth().createUserWithEmailAndPassword(newEmail, newPassword);
+        console.log('Account created successfully', userCredential);
 
-    const result = await response.json();
-
-    if (response.ok) {
         alert('Account created successfully. Please log in.');
         document.getElementById('registerForm').classList.add('hidden');
         document.getElementById('loginForm').classList.remove('hidden');
-    } else {
-        document.getElementById('registerError').textContent = result.message;
+    } catch (error) {
+        console.error('Registration error', error);
+        document.getElementById('registerError').textContent = error.message;
     }
 });
+
+function togglePassword(id) {
+    const passwordInput = document.getElementById(id);
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+}
+
+document.getElementById('password').addEventListener('focus', function() {
+    coverVikingEyes();
+});
+
+document.getElementById('password').addEventListener('blur', function() {
+    uncoverVikingEyes();
+});
+
+document.getElementById('newPassword').addEventListener('focus', function() {
+    coverVikingEyes();
+});
+
+document.getElementById('newPassword').addEventListener('blur', function() {
+    uncoverVikingEyes();
+});
+
+function coverVikingEyes() {
+    document.getElementById('viking').classList.remove('active');
+    document.getElementById('vikingCovering').classList.add('active');
+}
+
+function uncoverVikingEyes() {
+    document.getElementById('vikingCovering').classList.remove('active');
+    document.getElementById('vikingPeeking').classList.add('active');
+    setTimeout(() => {
+        document.getElementById('vikingPeeking').classList.remove('active');
+        document.getElementById('viking').classList.add('active');
+    }, 1000); // Adjust timing for smooth transition
+}
 
 document.getElementById('addPartButton').addEventListener('click', function() {
     addNewForm();
@@ -79,12 +100,6 @@ document.getElementById('logo').addEventListener('change', function(event) {
         reader.readAsDataURL(file);
     }
 });
-
-function togglePassword(id) {
-    const passwordInput = document.getElementById(id);
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
-}
 
 function addNewForm() {
     partCount++;

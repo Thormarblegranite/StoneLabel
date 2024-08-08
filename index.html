@@ -5,11 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stone Label App</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDTFewiefHGecj2I0CamqRr06sqgCQdxnw",
+            authDomain: "stonelabel.firebaseapp.com",
+            projectId: "stonelabel",
+            storageBucket: "stonelabel.appspot.com",
+            messagingSenderId: "13830273131",
+            appId: "1:13830273131:web:b59a20e5906641ae4e192e",
+            measurementId: "G-PY8G08328S"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="viking-container" id="vikingContainer">
             <img src="assets/viking.png" alt="Viking" id="viking">
+            <img src="assets/viking_cover_eyes.png" alt="Viking Covering Eyes" id="vikingCovering" class="viking-covering">
+            <img src="assets/viking_peek.png" alt="Viking Peeking" id="vikingPeeking" class="viking-peeking">
         </div>
         <form class="auth-form" id="loginForm">
             <h2>Welcome to Stone Label App</h2>
@@ -64,7 +82,6 @@
         <p>Created By <a href="http://thormarblegranite.com" target="_blank">Thor Marble & Granite</a></p>
         <img src="assets/thorlogo.png" alt="Thor Logo" class="footer-logo">
     </footer>
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
