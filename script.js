@@ -61,18 +61,6 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     }
 });
 
-document.getElementById('usernameEmail').addEventListener('input', function() {
-    moveVikingEyesHorizontally(this);
-});
-
-document.getElementById('password').addEventListener('focus', function() {
-    coverVikingEyes();
-});
-
-document.getElementById('password').addEventListener('blur', function() {
-    uncoverVikingEyes();
-});
-
 document.getElementById('addPartButton').addEventListener('click', function() {
     addNewForm();
 });
@@ -92,37 +80,10 @@ document.getElementById('logo').addEventListener('change', function(event) {
     }
 });
 
-function moveVikingEyesHorizontally(input) {
-    const viking = document.getElementById('viking');
-    const rect = input.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const windowCenterX = window.innerWidth / 2;
-
-    const angle = Math.atan2(0, centerX - windowCenterX) * 180 / Math.PI;
-    viking.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
-}
-
-function coverVikingEyes() {
-    const viking = document.getElementById('viking');
-    viking.src = 'assets/viking_cover_eyes.png';
-}
-
-function uncoverVikingEyes() {
-    const viking = document.getElementById('viking');
-    viking.src = 'assets/viking.png';
-}
-
 function togglePassword(id) {
     const passwordInput = document.getElementById(id);
-    const viking = document.getElementById('viking');
     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordInput.setAttribute('type', type);
-
-    if (type === 'text') {
-        viking.src = 'assets/viking_peek.png';
-    } else {
-        coverVikingEyes();
-    }
 }
 
 function addNewForm() {
