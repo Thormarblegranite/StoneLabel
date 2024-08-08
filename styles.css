@@ -175,6 +175,12 @@ footer img {
     border-radius: 8px;
     margin-top: 1em;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-section .input-group {
+    margin-bottom: 1em;
 }
 
 .label-preview {
