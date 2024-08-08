@@ -8,15 +8,34 @@
 </head>
 <body>
     <div class="container">
-        <h1>Stone Label Generator</h1>
-        <div>
-            <label for="jobName">Job Name:</label>
-            <input type="text" id="jobName" name="jobName" required>
+        <div class="viking-container">
+            <img src="assets/viking.png" alt="Viking" id="viking">
         </div>
-        <button id="addPartButton">Add Part</button>
-        <div id="formsContainer"></div>
-        <button id="printLabelsButton">Print Labels</button>
-        <div id="labelsContainer"></div>
+        <form class="login-form" id="loginForm">
+            <h2>Welcome to Stone Label App</h2>
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" required>
+                    <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                </div>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <form class="label-form hidden" id="labelForm">
+            <div>
+                <label for="jobName">Job Name:</label>
+                <input type="text" id="jobName" name="jobName" required>
+            </div>
+            <button type="button" id="addPartButton">Add Part</button>
+            <div id="formsContainer"></div>
+            <button type="button" id="printLabelsButton">Print Labels</button>
+            <div id="labelsContainer"></div>
+        </form>
     </div>
     <footer>
         <p>Created By <a href="http://thormarblegranite.com" target="_blank">Thor Marble & Granite</a></p>

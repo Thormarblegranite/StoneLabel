@@ -1,6 +1,24 @@
 let partCount = 0;
 let customLogoURL = null;
 
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    document.getElementById('loginForm').classList.add('hidden');
+    document.getElementById('labelForm').classList.remove('hidden');
+});
+
+document.getElementById('username').addEventListener('input', function() {
+    moveVikingEyes(this);
+});
+
+document.getElementById('password').addEventListener('focus', function() {
+    coverVikingEyes();
+});
+
+document.getElementById('password').addEventListener('blur', function() {
+    uncoverVikingEyes();
+});
+
 document.getElementById('addPartButton').addEventListener('click', function() {
     addNewForm();
 });
@@ -19,6 +37,38 @@ document.getElementById('logo').addEventListener('change', function(event) {
         reader.readAsDataURL(file);
     }
 });
+
+function moveVikingEyes(input) {
+    const viking = document.getElementById('viking');
+    const rect = input.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    viking.style.transform = `translate(-50%, -50%) rotate(${Math.atan2(centerY - window.innerHeight / 2, centerX - window.innerWidth / 2) * 180 / Math.PI}deg)`;
+}
+
+function coverVikingEyes() {
+    const viking = document.getElementById('viking');
+    viking.src = 'assets/viking_cover_eyes.png';
+}
+
+function uncoverVikingEyes() {
+    const viking = document.getElementById('viking');
+    viking.src = 'assets/viking.png';
+}
+
+function togglePassword() {
+    const passwordInput = document.getElementById('password');
+    const viking = document.getElementById('viking');
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+
+    if (type === 'text') {
+        viking.src = 'assets/viking_peek.png';
+    } else {
+        coverVikingEyes();
+    }
+}
 
 function addNewForm() {
     partCount++;
@@ -47,16 +97,57 @@ function addNewForm() {
         
         <label for="areaName${partCount}">Area Name:</label>
         <input type="text" id="areaName${partCount}" name="areaName" required oninput="updatePreview(${partCount})">
+        <div class="advanced-settings" id="advancedAreaName${partCount}">
+            <label for="areaNameFont${partCount}">Font:</label>
+            <select id="areaNameFont${partCount}" onchange="updatePreview(${partCount})">
+                <option value="Montserrat">Montserrat</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select>
+            <label for="areaNameColor${partCount}">Color:</label>
+            <input type="color" id="areaNameColor${partCount}" onchange="updatePreview(${partCount})">
+        </div>
         
         <label for="material${partCount}">Material:</label>
         <input type="text" id="material${partCount}" name="material" required oninput="updatePreview(${partCount})">
+        <div class="advanced-settings" id="advancedMaterial${partCount}">
+            <label for="materialFont${partCount}">Font:</label>
+            <select id="materialFont${partCount}" onchange="updatePreview(${partCount})">
+                <option value="Montserrat">Montserrat</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select>
+            <label for="materialColor${partCount}">Color:</label>
+            <input type="color" id="materialColor${partCount}" onchange="updatePreview(${partCount})">
+        </div>
         
         <label for="address${partCount}">Address:</label>
         <input type="text" id="address${partCount}" name="address" required oninput="updatePreview(${partCount})">
+        <div class="advanced-settings" id="advancedAddress${partCount}">
+            <label for="addressFont${partCount}">Font:</label>
+            <select id="addressFont${partCount}" onchange="updatePreview(${partCount})">
+                <option value="Montserrat">Montserrat</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select>
+            <label for="addressColor${partCount}">Color:</label>
+            <input type="color" id="addressColor${partCount}" onchange="updatePreview(${partCount})">
+        </div>
         
         <label for="content${partCount}">Additional Content:</label>
         <textarea id="content${partCount}" name="content" rows="4" oninput="updatePreview(${partCount})"></textarea>
+        <div class="advanced-settings" id="advancedContent${partCount}">
+            <label for="contentFont${partCount}">Font:</label>
+            <select id="contentFont${partCount}" onchange="updatePreview(${partCount})">
+                <option value="Montserrat">Montserrat</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select>
+            <label for="contentColor${partCount}">Color:</label>
+            <input type="color" id="contentColor${partCount}" onchange="updatePreview(${partCount})">
+        </div>
         
+        <button type="button" onclick="toggleAdvancedSettings(${partCount})">Toggle Advanced Settings</button>
         <button type="button" onclick="deletePart(${partCount})">Delete Part</button>
     `;
 
@@ -83,6 +174,17 @@ function validateWidth(partNumber) {
     }
     widthInput.value = width;
     updatePreview(partNumber);
+}
+
+function toggleAdvancedSettings(partNumber) {
+    const advancedAreaName = document.getElementById(`advancedAreaName${partNumber}`);
+    const advancedMaterial = document.getElementById(`advancedMaterial${partNumber}`);
+    const advancedAddress = document.getElementById(`advancedAddress${partNumber}`);
+    const advancedContent = document.getElementById(`advancedContent${partNumber}`);
+
+    [advancedAreaName, advancedMaterial, advancedAddress, advancedContent].forEach(adv => {
+        adv.style.display = adv.style.display === 'none' ? 'block' : 'none';
+    });
 }
 
 function createLabelPreview(partNumber) {
@@ -122,9 +224,17 @@ function updatePreview(partNumber) {
     const jobName = document.getElementById('jobName').value;
     const width = document.getElementById(`width${partNumber}`).value;
     const areaName = document.getElementById(`areaName${partNumber}`).value;
+    const areaNameFont = document.getElementById(`areaNameFont${partNumber}`).value;
+    const areaNameColor = document.getElementById(`areaNameColor${partNumber}`).value;
     const material = document.getElementById(`material${partNumber}`).value;
+    const materialFont = document.getElementById(`materialFont${partNumber}`).value;
+    const materialColor = document.getElementById(`materialColor${partNumber}`).value;
     const address = document.getElementById(`address${partNumber}`).value;
+    const addressFont = document.getElementById(`addressFont${partNumber}`).value;
+    const addressColor = document.getElementById(`addressColor${partNumber}`).value;
     const content = document.getElementById(`content${partNumber}`).value;
+    const contentFont = document.getElementById(`contentFont${partNumber}`).value;
+    const contentColor = document.getElementById(`contentColor${partNumber}`).value;
     const imageInput = document.getElementById(`image${partNumber}`).files[0];
 
     const labelPreview = document.getElementById(`labelPreview${partNumber}`);
@@ -133,11 +243,11 @@ function updatePreview(partNumber) {
 
     const labelText = document.getElementById(`labelText${partNumber}`);
     labelText.innerHTML = `
-        <span>Job Name: ${jobName}</span>
-        <span>Area Name: ${areaName}</span>
-        <span>Material: ${material}</span>
-        <span>Address: ${address}</span>
-        <span>${content}</span>
+        <span style="font-family:${areaNameFont}; color:${areaNameColor};">Job Name: ${jobName}</span>
+        <span style="font-family:${areaNameFont}; color:${areaNameColor};">Area Name: ${areaName}</span>
+        <span style="font-family:${materialFont}; color:${materialColor};">Material: ${material}</span>
+        <span style="font-family:${addressFont}; color:${addressColor};">Address: ${address}</span>
+        <span style="font-family:${contentFont}; color:${contentColor};">${content}</span>
     `;
     labelText.style.fontSize = `${0.15 * width}em`; // Adjust font size based on width
 
@@ -182,8 +292,8 @@ function generateQRCode(partNumber, jobName, width, areaName, material, address,
 function deletePart(partNumber) {
     const formSection = document.getElementById(`formSection${partNumber}`);
     const labelPreview = document.getElementById(`labelPreview${partNumber}`);
-    formSection.remove();
-    labelPreview.remove();
+    if (formSection) formSection.remove();
+    if (labelPreview) labelPreview.remove();
 }
 
 function printLabels() {
