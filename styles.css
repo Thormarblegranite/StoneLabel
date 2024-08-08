@@ -16,7 +16,10 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 90%;
     max-width: 800px;
-    margin-bottom: 2em;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .viking-container {
@@ -44,6 +47,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .auth-form h2,
@@ -74,6 +78,7 @@ body {
 .password-container {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .password-container input {
@@ -94,6 +99,8 @@ button {
     cursor: pointer;
     margin-top: 1em;
     transition: background 0.3s;
+    width: 100%;
+    max-width: 400px;
 }
 
 button:hover {
@@ -207,11 +214,4 @@ footer img {
     padding: 0 10px;
     box-sizing: border-box;
     font-weight: bold;
-}
-
-@media (min-height: 600px) {
-    .container {
-        margin-top: auto;
-        margin-bottom: auto;
-    }
 }

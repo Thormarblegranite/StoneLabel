@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const formSection = document.getElementById(`formSection${partNumber}`);
             const labelPreview = document.getElementById(`labelPreview${partNumber}`);
             if (formSection) formSection.remove();
-            if (labelPreview) formSection.remove();
+            if (labelPreview) labelPreview.remove();
         }
 
         function printLabels() {
