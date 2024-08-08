@@ -11,19 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Ensure QRCode library is loaded
-    if (typeof QRCode !== 'undefined') {
-        function generateQRCode(text) {
-            const qrCanvas = document.getElementById('qrCanvas');
-            QRCode.toCanvas(qrCanvas, text, function (error) {
-                if (error) console.error(error);
-                console.log('QR code generated successfully');
-            });
-        }
-    } else {
-        console.error('QRCode library is not loaded.');
-    }
-
     // Safe attach for buttons
     safeAddEventListener('#toggleAdvancedSettings', 'click', function() {
         const advancedSettings = document.getElementById('advancedSettings');
@@ -34,6 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     safeAddEventListener('#updatePreviewButton', 'click', updateStickerPreview);
 
+    // Ensure updateStickerPreview function is defined
+    function updateStickerPreview() {
+        console.log("Sticker preview updated."); // Placeholder for actual function
+    }
+    
     function setPreset(width) {
         const widthInput = document.getElementById('stickerWidth');
         if (widthInput) {
@@ -42,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('stickerWidth element not found.');
         }
     }
-    
+
     // Add logo upload field under job name
     const logoUploadField = document.createElement('div');
     logoUploadField.innerHTML = `
