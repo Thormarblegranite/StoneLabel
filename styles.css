@@ -313,3 +313,42 @@ footer img {
     width: 100%;
     box-sizing: border-box;
 }
+
+/* General mobile styles */
+@media only screen and (max-width: 768px) {
+    .form-container {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .form-section {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .job-name-input {
+        font-size: 1em;
+        padding: 8px;
+    }
+
+    .form-section input,
+    .form-section textarea {
+        font-size: 1em;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    .form-section button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 15px;
+        font-size: 1em;
+    }
+
+    /* Adjust footer styling */
+    footer {
+        font-size: 0.9em;
+        padding: 10px;
+        text-align: center;
+    }
+}
