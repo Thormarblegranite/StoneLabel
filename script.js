@@ -1,10 +1,45 @@
 let partCount = 0;
 let customLogoURL = null;
 
-document.getElementById('loginForm').addEventListener('submit', function(event) {
+// Handle login and registration form toggle
+document.getElementById('showRegister').addEventListener('click', function(event) {
     event.preventDefault();
     document.getElementById('loginForm').classList.add('hidden');
-    document.getElementById('labelForm').classList.remove('hidden');
+    document.getElementById('registerForm').classList.remove('hidden');
+});
+
+document.getElementById('showLogin').addEventListener('click', function(event) {
+    event.preventDefault();
+    document.getElementById('registerForm').classList.add('hidden');
+    document.getElementById('loginForm').classList.remove('hidden');
+});
+
+// Handle login form submission
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    // Placeholder: replace with actual authentication logic
+    if (username === 'test' && password === 'password') {
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('labelForm').classList.remove('hidden');
+        document.getElementById('vikingContainer').classList.add('hidden');
+    } else {
+        alert('Invalid credentials. Please try again.');
+    }
+});
+
+// Handle registration form submission
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const newUsername = document.getElementById('newUsername').value;
+    const newPassword = document.getElementById('newPassword').value;
+    
+    // Placeholder: replace with actual registration logic
+    alert('Account created successfully. Please log in.');
+    document.getElementById('registerForm').classList.add('hidden');
+    document.getElementById('loginForm').classList.remove('hidden');
 });
 
 document.getElementById('username').addEventListener('input', function() {
@@ -57,8 +92,8 @@ function uncoverVikingEyes() {
     viking.src = 'assets/viking.png';
 }
 
-function togglePassword() {
-    const passwordInput = document.getElementById('password');
+function togglePassword(id) {
+    const passwordInput = document.getElementById(id || 'password');
     const viking = document.getElementById('viking');
     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordInput.setAttribute('type', type);

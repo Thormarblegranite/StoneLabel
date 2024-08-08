@@ -23,19 +23,21 @@ body {
 
 .viking-container {
     position: absolute;
-    top: -100px;
+    top: -150px;
     left: 50%;
     transform: translateX(-50%);
     width: 150px;
     height: 150px;
+    transition: all 0.3s ease-in-out;
 }
 
 .viking-container img {
     width: 100%;
     height: 100%;
+    border-radius: 50%;
 }
 
-.login-form {
+.auth-form, .label-form {
     margin-top: 80px;
 }
 
