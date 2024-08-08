@@ -336,3 +336,31 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Firebase is not loaded');
     }
 });
+
+// Delete Part Button
+document.querySelectorAll('.delete-part').forEach(button => {
+    button.addEventListener('click', function() {
+        const partToDelete = this.closest('.part-form');
+        if (partToDelete) {
+            partToDelete.remove();
+        }
+    });
+});
+
+// Toggle Advanced Settings
+document.getElementById('toggleAdvancedSettings').addEventListener('click', function() {
+    const advancedSettings = document.getElementById('advancedSettings');
+    if (advancedSettings) {
+        advancedSettings.classList.toggle('hidden');
+    }
+});
+
+// Preset Sticker Width Buttons
+document.querySelectorAll('.preset-sticker-width').forEach(button => {
+    button.addEventListener('click', function() {
+        const width = this.getAttribute('data-width');
+        if (width) {
+            document.getElementById('stickerWidth').value = width;
+        }
+    });
+});

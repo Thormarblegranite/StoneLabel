@@ -138,7 +138,7 @@ footer {
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     position: fixed; /* Fixed position */
-    bottom: 0;
+    
     left: 0;
 }
 
@@ -264,5 +264,36 @@ footer img {
 
     .label-preview {
         padding: 0.5em;
+    }
+}
+
+/* Job Name Input Field */
+.job-name-input {
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 0.5em;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Wider part forms */
+.part-form {
+    width: 100%; /* Make sure the forms take full width */
+    max-width: 1200px; /* Add a max-width for larger screens */
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+/* Fix overflow on password page for mobile */
+@media (max-width: 768px) {
+    .part-form {
+        width: 100%;
+        padding: 1em;
+    }
+    
+    .password-container {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
