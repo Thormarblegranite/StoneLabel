@@ -1,7 +1,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
@@ -43,6 +43,7 @@ body {
 .label-form {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .auth-form h2,
@@ -53,6 +54,8 @@ body {
 
 .input-group {
     margin-bottom: 1em;
+    width: 100%;
+    max-width: 400px;
 }
 
 .input-group label {
@@ -129,12 +132,15 @@ footer img {
 
 .label-form {
     margin-top: 2em;
+    width: 100%;
 }
 
 .label-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
 }
 
 .label-header label {
@@ -147,6 +153,8 @@ footer img {
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-top: 1em;
+    width: 100%;
+    max-width: 400px;
 }
 
 .label-preview {
@@ -156,6 +164,8 @@ footer img {
     margin-top: 1em;
     background: #fff;
     position: relative;
+    width: 100%;
+    max-width: 400px;
 }
 
 .part-number {
@@ -197,4 +207,11 @@ footer img {
     padding: 0 10px;
     box-sizing: border-box;
     font-weight: bold;
+}
+
+@media (min-height: 600px) {
+    .container {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
 }
