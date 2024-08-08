@@ -10,6 +10,7 @@ body {
     margin: 0;
     background: linear-gradient(to right, #00c6ff, #ffffff); /* Light blue to white gradient */
     color: #333;
+    padding: 0 1rem; /* Add some padding to the body */
 }
 
 .container {
@@ -17,7 +18,7 @@ body {
     padding: 2em;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    width: 80vw; /* Adjusted width */
+    width: 100%; /* Adjusted width to 100% */
     max-width: 1200px; /* Increased maximum width */
     display: flex;
     flex-direction: column;
@@ -223,4 +224,39 @@ footer img {
     padding: 10px;
     box-sizing: border-box;
     font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 1em;
+        width: 100%;
+    }
+
+    .viking-container {
+        height: 100px;
+    }
+
+    .viking-container .viking-img {
+        max-width: 80px;
+    }
+
+    .auth-form h2,
+    .label-form h2 {
+        font-size: 1.5em;
+    }
+
+    .input-group input,
+    .input-group textarea,
+    .input-group select {
+        font-size: 0.9em;
+    }
+
+    button {
+        font-size: 0.9em;
+    }
+
+    .label-preview {
+        padding: 0.5em;
+    }
 }
