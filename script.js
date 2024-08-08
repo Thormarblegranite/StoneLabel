@@ -371,3 +371,28 @@ document.addEventListener('click', function(event) {
         event.target.closest('.form-section').remove();
     }
 });
+
+function setPreset(partId, width) {
+    const widthInput = document.getElementById(`width${partId}`);
+    if (widthInput) {
+        widthInput.value = width;
+        updatePreview(partId);
+    } else {
+        console.error(`width${partId} element not found.`);
+    }
+}
+
+function generateQRCode(elementId, text) {
+    const qrCanvas = document.getElementById(elementId);
+    if (QRCode && QRCode.toCanvas && qrCanvas) {
+        QRCode.toCanvas(qrCanvas, text, function (error) {
+            if (error) {
+                console.error(error);
+            } else {
+                console.log('QR code generated!');
+            }
+        });
+    } else {
+        console.error('QRCode or Canvas element not found.');
+    }
+}

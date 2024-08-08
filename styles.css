@@ -358,3 +358,29 @@ footer img {
         text-align: center;
     }
 }
+
+/* Ensure the password form has 20px space on each side on mobile */
+@media only screen and (max-width: 768px) {
+    .form-container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+/* Ensure all forms (password, username, signup) have 20px space on each side on mobile */
+@media only screen and (max-width: 768px) {
+    .form-container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .form-section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .job-name-input {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
