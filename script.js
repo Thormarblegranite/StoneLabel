@@ -345,10 +345,28 @@ function toggleAdvancedSettings(button) {
 }
 
 function updatePreview(partId) {
+    const partSection = document.getElementById('formSection' + partId);
     const previewElement = document.getElementById('preview' + partId);
     if (previewElement) {
-        previewElement.textContent = 'Preview for part ' + partId; // Placeholder preview text
+        const width = partSection.querySelector('input[name="width"]').value;
+        const areaName = partSection.querySelector('input[name="areaName"]').value;
+        const description = partSection.querySelector('textarea[name="description"]').value;
+        previewElement.textContent = `Preview: ${width} inches, ${areaName}, ${description}`;
     } else {
         console.error('Preview element not found for part ' + partId);
     }
 }
+
+// Ensure that input changes trigger the updatePreview function automatically
+document.addEventListener('input', function(event) {
+    if (event.target.matches('input[name="width"], input[name="areaName"], textarea[name="description"]')) {
+        const partId = event.target.closest('.form-section').id.replace('formSection', '');
+        updatePreview(partId);
+    }
+});
+
+document.addEventListener('click', function(event) {
+    if (event.target.matches('.delete-part')) {
+        event.target.closest('.form-section').remove();
+    }
+});
