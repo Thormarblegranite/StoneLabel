@@ -1,3 +1,4 @@
+let customLogoURL = '';
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof firebase !== 'undefined') {
         console.log('Firebase is loaded');
