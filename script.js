@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if firebase is defined
+    if (typeof firebase !== 'undefined') {
+        console.log('Firebase is loaded');
+    } else {
+        console.error('Firebase is not loaded');
+    }
+
     document.getElementById('showRegister').addEventListener('click', function(event) {
         event.preventDefault();
         document.getElementById('loginForm').classList.add('hidden');
@@ -58,6 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
             coverVikingEyes();
         }
     }
+
+    window.togglePassword = togglePassword; // Ensure the function is accessible
 
     document.getElementById('password').addEventListener('focus', function() {
         coverVikingEyes();
