@@ -171,13 +171,13 @@ document.addEventListener('DOMContentLoaded', function() {
             updatePreview(partCount); // Ensure initial preview is created
         }
 
-        function setPreset(partNumber, width) {
+        window.setPreset = function(partNumber, width) {
             const widthInput = document.getElementById(`width${partNumber}`);
             widthInput.value = width;
             updatePreview(partNumber);
-        }
+        };
 
-        function validateWidth(partNumber) {
+        window.validateWidth = function(partNumber) {
             const widthInput = document.getElementById(`width${partNumber}`);
             let width = widthInput.value;
             if (width < 2) {
@@ -189,9 +189,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             widthInput.value = width;
             updatePreview(partNumber);
-        }
+        };
 
-        function toggleAdvancedSettings(partNumber) {
+        window.toggleAdvancedSettings = function(partNumber) {
             const advancedAreaName = document.getElementById(`advancedAreaName${partNumber}`);
             const advancedMaterial = document.getElementById(`advancedMaterial${partNumber}`);
             const advancedAddress = document.getElementById(`advancedAddress${partNumber}`);
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
             [advancedAreaName, advancedMaterial, advancedAddress, advancedContent].forEach(adv => {
                 adv.style.display = adv.style.display === 'none' ? 'block' : 'none';
             });
-        }
+        };
 
         function createLabelPreview(partNumber) {
             const labelsContainer = document.getElementById('labelsContainer');
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
             labelsContainer.appendChild(labelPreview);
         }
 
-        function updatePreview(partNumber) {
+        window.updatePreview = function(partNumber) {
             const jobName = document.getElementById('jobName').value;
             const width = document.getElementById(`width${partNumber}`).value;
             const areaName = document.getElementById(`areaName${partNumber}`).value;
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             generateQRCode(partNumber, jobName, width, areaName, material, address, content);
-        }
+        };
 
         function generateQRCode(partNumber, jobName, width, areaName, material, address, content) {
             const qrCodeDiv = document.getElementById(`qrCode${partNumber}`);
@@ -304,12 +304,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        function deletePart(partNumber) {
+        window.deletePart = function(partNumber) {
             const formSection = document.getElementById(`formSection${partNumber}`);
             const labelPreview = document.getElementById(`labelPreview${partNumber}`);
             if (formSection) formSection.remove();
             if (labelPreview) labelPreview.remove();
-        }
+        };
 
         function printLabels() {
             const labelsContainer = document.getElementById('labelsContainer');
