@@ -10,13 +10,12 @@
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
-            apiKey: "AIzaSyDTFewiefHGecj2I0CamqRr06sqgCQdxnw",
-            authDomain: "stonelabel.firebaseapp.com",
-            projectId: "stonelabel",
-            storageBucket: "stonelabel.appspot.com",
-            messagingSenderId: "13830273131",
-            appId: "1:13830273131:web:b59a20e5906641ae4e192e",
-            measurementId: "G-PY8G08328S"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
@@ -25,9 +24,9 @@
 <body>
     <div class="container">
         <div class="viking-container" id="vikingContainer">
-            <img src="assets/viking.png" alt="Viking" id="viking">
-            <img src="assets/viking_cover_eyes.png" alt="Viking Covering Eyes" id="vikingCovering" class="viking-covering">
-            <img src="assets/viking_peek.png" alt="Viking Peeking" id="vikingPeeking" class="viking-peeking">
+            <img src="assets/viking.png" alt="Viking" id="viking" class="viking-img active">
+            <img src="assets/viking_cover_eyes.png" alt="Viking Covering Eyes" id="vikingCovering" class="viking-img">
+            <img src="assets/viking_peek.png" alt="Viking Peeking" id="vikingPeeking" class="viking-img">
         </div>
         <form class="auth-form" id="loginForm">
             <h2>Welcome to Stone Label App</h2>

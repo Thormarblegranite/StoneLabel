@@ -50,6 +50,12 @@ function togglePassword(id) {
     const passwordInput = document.getElementById(id);
     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordInput.setAttribute('type', type);
+
+    if (type === 'text') {
+        uncoverVikingEyes();
+    } else {
+        coverVikingEyes();
+    }
 }
 
 document.getElementById('password').addEventListener('focus', function() {
@@ -69,12 +75,12 @@ document.getElementById('newPassword').addEventListener('blur', function() {
 });
 
 function coverVikingEyes() {
-    document.getElementById('viking').classList.remove('active');
+    document.querySelector('.viking-img.active').classList.remove('active');
     document.getElementById('vikingCovering').classList.add('active');
 }
 
 function uncoverVikingEyes() {
-    document.getElementById('vikingCovering').classList.remove('active');
+    document.querySelector('.viking-img.active').classList.remove('active');
     document.getElementById('vikingPeeking').classList.add('active');
     setTimeout(() => {
         document.getElementById('vikingPeeking').classList.remove('active');
