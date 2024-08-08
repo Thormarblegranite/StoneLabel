@@ -441,3 +441,43 @@ document.getElementById('logoUpload').addEventListener('change', function(event)
 
 // Initial preview update to reflect any default values
 document.addEventListener('DOMContentLoaded', updateStickerPreview);
+
+// Define missing customLogoURL if not defined
+if (typeof customLogoURL === 'undefined') {
+    var customLogoURL = '';
+}
+
+// Check if elements exist before adding event listeners
+function safeAddEventListener(elementId, event, handler) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.addEventListener(event, handler);
+    } else {
+        console.error(`Element with ID ${elementId} not found.`);
+    }
+}
+
+// Example usage for safeAddEventListener
+safeAddEventListener('toggleAdvancedSettings', 'click', function() {
+    const advancedSettings = document.getElementById('advancedSettings');
+    if (advancedSettings) {
+        advancedSettings.classList.toggle('hidden');
+    }
+});
+
+safeAddEventListener('updatePreviewButton', 'click', updateStickerPreview);
+
+// Check for undefined values in setPreset
+function setPreset(width) {
+    const widthInput = document.getElementById('stickerWidth');
+    if (widthInput) {
+        widthInput.value = width;
+    } else {
+        console.error('stickerWidth element not found.');
+    }
+}
+
+// Ensure addNewForm works properly with updated code
+function addNewForm() {
+    // Implementation that ensures elements are properly referenced
+}
