@@ -162,8 +162,8 @@ button:active {
     top: 20%;
     left: 50%;
     transform: translate(-50%, -20%);
-    width: 90%;
-    height: 70%; /* Adjusted to 70% of the height */
+    width: 75%;
+    height: 80%; /* Adjusted to 80% of the height */
 }
 
 #labelImage img {
@@ -212,7 +212,8 @@ footer {
     background: rgba(255, 255, 255, 0.9);
     padding: 10px;
     border-radius: 10px;
-    width: 100%; /* Ensure it spans the entire width */
+    width: fit-content; /* Ensure it spans a visually appealing width */
+    margin: 0 auto; /* Center the footer */
 }
 
 footer a {

@@ -1,5 +1,6 @@
 let partCount = 0;
 let customLogoURL = null;
+let users = {};
 
 document.getElementById('showRegister').addEventListener('click', function(event) {
     event.preventDefault();
@@ -15,11 +16,13 @@ document.getElementById('showLogin').addEventListener('click', function(event) {
 
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
-    const username = document.getElementById('username').value;
+    const usernameEmail = document.getElementById('usernameEmail').value;
     const password = document.getElementById('password').value;
 
-    // Placeholder: replace with actual authentication logic
-    if (username === 'test' && password === 'password') {
+    // Check if user exists
+    const user = users[usernameEmail] || Object.values(users).find(u => u.email === usernameEmail);
+
+    if (user && user.password === password) {
         document.getElementById('loginForm').classList.add('hidden');
         document.getElementById('labelForm').classList.remove('hidden');
         document.getElementById('vikingContainer').classList.add('hidden');
@@ -31,15 +34,18 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 document.getElementById('registerForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const newUsername = document.getElementById('newUsername').value;
+    const newEmail = document.getElementById('newEmail').value;
     const newPassword = document.getElementById('newPassword').value;
 
-    // Placeholder: replace with actual registration logic
+    // Save new user
+    users[newUsername] = { username: newUsername, email: newEmail, password: newPassword };
+
     alert('Account created successfully. Please log in.');
     document.getElementById('registerForm').classList.add('hidden');
     document.getElementById('loginForm').classList.remove('hidden');
 });
 
-document.getElementById('username').addEventListener('input', function() {
+document.getElementById('usernameEmail').addEventListener('input', function() {
     moveVikingEyes(this);
 });
 
@@ -90,7 +96,7 @@ function uncoverVikingEyes() {
 }
 
 function togglePassword(id) {
-    const passwordInput = document.getElementById(id || 'password');
+    const passwordInput = document.getElementById(id);
     const viking = document.getElementById('viking');
     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordInput.setAttribute('type', type);
