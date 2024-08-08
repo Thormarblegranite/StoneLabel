@@ -21,10 +21,11 @@
                 <label for="password">Password</label>
                 <div class="password-container">
                     <input type="password" id="password" name="password" required>
-                    <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                    <span class="toggle-password" onclick="togglePassword('password')">👁️</span>
                 </div>
             </div>
             <button type="submit">Login</button>
+            <p class="error-message" id="loginError"></p>
             <p>Don't have an account? <a href="#" id="showRegister">Create one</a></p>
         </form>
         <form class="auth-form hidden" id="registerForm">
@@ -41,6 +42,7 @@
                 </div>
             </div>
             <button type="submit">Create Account</button>
+            <p class="error-message" id="registerError"></p>
             <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
         </form>
         <form class="label-form hidden" id="labelForm">

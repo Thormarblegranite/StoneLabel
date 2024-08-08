@@ -1,7 +1,6 @@
 let partCount = 0;
 let customLogoURL = null;
 
-// Handle login and registration form toggle
 document.getElementById('showRegister').addEventListener('click', function(event) {
     event.preventDefault();
     document.getElementById('loginForm').classList.add('hidden');
@@ -14,28 +13,26 @@ document.getElementById('showLogin').addEventListener('click', function(event) {
     document.getElementById('loginForm').classList.remove('hidden');
 });
 
-// Handle login form submission
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    
+
     // Placeholder: replace with actual authentication logic
     if (username === 'test' && password === 'password') {
         document.getElementById('loginForm').classList.add('hidden');
         document.getElementById('labelForm').classList.remove('hidden');
         document.getElementById('vikingContainer').classList.add('hidden');
     } else {
-        alert('Invalid credentials. Please try again.');
+        document.getElementById('loginError').textContent = 'Invalid credentials. Please create an account.';
     }
 });
 
-// Handle registration form submission
 document.getElementById('registerForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const newUsername = document.getElementById('newUsername').value;
     const newPassword = document.getElementById('newPassword').value;
-    
+
     // Placeholder: replace with actual registration logic
     alert('Account created successfully. Please log in.');
     document.getElementById('registerForm').classList.add('hidden');
@@ -297,7 +294,7 @@ function updatePreview(partNumber) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const labelImage = document.getElementById(`labelImage${partNumber}`);
-            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:100%; height:70%; object-fit:contain; border-radius:10px;">`; // Adjust image size
+            labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:75%; height:80%; object-fit:contain; border-radius:10px;">`; // Adjust image size
         };
         reader.readAsDataURL(imageInput);
     }
