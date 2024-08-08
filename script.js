@@ -120,26 +120,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     <label for="areaName${partCount}">Area Name:</label>
                     <input type="text" id="areaName${partCount}" name="areaName" required oninput="updatePreview(${partCount})">
                 </div>
-                
-                <div class="input-group">
-                    <label for="material${partCount}">Material:</label>
-                    <input type="text" id="material${partCount}" name="material" required oninput="updatePreview(${partCount})">
-                </div>
-                
-                <div class="input-group">
-                    <label for="address${partCount}">Address:</label>
-                    <input type="text" id="address${partCount}" name="address" required oninput="updatePreview(${partCount})">
-                </div>
-                
-                <div class="input-group">
-                    <label for="content${partCount}">Additional Content:</label>
-                    <textarea id="content${partCount}" name="content" rows="4" oninput="updatePreview(${partCount})"></textarea>
-                </div>
-
-                <div class="input-group">
-                    <button type="button" onclick="toggleAdvancedSettings(${partCount})">Toggle Advanced Settings</button>
-                </div>
-
                 <div id="advancedAreaName${partCount}" class="hidden">
                     <div class="input-group">
                         <label for="areaNameFont${partCount}">Font:</label>
@@ -154,7 +134,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         <input type="color" id="areaNameColor${partCount}" onchange="updatePreview(${partCount})">
                     </div>
                 </div>
-
+                
+                <div class="input-group">
+                    <label for="material${partCount}">Material:</label>
+                    <input type="text" id="material${partCount}" name="material" required oninput="updatePreview(${partCount})">
+                </div>
                 <div id="advancedMaterial${partCount}" class="hidden">
                     <div class="input-group">
                         <label for="materialFont${partCount}">Font:</label>
@@ -169,7 +153,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         <input type="color" id="materialColor${partCount}" onchange="updatePreview(${partCount})">
                     </div>
                 </div>
-
+                
+                <div class="input-group">
+                    <label for="address${partCount}">Address:</label>
+                    <input type="text" id="address${partCount}" name="address" required oninput="updatePreview(${partCount})">
+                </div>
                 <div id="advancedAddress${partCount}" class="hidden">
                     <div class="input-group">
                         <label for="addressFont${partCount}">Font:</label>
@@ -184,7 +172,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         <input type="color" id="addressColor${partCount}" onchange="updatePreview(${partCount})">
                     </div>
                 </div>
-
+                
+                <div class="input-group">
+                    <label for="content${partCount}">Additional Content:</label>
+                    <textarea id="content${partCount}" name="content" rows="4" oninput="updatePreview(${partCount})"></textarea>
+                </div>
                 <div id="advancedContent${partCount}" class="hidden">
                     <div class="input-group">
                         <label for="contentFont${partCount}">Font:</label>
@@ -198,6 +190,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         <label for="contentColor${partCount}">Color:</label>
                         <input type="color" id="contentColor${partCount}" onchange="updatePreview(${partCount})">
                     </div>
+                </div>
+
+                <div class="input-group">
+                    <button type="button" onclick="toggleAdvancedSettings(${partCount})">Toggle Advanced Settings</button>
                 </div>
                 
                 <div class="input-group">
