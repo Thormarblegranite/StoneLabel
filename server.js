@@ -3,9 +3,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const port = process.env.PORT || 3000;
+const jwtSecret = 'db225aba58a89b73e062df902c447756465f1eb134205eff641ed79a7e515ca39a5c3124f0319361c9fdf94be7cd233108ad166525d115d31a5e468c41d32f18'; // Replace with your generated JWT secret
 
 // MongoDB URI
 const mongoURI = 'mongodb+srv://digitaldominanceseo:Funnyone9!@cluster0.zn85t.mongodb.net/stone-label-app?retryWrites=true&w=majority';
@@ -66,10 +68,28 @@ app.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    res.status(200).json({ message: 'Login successful' });
+    const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
+    res.status(200).json({ token, message: 'Login successful' });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
+});
+
+// Middleware to authenticate JWT tokens
+const auth = (req, res, next) => {
+  const token = req.header('Authorization').replace('Bearer ', '');
+  try {
+    const decoded = jwt.verify(token, jwtSecret);
+    req.userId = decoded.userId;
+    next();
+  } catch (error) {
+    res.status(401).send('Invalid token');
+  }
+};
+
+// A protected route
+app.get('/protected', auth, (req, res) => {
+  res.send('This is a protected route');
 });
 
 app.listen(port, () => {
