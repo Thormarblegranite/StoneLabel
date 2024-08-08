@@ -336,3 +336,19 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Firebase is not loaded');
     }
 });
+
+function toggleAdvancedSettings(button) {
+    const advancedSettings = button.nextElementSibling;
+    if (advancedSettings) {
+        advancedSettings.classList.toggle('hidden');
+    }
+}
+
+function updatePreview(partId) {
+    const previewElement = document.getElementById('preview' + partId);
+    if (previewElement) {
+        previewElement.textContent = 'Preview for part ' + partId; // Placeholder preview text
+    } else {
+        console.error('Preview element not found for part ' + partId);
+    }
+}
