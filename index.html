@@ -5,11 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stone Label Generator</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="viking-container" id="vikingContainer">
-            <img src="assets/viking.png" alt="Viking" class="viking-img" id="viking">
+            <img src="assets/viking.png" alt="Viking" class="viking-img active" id="viking">
             <img src="assets/viking_cover_eyes.png" alt="Viking Covering Eyes" class="viking-img" id="vikingCovering">
             <img src="assets/viking_peek.png" alt="Viking Peeking" class="viking-img" id="vikingPeeking">
         </div>
