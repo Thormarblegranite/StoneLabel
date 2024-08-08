@@ -384,3 +384,17 @@ footer img {
         padding-right: 20px;
     }
 }
+
+/* Ensure input fields are fully contained within the form container */
+.form-container input {
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Additional padding for the form container to ensure no overflow */
+.form-container {
+    padding-left: 20px;
+    padding-right: 20px;
+}
