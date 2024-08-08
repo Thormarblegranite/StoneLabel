@@ -3,35 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stone Label App</title>
+    <title>Stone Label Generator</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Add Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyDTFewiefHGecj2I0CamqRr06sqgCQdxnw",
-            authDomain: "stonelabel.firebaseapp.com",
-            projectId: "stonelabel",
-            storageBucket: "stonelabel.appspot.com",
-            messagingSenderId: "13830273131",
-            appId: "1:13830273131:web:b59a20e5906641ae4e192e",
-            measurementId: "G-PY8G08328S"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-    </script>
 </head>
 <body>
     <div class="container">
         <div class="viking-container" id="vikingContainer">
-            <img src="assets/viking.png" alt="Viking" id="viking" class="viking-img active">
-            <img src="assets/viking_cover_eyes.png" alt="Viking Covering Eyes" id="vikingCovering" class="viking-img">
-            <img src="assets/viking_peek.png" alt="Viking Peeking" id="vikingPeeking" class="viking-img">
+            <img src="assets/viking.png" alt="Viking" class="viking-img" id="viking">
+            <img src="assets/viking_cover_eyes.png" alt="Viking Covering Eyes" class="viking-img" id="vikingCovering">
+            <img src="assets/viking_peek.png" alt="Viking Peeking" class="viking-img" id="vikingPeeking">
         </div>
         <form class="auth-form" id="loginForm">
-            <h2>Welcome to Stone Label App</h2>
+            <h2>Welcome to Stone Label Generator</h2>
             <div class="input-group">
                 <label for="usernameEmail">Username or Email</label>
                 <input type="text" id="usernameEmail" name="usernameEmail" required>
@@ -69,13 +52,20 @@
             <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
         </form>
         <form class="label-form hidden" id="labelForm">
+            <h2>Stone Label Generator</h2>
             <div class="label-header">
-                <label for="jobName">Job Name:</label>
-                <input type="text" id="jobName" name="jobName" required>
+                <div class="input-group">
+                    <label for="jobName">Job Name:</label>
+                    <input type="text" id="jobName" name="jobName" required>
+                </div>
+                <div class="input-group">
+                    <button type="button" id="addPartButton">Add Part</button>
+                </div>
             </div>
-            <button type="button" id="addPartButton">Add Part</button>
             <div id="formsContainer"></div>
-            <button type="button" id="printLabelsButton">Print Labels</button>
+            <div class="input-group">
+                <button type="button" id="printLabelsButton">Print Labels</button>
+            </div>
             <div id="labelsContainer"></div>
         </form>
     </div>

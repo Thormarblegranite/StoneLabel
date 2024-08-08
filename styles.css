@@ -17,7 +17,7 @@ body {
     padding: 2em;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    width: 90vw; /* Adjusted width */
+    width: 80vw; /* Adjusted width */
     max-width: 1200px; /* Increased maximum width */
     display: flex;
     flex-direction: column;
@@ -72,7 +72,9 @@ body {
     font-weight: 700; /* Bold text for labels */
 }
 
-.input-group input {
+.input-group input,
+.input-group textarea,
+.input-group select {
     width: 100%;
     padding: 0.75em;
     border: 1px solid #ccc;
