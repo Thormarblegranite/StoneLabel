@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="advanced-settings" id="advancedAreaName${partCount}">
                     <label for="areaNameFont${partCount}">Font:</label>
                     <select id="areaNameFont${partCount}" onchange="updatePreview(${partCount})">
-                        <option value="Montserrat">Montserrat</option>
+                        <option value="Roboto">Roboto</option>
                         <option value="Arial">Arial</option>
                         <option value="Times New Roman">Times New Roman</option>
                     </select>
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="advanced-settings" id="advancedMaterial${partCount}">
                     <label for="materialFont${partCount}">Font:</label>
                     <select id="materialFont${partCount}" onchange="updatePreview(${partCount})">
-                        <option value="Montserrat">Montserrat</option>
+                        <option value="Roboto">Roboto</option>
                         <option value="Arial">Arial</option>
                         <option value="Times New Roman">Times New Roman</option>
                     </select>
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="advanced-settings" id="advancedAddress${partCount}">
                     <label for="addressFont${partCount}">Font:</label>
                     <select id="addressFont${partCount}" onchange="updatePreview(${partCount})">
-                        <option value="Montserrat">Montserrat</option>
+                        <option value="Roboto">Roboto</option>
                         <option value="Arial">Arial</option>
                         <option value="Times New Roman">Times New Roman</option>
                     </select>
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="advanced-settings" id="advancedContent${partCount}">
                     <label for="contentFont${partCount}">Font:</label>
                     <select id="contentFont${partCount}" onchange="updatePreview(${partCount})">
-                        <option value="Montserrat">Montserrat</option>
+                        <option value="Roboto">Roboto</option>
                         <option value="Arial">Arial</option>
                         <option value="Times New Roman">Times New Roman</option>
                     </select>
@@ -318,7 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const printWindow = window.open('', '', 'width=800,height=600');
             printWindow.document.write('<html><head><title>Print Labels</title>');
             printWindow.document.write('<style>body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;}');
-            printWindow.document.write('.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;padding:10px;background-color:white;position:relative;text-align:center;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);font-family:"Montserrat", sans-serif;}');
+            printWindow.document.write('.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;padding:10px;background-color:white;position:relative;text-align:center;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);font-family:"Roboto", sans-serif;}');
             printWindow.document.write('.part-number{position:absolute;top:10px;right:10px;font-weight:bold;color:#007BFF;}');
             printWindow.document.write('.logo{position:absolute;top:10px;left:10px;width:70px;height:auto;}'); // Increased size
             printWindow.document.write('.horizontal-text{display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1.5em;padding:0 10px;box-sizing:border-box;font-weight:bold;}'); // Bold text
