@@ -309,3 +309,15 @@ footer {
     border-top: 1px solid #ddd;
     margin-top: auto;
 }
+
+/* Job Name Input Field - Bold and Adjust Alignment */
+.job-name-input {
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 0.5em;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    display: block;
+    margin-bottom: 1em; /* Add margin to separate from the logo upload */
+}
