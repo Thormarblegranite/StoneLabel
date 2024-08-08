@@ -283,3 +283,33 @@ footer img {
     padding: 10px 15px;
     margin-top: 10px;
 }
+
+/* Ensure form sections are wider */
+.form-section {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Input fields should take up more space */
+.form-section input,
+.form-section textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Adjust button sizes */
+.form-section button {
+    width: auto;
+    padding: 10px 15px;
+    margin-top: 10px;
+}
+
+/* Style the job name input field */
+.job-name-input {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
