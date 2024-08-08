@@ -266,3 +266,20 @@ footer img {
         padding: 0.5em;
     }
 }
+
+.form-section {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.form-section input,
+.form-section textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-section button {
+    width: auto;
+    padding: 10px 15px;
+    margin-top: 10px;
+}
