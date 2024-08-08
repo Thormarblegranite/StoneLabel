@@ -1,11 +1,11 @@
 body {
     font-family: 'Montserrat', sans-serif;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background: linear-gradient(to right, #ffffff, #e0f7fa); /* White to light blue */
+    background: #f9f9f9;
     color: #333;
 }
 
@@ -16,31 +16,26 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 90%;
     max-width: 600px;
-    flex: 1;
 }
 
 .viking-container {
     text-align: center;
     margin-bottom: 1em;
     position: relative;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: #e0f7fa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
 }
 
-.viking-img {
-    display: none;
-    width: 80px;
-    height: auto;
+.viking-container .viking-img {
+    max-width: 100px;
+    transition: opacity 0.3s ease-in-out;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
 }
 
-.viking-img.active {
-    display: block;
+.viking-container .viking-img.active {
+    opacity: 1;
 }
 
 .auth-form,
@@ -118,7 +113,6 @@ footer {
     text-align: center;
     margin-top: 2em;
     font-size: 0.9em;
-    width: 100%;  /* Ensure the footer takes full width */
 }
 
 footer a {

@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Ensure Firebase is loaded
     if (typeof firebase !== 'undefined') {
         console.log('Firebase is loaded');
 
-        // Handle form switches
         document.getElementById('showRegister').addEventListener('click', function(event) {
             event.preventDefault();
             document.getElementById('loginForm').classList.add('hidden');
@@ -16,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('loginForm').classList.remove('hidden');
         });
 
-        // Handle login form submission
         document.getElementById('loginForm').addEventListener('submit', async function(event) {
             event.preventDefault();
             const usernameEmail = document.getElementById('usernameEmail').value;
@@ -35,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Handle register form submission
         document.getElementById('registerForm').addEventListener('submit', async function(event) {
             event.preventDefault();
             const newEmail = document.getElementById('newEmail').value;
@@ -54,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Toggle password visibility
         window.togglePassword = function(id) {
             const passwordInput = document.getElementById(id);
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -86,11 +81,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1000); // Adjust timing for smooth transition
         }
 
-        // Add event listeners for label form
         document.getElementById('addPartButton').addEventListener('click', addNewForm);
         document.getElementById('printLabelsButton').addEventListener('click', printLabels);
 
         function addNewForm() {
+            if (typeof partCount === 'undefined') partCount = 0;  // Ensure partCount is defined
             partCount++;
             const jobName = document.getElementById('jobName').value;
             if (!jobName) {
