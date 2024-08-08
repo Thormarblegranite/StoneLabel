@@ -84,8 +84,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('addPartButton').addEventListener('click', addNewForm);
         document.getElementById('printLabelsButton').addEventListener('click', printLabels);
 
+        if (typeof partCount === 'undefined') partCount = 0; // Ensure partCount is defined
         function addNewForm() {
-            if (typeof partCount === 'undefined') partCount = 0;  // Ensure partCount is defined
             partCount++;
             const jobName = document.getElementById('jobName').value;
             if (!jobName) {

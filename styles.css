@@ -1,11 +1,11 @@
 body {
     font-family: 'Montserrat', sans-serif;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background: #f9f9f9;
+    background: linear-gradient(to right, #d0e7ff, #f9f9f9); /* Light blue to white gradient */
     color: #333;
 }
 
@@ -15,7 +15,8 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 90%;
-    max-width: 600px;
+    max-width: 800px;
+    margin-bottom: 2em;
 }
 
 .viking-container {
@@ -113,6 +114,7 @@ footer {
     text-align: center;
     margin-top: 2em;
     font-size: 0.9em;
+    width: 100%;
 }
 
 footer a {
