@@ -100,70 +100,109 @@ document.addEventListener('DOMContentLoaded', function() {
 
             newFormSection.innerHTML = `
                 <h2>Part ${partCount}</h2>
-                <label for="width${partCount}">Sticker Width (2 - 8 inches):</label>
-                <input type="number" id="width${partCount}" name="width" min="2" max="8" step="0.1" value="6" required oninput="validateWidth(${partCount}); updatePreview(${partCount})">
+                <div class="input-group">
+                    <label for="width${partCount}">Sticker Width (2 - 8 inches):</label>
+                    <input type="number" id="width${partCount}" name="width" min="2" max="8" step="0.1" value="6" required oninput="validateWidth(${partCount}); updatePreview(${partCount})">
+                </div>
                 
-                <button type="button" onclick="setPreset(${partCount}, 4)">4x4</button>
-                <button type="button" onclick="setPreset(${partCount}, 6)">6x4</button>
-                <button type="button" onclick="setPreset(${partCount}, 8)">8x4</button>
+                <div class="input-group">
+                    <button type="button" onclick="setPreset(${partCount}, 4)">4x4</button>
+                    <button type="button" onclick="setPreset(${partCount}, 6)">6x4</button>
+                    <button type="button" onclick="setPreset(${partCount}, 8)">8x4</button>
+                </div>
 
-                <label for="image${partCount}">Upload Image:</label>
-                <input type="file" id="image${partCount}" name="image" accept="image/*" required onchange="updatePreview(${partCount})">
-                
-                <label for="areaName${partCount}">Area Name:</label>
-                <input type="text" id="areaName${partCount}" name="areaName" required oninput="updatePreview(${partCount})">
-                <div class="advanced-settings" id="advancedAreaName${partCount}">
-                    <label for="areaNameFont${partCount}">Font:</label>
-                    <select id="areaNameFont${partCount}" onchange="updatePreview(${partCount})">
-                        <option value="Roboto">Roboto</option>
-                        <option value="Arial">Arial</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                    </select>
-                    <label for="areaNameColor${partCount}">Color:</label>
-                    <input type="color" id="areaNameColor${partCount}" onchange="updatePreview(${partCount})">
+                <div class="input-group">
+                    <label for="image${partCount}">Upload Image:</label>
+                    <input type="file" id="image${partCount}" name="image" accept="image/*" required onchange="updatePreview(${partCount})">
                 </div>
                 
-                <label for="material${partCount}">Material:</label>
-                <input type="text" id="material${partCount}" name="material" required oninput="updatePreview(${partCount})">
-                <div class="advanced-settings" id="advancedMaterial${partCount}">
-                    <label for="materialFont${partCount}">Font:</label>
-                    <select id="materialFont${partCount}" onchange="updatePreview(${partCount})">
-                        <option value="Roboto">Roboto</option>
-                        <option value="Arial">Arial</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                    </select>
-                    <label for="materialColor${partCount}">Color:</label>
-                    <input type="color" id="materialColor${partCount}" onchange="updatePreview(${partCount})">
+                <div class="input-group">
+                    <label for="areaName${partCount}">Area Name:</label>
+                    <input type="text" id="areaName${partCount}" name="areaName" required oninput="updatePreview(${partCount})">
                 </div>
                 
-                <label for="address${partCount}">Address:</label>
-                <input type="text" id="address${partCount}" name="address" required oninput="updatePreview(${partCount})">
-                <div class="advanced-settings" id="advancedAddress${partCount}">
-                    <label for="addressFont${partCount}">Font:</label>
-                    <select id="addressFont${partCount}" onchange="updatePreview(${partCount})">
-                        <option value="Roboto">Roboto</option>
-                        <option value="Arial">Arial</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                    </select>
-                    <label for="addressColor${partCount}">Color:</label>
-                    <input type="color" id="addressColor${partCount}" onchange="updatePreview(${partCount})">
+                <div class="input-group">
+                    <label for="material${partCount}">Material:</label>
+                    <input type="text" id="material${partCount}" name="material" required oninput="updatePreview(${partCount})">
                 </div>
                 
-                <label for="content${partCount}">Additional Content:</label>
-                <textarea id="content${partCount}" name="content" rows="4" oninput="updatePreview(${partCount})"></textarea>
-                <div class="advanced-settings" id="advancedContent${partCount}">
-                    <label for="contentFont${partCount}">Font:</label>
-                    <select id="contentFont${partCount}" onchange="updatePreview(${partCount})">
-                        <option value="Roboto">Roboto</option>
-                        <option value="Arial">Arial</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                    </select>
-                    <label for="contentColor${partCount}">Color:</label>
-                    <input type="color" id="contentColor${partCount}" onchange="updatePreview(${partCount})">
+                <div class="input-group">
+                    <label for="address${partCount}">Address:</label>
+                    <input type="text" id="address${partCount}" name="address" required oninput="updatePreview(${partCount})">
                 </div>
                 
-                <button type="button" onclick="toggleAdvancedSettings(${partCount})">Toggle Advanced Settings</button>
-                <button type="button" onclick="deletePart(${partCount})">Delete Part</button>
+                <div class="input-group">
+                    <label for="content${partCount}">Additional Content:</label>
+                    <textarea id="content${partCount}" name="content" rows="4" oninput="updatePreview(${partCount})"></textarea>
+                </div>
+
+                <div class="input-group">
+                    <button type="button" onclick="toggleAdvancedSettings(${partCount})">Toggle Advanced Settings</button>
+                </div>
+
+                <div id="advancedAreaName${partCount}" class="hidden">
+                    <div class="input-group">
+                        <label for="areaNameFont${partCount}">Font:</label>
+                        <select id="areaNameFont${partCount}" onchange="updatePreview(${partCount})">
+                            <option value="Roboto">Roboto</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="areaNameColor${partCount}">Color:</label>
+                        <input type="color" id="areaNameColor${partCount}" onchange="updatePreview(${partCount})">
+                    </div>
+                </div>
+
+                <div id="advancedMaterial${partCount}" class="hidden">
+                    <div class="input-group">
+                        <label for="materialFont${partCount}">Font:</label>
+                        <select id="materialFont${partCount}" onchange="updatePreview(${partCount})">
+                            <option value="Roboto">Roboto</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="materialColor${partCount}">Color:</label>
+                        <input type="color" id="materialColor${partCount}" onchange="updatePreview(${partCount})">
+                    </div>
+                </div>
+
+                <div id="advancedAddress${partCount}" class="hidden">
+                    <div class="input-group">
+                        <label for="addressFont${partCount}">Font:</label>
+                        <select id="addressFont${partCount}" onchange="updatePreview(${partCount})">
+                            <option value="Roboto">Roboto</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="addressColor${partCount}">Color:</label>
+                        <input type="color" id="addressColor${partCount}" onchange="updatePreview(${partCount})">
+                    </div>
+                </div>
+
+                <div id="advancedContent${partCount}" class="hidden">
+                    <div class="input-group">
+                        <label for="contentFont${partCount}">Font:</label>
+                        <select id="contentFont${partCount}" onchange="updatePreview(${partCount})">
+                            <option value="Roboto">Roboto</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="contentColor${partCount}">Color:</label>
+                        <input type="color" id="contentColor${partCount}" onchange="updatePreview(${partCount})">
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <button type="button" onclick="deletePart(${partCount})">Delete Part</button>
+                </div>
             `;
 
             formsContainer.appendChild(newFormSection);
@@ -198,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const advancedContent = document.getElementById(`advancedContent${partNumber}`);
 
             [advancedAreaName, advancedMaterial, advancedAddress, advancedContent].forEach(adv => {
-                adv.style.display = adv.style.display === 'none' ? 'block' : 'none';
+                adv.classList.toggle('hidden');
             });
         };
 

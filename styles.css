@@ -17,7 +17,7 @@ body {
     padding: 2em;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    width: 90%;
+    width: 80vw; /* Adjusted width */
     max-width: 600px;
     display: flex;
     flex-direction: column;
@@ -106,7 +106,7 @@ button {
     cursor: pointer;
     margin-top: 1em;
     transition: background 0.3s;
-    width: 100%;
+    width: auto;
     font-size: 1em;
 }
 
@@ -134,6 +134,8 @@ footer {
     background: #fff;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 
 footer a {
