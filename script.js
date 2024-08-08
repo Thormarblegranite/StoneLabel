@@ -62,7 +62,7 @@ document.getElementById('registerForm').addEventListener('submit', async functio
 });
 
 document.getElementById('usernameEmail').addEventListener('input', function() {
-    moveVikingEyes(this);
+    moveVikingEyesHorizontally(this);
 });
 
 document.getElementById('password').addEventListener('focus', function() {
@@ -92,13 +92,13 @@ document.getElementById('logo').addEventListener('change', function(event) {
     }
 });
 
-function moveVikingEyes(input) {
+function moveVikingEyesHorizontally(input) {
     const viking = document.getElementById('viking');
     const rect = input.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+    const windowCenterX = window.innerWidth / 2;
 
-    const angle = Math.atan2(centerY - window.innerHeight / 2, centerX - window.innerWidth / 2) * 180 / Math.PI;
+    const angle = Math.atan2(0, centerX - windowCenterX) * 180 / Math.PI;
     viking.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
 }
 
