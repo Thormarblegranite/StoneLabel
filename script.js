@@ -20,7 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     const password = document.getElementById('password').value;
 
     // Check if user exists
-    const user = users[usernameEmail] || Object.values(users).find(u => u.email === usernameEmail);
+    const user = Object.values(users).find(u => u.username === usernameEmail || u.email === usernameEmail);
 
     if (user && user.password === password) {
         document.getElementById('loginForm').classList.add('hidden');
@@ -82,7 +82,8 @@ function moveVikingEyes(input) {
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
 
-    viking.style.transform = `translate(-50%, -50%) rotate(${Math.atan2(centerY - window.innerHeight / 2, centerX - window.innerWidth / 2) * 180 / Math.PI}deg)`;
+    const angle = Math.atan2(centerY - window.innerHeight / 2, centerX - window.innerWidth / 2) * 180 / Math.PI;
+    viking.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
 }
 
 function coverVikingEyes() {

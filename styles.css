@@ -109,8 +109,20 @@ button:active {
     margin-top: 10px;
 }
 
+.label-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
 .label-form {
     margin-top: 20px;
+    text-align: left;
+}
+
+.label-form > div {
+    margin-bottom: 20px;
 }
 
 .advanced-settings {
@@ -212,7 +224,8 @@ footer {
     background: rgba(255, 255, 255, 0.9);
     padding: 10px;
     border-radius: 10px;
-    width: fit-content; /* Ensure it spans a visually appealing width */
+    max-width: 500px; /* Ensure max width of 500px */
+    width: 100%; /* Ensure it spans the entire width */
     margin: 0 auto; /* Center the footer */
 }
 
