@@ -131,6 +131,9 @@ button:hover {
 }
 
 footer {
+    position: static;
+    bottom: auto;
+    width: 100%;
     text-align: center;
     font-size: 0.9em;
     padding: 1em 0;
@@ -347,6 +350,9 @@ footer img {
 
     /* Adjust footer styling */
     footer {
+    position: static;
+    bottom: auto;
+    width: 100%;
         font-size: 0.9em;
         padding: 10px;
         text-align: center;
