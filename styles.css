@@ -1,193 +1,179 @@
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(to bottom right, #007BFF, #00FFFF);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
     color: #333;
-    overflow-y: auto;
-    flex-direction: column; /* Ensure vertical alignment */
 }
 
 .container {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 30px;
+    background: #fff;
+    padding: 2em;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 90%;
-    max-width: 700px;
-    text-align: center;
-    position: relative;
+    max-width: 600px;
 }
 
 .viking-container {
-    position: absolute;
-    top: -150px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150px;
-    height: 150px;
-    transition: all 0.3s ease-in-out;
+    text-align: center;
+    margin-bottom: 1em;
 }
 
 .viking-container img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+    max-width: 100px;
 }
 
-.auth-form, .label-form {
-    margin-top: 80px;
+.auth-form,
+.label-form {
+    display: flex;
+    flex-direction: column;
 }
 
-h2 {
-    margin-bottom: 20px;
-    color: #007BFF;
+.auth-form h2,
+.label-form h2 {
+    margin-bottom: 1em;
+    color: #4e54c8;
 }
 
 .input-group {
-    margin-bottom: 20px;
-    text-align: left;
+    margin-bottom: 1em;
 }
 
-label {
+.input-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 0.5em;
     font-weight: bold;
 }
 
-input {
+.input-group input {
     width: 100%;
-    padding: 10px;
+    padding: 0.5em;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border-radius: 5px;
 }
 
 .password-container {
-    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    flex: 1;
 }
 
 .toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
     cursor: pointer;
+    margin-left: 0.5em;
 }
 
 button {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
+    background: #4e54c8;
+    color: #fff;
+    padding: 0.75em;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    width: 100%;
-    font-size: 1em;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 1em;
+    transition: background 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background: #3b3f8b;
 }
 
-button:active {
-    transform: scale(0.95);
+.error-message {
+    color: red;
+    margin-top: 1em;
 }
 
 .hidden {
     display: none;
 }
 
-.error-message {
-    color: red;
-    margin-top: 10px;
+.footer-logo {
+    max-width: 100px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 2em;
+    font-size: 0.9em;
+}
+
+footer a {
+    color: #4e54c8;
+    text-decoration: none;
+}
+
+footer img {
+    display: block;
+    margin: 0.5em auto;
+}
+
+.label-form {
+    margin-top: 2em;
 }
 
 .label-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
 }
 
-.label-form {
-    margin-top: 20px;
-    text-align: left;
+.label-header label {
+    margin-right: 1em;
 }
 
-.label-form > div {
-    margin-bottom: 20px;
-}
-
-.advanced-settings {
-    display: none;
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f1f1f1;
+.form-section {
+    background: #f9f9f9;
+    padding: 1em;
+    border: 1px solid #ddd;
     border-radius: 5px;
-}
-
-.advanced-settings label {
-    margin: 5px 0;
+    margin-top: 1em;
 }
 
 .label-preview {
-    border: 2px solid #007BFF;
-    width: fit-content;
-    height: 3.6in; /* 90% of 4 inches */
-    padding: 10px;
-    margin-top: 20px;
-    background-color: white;
-    position: relative;
-    text-align: center;
-    margin-bottom: 20px;
+    border: 2px solid #4e54c8;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Ensures text doesn't overflow the sticker */
-    font-family: 'Montserrat', sans-serif; /* Ensure consistent font */
+    padding: 1em;
+    margin-top: 1em;
+    background: #fff;
+    position: relative;
 }
 
-.label-preview .part-number {
+.part-number {
     position: absolute;
     top: 10px;
     right: 10px;
     font-weight: bold;
-    color: #007BFF;
+    color: #4e54c8;
 }
 
-.label-preview .logo {
+.logo {
     position: absolute;
     top: 10px;
     left: 10px;
-    width: 70px; /* Increased size */
+}
+
+.logo img {
+    width: 70px;
     height: auto;
 }
 
-#labelImage {
+.qr-code {
     position: absolute;
-    top: 20%;
+    top: 10%;
     left: 50%;
-    transform: translate(-50%, -20%);
-    width: 75%;
-    height: 80%; /* Adjusted to 80% of the height */
+    transform: translate(-50%, -10%);
 }
 
-#labelImage img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 10px;
-}
-
-#labelText {
+.horizontal-text {
     display: flex;
-    flex-direction: row; /* Ensuring text is horizontal */
+    flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
@@ -197,71 +183,5 @@ button:active {
     font-size: 1.5em;
     padding: 0 10px;
     box-sizing: border-box;
-    font-weight: bold; /* Bold text */
-}
-
-#labelText span {
-    margin: 2px;
-    word-wrap: break-word;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.qr-code {
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    transform: translate(-50%, -5%);
-    width: 60px; /* Adjust size */
-    height: 60px; /* Adjust size */
-}
-
-footer {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 1em;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 10px;
-    border-radius: 10px;
-    max-width: 500px; /* Ensure max width of 500px */
-    width: 100%; /* Ensure it spans the entire width */
-    margin: 0 auto; /* Center the footer */
-}
-
-footer a {
-    color: #007BFF;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
-.footer-logo {
-    width: 100px;
-    height: auto;
-    margin-top: 10px;
-}
-
-@media print {
-    body {
-        width: 100%;
-        height: 100%;
-    }
-
-    .label-preview {
-        page-break-before: always;
-        width: 100%;
-        height: 100%;
-        margin: auto;
-        box-shadow: none;
-        border: none;
-        font-family: 'Montserrat', sans-serif; /* Ensure consistent font */
-    }
-
-    .qr-code {
-        width: 60px;
-        height: 60px;
-    }
+    font-weight: bold;
 }

@@ -1,6 +1,4 @@
-let partCount = 0;
-let customLogoURL = null;
-let users = {};
+const apiBaseUrl = 'http://localhost:3000';
 
 document.getElementById('showRegister').addEventListener('click', function(event) {
     event.preventDefault();
@@ -14,35 +12,53 @@ document.getElementById('showLogin').addEventListener('click', function(event) {
     document.getElementById('loginForm').classList.remove('hidden');
 });
 
-document.getElementById('loginForm').addEventListener('submit', function(event) {
+document.getElementById('loginForm').addEventListener('submit', async function(event) {
     event.preventDefault();
     const usernameEmail = document.getElementById('usernameEmail').value;
     const password = document.getElementById('password').value;
 
-    // Check if user exists
-    const user = Object.values(users).find(u => u.username === usernameEmail || u.email === usernameEmail);
+    const response = await fetch(`${apiBaseUrl}/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ usernameEmail, password })
+    });
 
-    if (user && user.password === password) {
+    const result = await response.json();
+
+    if (response.ok) {
         document.getElementById('loginForm').classList.add('hidden');
         document.getElementById('labelForm').classList.remove('hidden');
         document.getElementById('vikingContainer').classList.add('hidden');
     } else {
-        document.getElementById('loginError').textContent = 'Invalid credentials. Please create an account.';
+        document.getElementById('loginError').textContent = result.message;
     }
 });
 
-document.getElementById('registerForm').addEventListener('submit', function(event) {
+document.getElementById('registerForm').addEventListener('submit', async function(event) {
     event.preventDefault();
     const newUsername = document.getElementById('newUsername').value;
     const newEmail = document.getElementById('newEmail').value;
     const newPassword = document.getElementById('newPassword').value;
 
-    // Save new user
-    users[newUsername] = { username: newUsername, email: newEmail, password: newPassword };
+    const response = await fetch(`${apiBaseUrl}/register`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: newUsername, email: newEmail, password: newPassword })
+    });
 
-    alert('Account created successfully. Please log in.');
-    document.getElementById('registerForm').classList.add('hidden');
-    document.getElementById('loginForm').classList.remove('hidden');
+    const result = await response.json();
+
+    if (response.ok) {
+        alert('Account created successfully. Please log in.');
+        document.getElementById('registerForm').classList.add('hidden');
+        document.getElementById('loginForm').classList.remove('hidden');
+    } else {
+        document.getElementById('registerError').textContent = result.message;
+    }
 });
 
 document.getElementById('usernameEmail').addEventListener('input', function() {
