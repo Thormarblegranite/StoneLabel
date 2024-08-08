@@ -364,3 +364,80 @@ document.querySelectorAll('.preset-sticker-width').forEach(button => {
         }
     });
 });
+
+// Function to set preset sticker width
+function setPreset(width) {
+    document.getElementById('stickerWidth').value = width;
+}
+
+// Toggle advanced settings visibility
+function toggleAdvancedSettings() {
+    const advancedSettings = document.getElementById('advancedSettings');
+    if (advancedSettings) {
+        advancedSettings.classList.toggle('hidden');
+    }
+}
+
+// Restore logo upload functionality
+document.getElementById('logoUpload').addEventListener('change', function(event) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById('logoPreview').src = e.target.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+});
+
+// Ensure default Thor logo is shown if no custom logo is uploaded
+document.addEventListener('DOMContentLoaded', function() {
+    const logoPreview = document.getElementById('logoPreview');
+    if (!logoPreview.src) {
+        logoPreview.src = 'assets/thorlogo.png'; // Path to default Thor logo
+    }
+});
+
+// Adjust sticker preview and print functionality to include the logo
+function updateStickerPreview() {
+    const logoSrc = document.getElementById('logoPreview').src;
+    const logoElement = document.querySelector('.sticker-preview .logo img');
+    if (logoElement) {
+        logoElement.src = logoSrc;
+    }
+}
+
+document.getElementById('updatePreviewButton').addEventListener('click', updateStickerPreview);
+
+// Update the sticker preview with form inputs
+function updateStickerPreview() {
+    // Update text fields
+    document.querySelectorAll('.input-group input, .input-group textarea').forEach(function(input) {
+        const targetElement = document.querySelector('.sticker-preview .' + input.id);
+        if (targetElement) {
+            targetElement.textContent = input.value;
+        }
+    });
+
+    // Update the logo
+    const logoSrc = document.getElementById('logoPreview').src;
+    const logoElement = document.querySelector('.sticker-preview .logo img');
+    if (logoElement) {
+        logoElement.src = logoSrc;
+    }
+}
+
+// Attach event listeners to all inputs to update the preview on change
+document.querySelectorAll('.input-group input, .input-group textarea').forEach(function(input) {
+    input.addEventListener('input', updateStickerPreview);
+});
+
+// Ensure the logo updates correctly
+document.getElementById('logoUpload').addEventListener('change', function(event) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById('logoPreview').src = e.target.result;
+        updateStickerPreview(); // Ensure the sticker preview is updated
+    };
+    reader.readAsDataURL(event.target.files[0]);
+});
+
+// Initial preview update to reflect any default values
+document.addEventListener('DOMContentLoaded', updateStickerPreview);
