@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof firebase !== 'undefined') {
         console.log('Firebase is loaded');
@@ -108,56 +107,217 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 <label for="areaName${partCount}">Area Name:</label>
                 <input type="text" id="areaName${partCount}" name="areaName" required oninput="updatePreview(${partCount})">
-
-                <label for="description${partCount}">Description:</label>
-                <textarea id="description${partCount}" name="description" required oninput="updatePreview(${partCount})"></textarea>
-
-                <button type="button" class="delete-part">Delete Part</button>
+                <div class="advanced-settings hidden" id="advancedAreaName${partCount}">
+                    <label for="areaNameFont${partCount}">Font:</label>
+                    <select id="areaNameFont${partCount}" onchange="updatePreview(${partCount})">
+                        <option value="Roboto">Roboto</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                    </select>
+                    <label for="areaNameColor${partCount}">Color:</label>
+                    <input type="color" id="areaNameColor${partCount}" onchange="updatePreview(${partCount})">
+                </div>
+                
+                <label for="material${partCount}">Material:</label>
+                <input type="text" id="material${partCount}" name="material" required oninput="updatePreview(${partCount})">
+                <div class="advanced-settings hidden" id="advancedMaterial${partCount}">
+                    <label for="materialFont${partCount}">Font:</label>
+                    <select id="materialFont${partCount}" onchange="updatePreview(${partCount})">
+                        <option value="Roboto">Roboto</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                    </select>
+                    <label for="materialColor${partCount}">Color:</label>
+                    <input type="color" id="materialColor${partCount}" onchange="updatePreview(${partCount})">
+                </div>
+                
+                <label for="address${partCount}">Address:</label>
+                <input type="text" id="address${partCount}" name="address" required oninput="updatePreview(${partCount})">
+                <div class="advanced-settings hidden" id="advancedAddress${partCount}">
+                    <label for="addressFont${partCount}">Font:</label>
+                    <select id="addressFont${partCount}" onchange="updatePreview(${partCount})">
+                        <option value="Roboto">Roboto</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                    </select>
+                    <label for="addressColor${partCount}">Color:</label>
+                    <input type="color" id="addressColor${partCount}" onchange="updatePreview(${partCount})">
+                </div>
+                
+                <label for="content${partCount}">Additional Content:</label>
+                <textarea id="content${partCount}" name="content" rows="4" oninput="updatePreview(${partCount})"></textarea>
+                <div class="advanced-settings hidden" id="advancedContent${partCount}">
+                    <label for="contentFont${partCount}">Font:</label>
+                    <select id="contentFont${partCount}" onchange="updatePreview(${partCount})">
+                        <option value="Roboto">Roboto</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                    </select>
+                    <label for="contentColor${partCount}">Color:</label>
+                    <input type="color" id="contentColor${partCount}" onchange="updatePreview(${partCount})">
+                </div>
+                
+                <button type="button" onclick="toggleAdvancedSettings(${partCount})">Toggle Advanced Settings</button>
+                <button type="button" onclick="deletePart(${partCount})">Delete Part</button>
             `;
-            formsContainer.appendChild(newFormSection);
 
-            // Ensure delete part button works
-            document.querySelector(`#formSection${partCount} .delete-part`).addEventListener('click', function() {
-                newFormSection.remove();
+            formsContainer.appendChild(newFormSection);
+            createLabelPreview(partCount);
+            updatePreview(partCount); // Ensure initial preview is created
+        }
+
+        function setPreset(partNumber, width) {
+            const widthInput = document.getElementById(`width${partNumber}`);
+            widthInput.value = width;
+            updatePreview(partNumber);
+        }
+
+        function validateWidth(partNumber) {
+            const widthInput = document.getElementById(`width${partNumber}`);
+            let width = widthInput.value;
+            if (width < 2) {
+                width = 2;
+                alert('Width must be between 2 and 8 inches.');
+            } else if (width > 8) {
+                width = 8;
+                alert('Width must be between 2 and 8 inches.');
+            }
+            widthInput.value = width;
+            updatePreview(partNumber);
+        }
+
+        function toggleAdvancedSettings(partNumber) {
+            const advancedAreaName = document.getElementById(`advancedAreaName${partNumber}`);
+            const advancedMaterial = document.getElementById(`advancedMaterial${partNumber}`);
+            const advancedAddress = document.getElementById(`advancedAddress${partNumber}`);
+            const advancedContent = document.getElementById(`advancedContent${partNumber}`);
+
+            [advancedAreaName, advancedMaterial, advancedAddress, advancedContent].forEach(adv => {
+                adv.classList.toggle('hidden');
             });
         }
 
-        function validateWidth(partId) {
-            const input = document.getElementById(`width${partId}`);
-            if (input.value < 2 || input.value > 8) {
-                input.setCustomValidity('Sticker width must be between 2 and 8 inches.');
-            } else {
-                input.setCustomValidity('');
-            }
+        function createLabelPreview(partNumber) {
+            const labelsContainer = document.getElementById('labelsContainer');
+            const labelPreview = document.createElement('div');
+            labelPreview.classList.add('label-preview');
+            labelPreview.id = `labelPreview${partNumber}`;
+
+            const partNumberDiv = document.createElement('div');
+            partNumberDiv.classList.add('part-number');
+            partNumberDiv.textContent = `Part ${partNumber}`;
+            labelPreview.appendChild(partNumberDiv);
+
+            const logoDiv = document.createElement('div');
+            logoDiv.classList.add('logo');
+            logoDiv.id = `logo${partNumber}`;
+            labelPreview.appendChild(logoDiv);
+
+            const labelImage = document.createElement('div');
+            labelImage.id = `labelImage${partNumber}`;
+            labelPreview.appendChild(labelImage);
+
+            const qrCodeDiv = document.createElement('div');
+            qrCodeDiv.classList.add('qr-code');
+            qrCodeDiv.id = `qrCode${partNumber}`;
+            labelPreview.appendChild(qrCodeDiv);
+
+            const labelText = document.createElement('div');
+            labelText.id = `labelText${partNumber}`;
+            labelText.classList.add('horizontal-text');
+            labelPreview.appendChild(labelText);
+
+            labelsContainer.appendChild(labelPreview);
         }
 
-        function updatePreview(partId) {
-            console.log(`Updating preview for part ${partId}`);
-            // Implement the logic to update the preview based on the input values
+        function updatePreview(partNumber) {
+            const jobName = document.getElementById('jobName').value;
+            const width = document.getElementById(`width${partNumber}`).value;
+            const areaName = document.getElementById(`areaName${partNumber}`).value;
+            const areaNameFont = document.getElementById(`areaNameFont${partNumber}`).value;
+            const areaNameColor = document.getElementById(`areaNameColor${partNumber}`).value;
+            const material = document.getElementById(`material${partNumber}`).value;
+            const materialFont = document.getElementById(`materialFont${partNumber}`).value;
+            const materialColor = document.getElementById(`materialColor${partNumber}`).value;
+            const address = document.getElementById(`address${partNumber}`).value;
+            const addressFont = document.getElementById(`addressFont${partNumber}`).value;
+            const addressColor = document.getElementById(`addressColor${partNumber}`).value;
+            const content = document.getElementById(`content${partNumber}`).value;
+            const contentFont = document.getElementById(`contentFont${partNumber}`).value;
+            const contentColor = document.getElementById(`contentColor${partNumber}`).value;
+            const imageInput = document.getElementById(`image${partNumber}`).files[0];
+
+            const labelPreview = document.getElementById(`labelPreview${partNumber}`);
+            labelPreview.style.width = `${width * 0.95}in`;  // Adjusted to 95% of the given width
+            labelPreview.style.height = '3.6in';  // Adjusted to 90% of 4 inches
+
+            const labelText = document.getElementById(`labelText${partNumber}`);
+            labelText.innerHTML = `
+                <span style="font-family:${areaNameFont}; color:${areaNameColor};">Job Name: ${jobName}</span>
+                <span style="font-family:${areaNameFont}; color:${areaNameColor};">Area Name: ${areaName}</span>
+                <span style="font-family:${materialFont}; color:${materialColor};">Material: ${material}</span>
+                <span style="font-family:${addressFont}; color:${addressColor};">Address: ${address}</span>
+                <span style="font-family:${contentFont}; color:${contentColor};">${content}</span>
+            `;
+            labelText.style.fontSize = `${0.15 * width}em`; // Adjust font size based on width
+
+            const logoDiv = document.getElementById(`logo${partNumber}`);
+            if (customLogoURL) {
+                logoDiv.innerHTML = `<img src="${customLogoURL}" alt="Custom Logo" style="width:70px; height:auto;">`; // Increased size
+            } else {
+                logoDiv.innerHTML = `<img src="assets/thorlogo.png" alt="Default Logo" style="width:70px; height:auto;">`; // Increased size
+            }
+
+            if (imageInput) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const labelImage = document.getElementById(`labelImage${partNumber}`);
+                    labelImage.innerHTML = `<img src="${e.target.result}" alt="Label Image" style="width:75%; height:80%; object-fit:contain; border-radius:10px;">`; // Adjust image size
+                };
+                reader.readAsDataURL(imageInput);
+            }
+
+            generateQRCode(partNumber, jobName, width, areaName, material, address, content);
         }
 
-        function setPreset(partId, width) {
-            const widthInput = document.getElementById(`width${partId}`);
-            if (widthInput) {
-                widthInput.value = width;
-                updatePreview(partId);
-            } else {
-                console.error(`width${partId} element not found.`);
-            }
+        function generateQRCode(partNumber, jobName, width, areaName, material, address, content) {
+            const qrCodeDiv = document.getElementById(`qrCode${partNumber}`);
+            qrCodeDiv.innerHTML = ''; // Clear previous QR code
+
+            const qrData = `Job Name: ${jobName}\nWidth: ${width}in\nArea Name: ${areaName}\nMaterial: ${material}\nAddress: ${address}\nContent: ${content}`;
+            const size = Math.max(30, 50 * (width / 8)); // Adjust size based on width
+            QRCode.toCanvas(qrCodeDiv, qrData, { width: size, height: size }, function(error) {
+                if (error) console.error(error);
+                else {
+                    const img = document.createElement('img');
+                    img.src = qrCodeDiv.querySelector('canvas').toDataURL();
+                    img.style.width = `${size}px`;
+                    img.style.height = `${size}px`;
+                    qrCodeDiv.innerHTML = '';
+                    qrCodeDiv.appendChild(img);
+                }
+            });
+        }
+
+        function deletePart(partNumber) {
+            const formSection = document.getElementById(`formSection${partNumber}`);
+            const labelPreview = document.getElementById(`labelPreview${partNumber}`);
+            if (formSection) formSection.remove();
+            if (labelPreview) labelPreview.remove();
         }
 
         function printLabels() {
             const labelsContainer = document.getElementById('labelsContainer');
             const labels = labelsContainer.querySelectorAll('.label-preview');
-            const printWindow = window.open('', 'PRINT', 'height=400,width=600');
 
+            const printWindow = window.open('', '', 'width=800,height=600');
             printWindow.document.write('<html><head><title>Print Labels</title>');
             printWindow.document.write('<style>body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;}');
             printWindow.document.write('.label-preview{display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;padding:10px;background-color:white;position:relative;text-align:center;border:2px solid #007BFF;border-radius:10px;box-shadow:0 0 10px rgba(0, 0, 0, 0.1);font-family:"Roboto", sans-serif;}');
             printWindow.document.write('.part-number{position:absolute;top:10px;right:10px;font-weight:bold;color:#007BFF;}');
-            printWindow.document.write('.logo{position:absolute;top:10px;left:10px;width:70px;height:auto;}');
-            printWindow.document.write('.horizontal-text{display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1.5em;padding:0 10px;box-sizing:border-box;font-weight:bold;}');
-            printWindow.document.write('.qr-code{position:absolute;top:5%;left:50%;transform:translate(-50%, -5%);width:60px;height:60px;}</style>');
+            printWindow.document.write('.logo{position:absolute;top:10px;left:10px;width:70px;height:auto;}'); // Increased size
+            printWindow.document.write('.horizontal-text{display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;width:100%;position:absolute;bottom:10px;text-align:center;font-size:1.5em;padding:0 10px;box-sizing:border-box;font-weight:bold;}'); // Bold text
+            printWindow.document.write('.qr-code{position:absolute;top:5%;left:50%;transform:translate(-50%, -5%);width:60px;height:60px;}</style>'); // Adjusted size and position
             printWindow.document.write('</head><body>');
 
             labels.forEach((label) => {
@@ -172,65 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
             printWindow.document.close();
             printWindow.print();
         }
-
     } else {
         console.error('Firebase is not loaded');
-    }
-});
-
-// Additional features to ensure proper functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Safe way to add event listeners
-    function safeAddEventListener(selector, event, handler) {
-        const element = document.querySelector(selector);
-        if (element) {
-            element.addEventListener(event, handler);
-        } else {
-            console.error(`Element ${selector} not found.`);
-        }
-    }
-
-    // Safe attach for buttons
-    safeAddEventListener('#toggleAdvancedSettings', 'click', function() {
-        const advancedSettings = document.getElementById('advancedSettings');
-        if (advancedSettings) {
-            advancedSettings.classList.toggle('hidden');
-        }
-    });
-
-    safeAddEventListener('#updatePreviewButton', 'click', updateStickerPreview);
-
-    // Ensure updateStickerPreview function is defined
-    function updateStickerPreview() {
-        console.log("Sticker preview updated."); // Placeholder for actual function
-    }
-
-    function setPreset(width) {
-        const widthInput = document.getElementById('stickerWidth');
-        if (widthInput) {
-            widthInput.value = width;
-        } else {
-            console.error('stickerWidth element not found.');
-        }
-    }
-
-    // Ensure togglePassword function is defined
-    function togglePassword(id) {
-        const passwordInput = document.getElementById(id);
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-    }
-
-    // Add logo upload field under job name
-    const logoUploadField = document.createElement('div');
-    logoUploadField.innerHTML = `
-        <label for="logoUpload">Upload Logo:</label>
-        <input type="file" id="logoUpload" name="logoUpload" accept="image/*" required>
-    `;
-    const jobNameField = document.querySelector('.job-name-input');
-    if (jobNameField && jobNameField.parentNode) {
-        jobNameField.parentNode.insertBefore(logoUploadField, jobNameField.nextSibling);
-    } else {
-        console.error('Job Name field not found.');
     }
 });

@@ -70,12 +70,8 @@
         </form>
         <form class="label-form hidden" id="labelForm">
             <div class="label-header">
-        <label for="jobName">Job Name:</label>
-        <input type="text" id="jobName1" name="jobName" required class="job-name-input">
-        <label for="logoUpload">Upload Logo:</label>
-        <input type="file" id="logoUpload1" name="logoUpload" accept="image/*" required>
                 <label for="jobName">Job Name:</label>
-                <input type="text" id="jobName1" name="jobName" required class="job-name-input">
+                <input type="text" id="jobName" name="jobName" required>
             </div>
             <button type="button" id="addPartButton">Add Part</button>
             <div id="formsContainer"></div>
@@ -89,5 +85,7 @@
     </footer>
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="script.js"></script>
+<button id="toggleAdvancedSettings">Toggle Advanced Settings</button>
+<button id="updatePreviewButton">Update Preview</button>
 </body>
 </html>
