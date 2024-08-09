@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,9 +20,19 @@
         };
         firebase.initializeApp(firebaseConfig);
     </script>
+    <style>
+        @media print {
+            .label-preview {
+                page-break-before: always;
+                width: 100%; /* Adjust to your desired label width */
+                height: 100%; /* Adjust to your desired label height */
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Authentication Section -->
+    <div class="auth-section">
         <div class="viking-container" id="vikingContainer">
             <img src="assets/viking.png" alt="Viking" id="viking" class="viking-img active">
             <img src="assets/viking_cover_eyes.png" alt="Viking Covering Eyes" id="vikingCovering" class="viking-img">
@@ -44,7 +53,10 @@
             </div>
             <button type="submit">Login</button>
         </form>
-        
+    </div>
+
+    <!-- Label Creation Section -->
+    <div class="container">
         <!-- Job Name Input -->
         <div class="input-group">
             <label for="jobName">Job Name:</label>
@@ -57,6 +69,8 @@
             <div class="form-section" id="formSection1">
                 <label for="partName1">Part Name:</label>
                 <input type="text" id="partName1" name="partName1" required>
+                <label for="partNumber1">Part Number:</label>
+                <input type="text" id="partNumber1" name="partNumber1" required>
                 <label for="logoUpload1">Upload Logo:</label>
                 <input type="file" id="logoUpload1" name="logoUpload1" accept="image/*" onchange="updatePreview(1)">
                 
@@ -80,13 +94,19 @@
         </div>
 
         <!-- Labels Preview Container -->
-        <div id="labelsContainer" class="responsive-container"></div>
+        <div id="labelsContainer" class="responsive-container">
+            <!-- Preview Logic for Dynamic Labels -->
+            <div class="label-preview" id="labelPreview1">
+                <img src="assets/thorlogo.png" alt="Logo" id="previewLogo1">
+                <div id="previewText1">Sample Text</div>
+            </div>
+        </div>
 
         <!-- Add Part Button -->
         <button style="width: auto;" type="button" id="addPartButton">Add Part</button>
 
         <!-- Print Labels Button -->
-        <button style="width: auto;" type="button" id="printLabelsButton">Print Labels</button>
+        <button style="width: auto;" type="button" id="printLabelsButton" onclick="window.print()">Print Labels</button>
     </div>
 
     <!-- Footer -->
@@ -96,5 +116,24 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        function updatePreview(partId) {
+            const fileInput = document.getElementById('logoUpload' + partId);
+            const previewLogo = document.getElementById('previewLogo' + partId);
+            
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            
+            reader.onloadend = function() {
+                previewLogo.src = reader.result;
+            }
+            
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                previewLogo.src = 'assets/thorlogo.png'; // default image
+            }
+        }
+    </script>
 </body>
 </html>
