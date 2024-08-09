@@ -73,7 +73,32 @@
                 <label for="jobName">Job Name:</label>
                 <input type="text" id="jobName" name="jobName" required>
             </div>
-            <div id="formsContainer"></div>
+            <div id="formsContainer">
+<div class="form-section" id="formSection{partId}">
+    <label for="partName{partId}">Part Name:</label>
+    <input type="text" id="partName{partId}" name="partName{partId}" required>
+    <label for="logoUpload{partId}">Upload Logo:</label>
+    <input type="file" id="logoUpload{partId}" name="logoUpload{partId}" accept="image/*" onchange="updatePreview({partId})">
+    
+    
+<button type="button" onclick="toggleAdvancedSettings(this)">Advanced Settings</button>
+<div class="advanced-options hidden">
+    <label for="textColor{partId}">Text Color:</label>
+    <input type="color" id="textColor{partId}" name="textColor{partId}" onchange="updatePreview({partId})">
+    
+    <label for="fontSelect{partId}">Font:</label>
+    <select id="fontSelect{partId}" name="fontSelect{partId}" onchange="updatePreview({partId})">
+        <option value="Arial">Arial</option>
+        <option value="Verdana">Verdana</option>
+        <option value="Times New Roman">Times New Roman</option>
+    </select>
+</div>
+
+    
+    <!-- Delete Part Button -->
+    <button type="button" onclick="deletePart(this)">Delete Part</button>
+</div>
+</div>
 
     <label for="logoUpload">Upload Logo:</label>
     <input type="file" id="logoUpload" name="logoUpload" accept="image/*" onchange="updatePreview(1)">
