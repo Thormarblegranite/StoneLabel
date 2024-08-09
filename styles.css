@@ -477,3 +477,24 @@ footer img {
     font-size: 16px;
     text-align: center;
 }
+
+/* Center the Job Name label */
+.input-group label {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+/* Ensure the Job Name input is perfectly centered */
+#jobName {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
