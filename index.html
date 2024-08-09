@@ -73,21 +73,60 @@
                 <label for="jobName">Job Name:</label>
                 <input type="text" id="jobName" name="jobName" required>
             </div>
-            <button style="width: auto;" type="button" id="addPartButton">Add Part</button>
             <div id="formsContainer"></div>
+            <button style="width: auto;" type="button" id="addPartButton">Add Part</button>
             <button style="width: auto;" type="button" id="printLabelsButton">Print Labels</button>
-            <div id="labelsContainer"></div>
         </form>
     </div>
     <footer>
         <p>Created By <a href="http://thormarblegranite.com" target="_blank">Thor Marble & Granite</a></p>
         <img src="assets/thorlogo.png" alt="Thor Logo" class="footer-logo">
     </footer>
+    
+    <!-- Include JS Libraries -->
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    
+    <!-- Additional Script for deletePart and advanced options -->
+    <script>
+        function deletePart(button) {
+            const partSection = button.closest('.form-section');
+            if (partSection) {
+                partSection.remove();
+                updatePreview(partSection.id.replace('formSection', ''));
+            } else {
+                console.error('Part section not found.');
+            }
+        }
 
+        function toggleAdvancedSettings(button) {
+            const advancedSettings = button.nextElementSibling;
+            if (advancedSettings) {
+                advancedSettings.classList.toggle('hidden');
+            } else {
+                console.error('Advanced settings not found.');
+            }
+        }
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+        function updatePreview(partId) {
+            const previewElement = document.getElementById('preview' + partId);
+            const imageInput = document.getElementById('logoUpload');
+            if (previewElement) {
+                if (imageInput && imageInput.files && imageInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewElement.innerHTML = `<img src="\${e.target.result}" alt="Preview Image" style="max-width: 100%;">`;
+                    };
+                    reader.readAsDataURL(imageInput.files[0]);
+                } else {
+                    console.log(`Updating preview for part ${partId}`);
+                    previewElement.textContent = `Preview: Part ${partId}`;
+                }
+            } else {
+                console.error(`Preview element not found for part ${partId}`);
+            }
+        }
+    </script>
 </body>
 </html>
-<!-- This is a simple verification comment -->
