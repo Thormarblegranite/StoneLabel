@@ -398,3 +398,27 @@ footer img {
     padding-left: 20px;
     padding-right: 20px;
 }
+
+/* Responsive scaling for all form elements, including part forms and previews */
+@media only screen and (max-width: 768px) {
+    .form-container, .form-section, .label-preview {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        box-sizing: border-box;
+    }
+
+    .form-section input,
+    .form-section textarea,
+    .label-preview canvas {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Ensure no horizontal scrolling */
+    body, html {
+        overflow-x: hidden;
+    }
+}
