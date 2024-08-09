@@ -9,6 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
     <script>
+        // Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: "AIzaSyDTFewiefHGecj2I0CamqRr06sqgCQdxnw",
             authDomain: "stonelabel.firebaseapp.com",
@@ -18,312 +19,259 @@
             appId: "1:13830273131:web:b59a20e5906641ae4e192e",
             measurementId: "G-PY8G08328S"
         };
+        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-
-        // Function to handle login
-        function handleLogin(event) {
-            event.preventDefault(); // Prevent form from submitting
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            firebase.auth().signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    // Successful login
-                    document.querySelector('.auth-section').style.display = 'none'; // Hide login
-                    document.querySelector('.container').style.display = 'block'; // Show main content
-                })
-                .catch((error) => {
-                    console.error('Login failed', error);
-                    alert('Login failed. Please check your credentials and try again.');
-                });
-        }
-
-        // Function to handle account creation
-        function handleCreateAccount(event) {
-            event.preventDefault(); // Prevent form from submitting
-            const email = document.getElementById('createEmail').value;
-            const password = document.getElementById('createPassword').value;
-
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    // Successful account creation
-                    alert('Account created successfully! You can now log in.');
-                    document.getElementById('loginForm').style.display = 'block';
-                    document.getElementById('createAccountForm').style.display = 'none';
-                })
-                .catch((error) => {
-                    console.error('Account creation failed', error);
-                    alert('Account creation failed. Please try again.');
-                });
-        }
-
-        // Toggle between login and create account forms
-        function toggleForms() {
-            const loginForm = document.getElementById('loginForm');
-            const createAccountForm = document.getElementById('createAccountForm');
-
-            if (loginForm.style.display === 'none') {
-                loginForm.style.display = 'block';
-                createAccountForm.style.display = 'none';
-            } else {
-                loginForm.style.display = 'none';
-                createAccountForm.style.display = 'block';
-            }
-        }
-
-        // Viking interactions on password input
-        function handlePasswordFocus(event) {
-            document.getElementById('viking').classList.remove('active');
-            document.getElementById('vikingCovering').classList.add('active');
-        }
-
-        function handlePasswordBlur(event) {
-            document.getElementById('vikingCovering').classList.remove('active');
-            document.getElementById('viking').classList.add('active');
-        }
-
-        function togglePassword() {
-            const passwordInput = document.getElementById('loginPassword');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-            } else {
-                passwordInput.type = 'password';
-            }
-            document.getElementById('vikingPeeking').classList.toggle('active');
-        }
-
-        // Add part logic
-        function addPart() {
-            const formsContainer = document.getElementById('formsContainer');
-            const partId = formsContainer.children.length + 1;
-            const newPart = `
-                <div class="form-section" id="formSection${partId}">
-                    <label for="partName${partId}">Part Name:</label>
-                    <input type="text" id="partName${partId}" name="partName${partId}" required>
-                    <label for="partNumber${partId}">Part Number: ${partId}</label>
-                    <label for="areaName${partId}">Area Name:</label>
-                    <input type="text" id="areaName${partId}" name="areaName${partId}" required>
-                    <label for="logoUpload${partId}">Upload Logo:</label>
-                    <input type="file" id="logoUpload${partId}" name="logoUpload${partId}" accept="image/*" onchange="updatePreview(${partId})">
-                    <label for="presetWidth${partId}">Sticker Width (2 - 8 inches):</label>
-                    <input type="number" id="presetWidth${partId}" name="presetWidth${partId}" min="2" max="8" value="6" onchange="updatePreview(${partId})">
-                    <label for="material${partId}">Material:</label>
-                    <input type="text" id="material${partId}" name="material${partId}" required>
-                    <label for="address${partId}">Address:</label>
-                    <input type="text" id="address${partId}" name="address${partId}" required>
-                    <label for="additionalContent${partId}">Additional Content:</label>
-                    <textarea id="additionalContent${partId}" name="additionalContent${partId}" rows="3"></textarea>
-                    <button type="button" onclick="toggleAdvancedSettings(this)">Advanced Settings</button>
-                    <div class="advanced-options hidden">
-                        <label for="textColor${partId}">Text Color:</label>
-                        <input type="color" id="textColor${partId}" name="textColor${partId}" onchange="updatePreview(${partId})">
-                        <label for="fontSelect${partId}">Font:</label>
-                        <select id="fontSelect${partId}" name="fontSelect${partId}" onchange="updatePreview(${partId})">
-                            <option value="Arial">Arial</option>
-                            <option value="Verdana">Verdana</option>
-                            <option value="Times New Roman">Times New Roman</option>
-                        </select>
-                    </div>
-                    <button type="button" onclick="deletePart(this)">Delete Part</button>
-                </div>
-            `;
-            formsContainer.insertAdjacentHTML('beforeend', newPart);
-            updatePreview(partId);
-        }
-
-        // Update preview logic
-        function updatePreview(partId) {
-            const previewContainer = document.getElementById('labelsContainer');
-            const existingPreview = document.getElementById('labelPreview' + partId);
-
-            if (existingPreview) {
-                previewContainer.removeChild(existingPreview);
-            }
-
-            const newPreview = document.createElement('div');
-            newPreview.className = 'label-preview';
-            newPreview.id = 'labelPreview' + partId;
-
-            const logoUpload = document.getElementById('logoUpload' + partId).files[0];
-            const reader = new FileReader();
-
-            reader.onloadend = function() {
-                const img = document.createElement('img');
-                img.src = reader.result;
-                newPreview.appendChild(img);
-            };
-
-            if (logoUpload) {
-                reader.readAsDataURL(logoUpload);
-            }
-
-            const textContainer = document.createElement('div');
-            textContainer.id = 'previewText' + partId;
-            textContainer.innerText = document.getElementById('partName' + partId).value;
-            newPreview.appendChild(textContainer);
-
-            newPreview.style.width = document.getElementById('presetWidth' + partId).value + 'in';
-            newPreview.style.height = '4in'; // Fixed height
-
-            previewContainer.appendChild(newPreview);
-        }
-
-        // Delete part logic
-        function deletePart(button) {
-            const partSection = button.closest('.form-section');
-            const partId = partSection.id.replace('formSection', '');
-            const preview = document.getElementById('labelPreview' + partId);
-            if (preview) {
-                preview.remove();
-            }
-            partSection.remove();
-        }
-
-        function toggleAdvancedSettings(button) {
-            const advancedOptions = button.nextElementSibling;
-            advancedOptions.classList.toggle('hidden');
-        }
     </script>
-    <style>
-        .container {
-            display: none; /* Hide the main content initially */
-        }
-
-        .viking-img {
-            display: none;
-        }
-
-        .viking-img.active {
-            display: block;
-        }
-
-        .label-preview {
-            border: 1px solid #000;
-            margin: 10px;
-            padding: 10px;
-            display: inline-block;
-            vertical-align: top;
-        }
-
-        .label-preview img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-        .label-preview div {
-            margin-top: 10px;
-            font-size: 12px;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
-    <!-- Authentication Section -->
-    <div class="auth-section">
+    <div class="container">
         <div class="viking-container" id="vikingContainer">
             <img src="assets/viking.png" alt="Viking" id="viking" class="viking-img active">
             <img src="assets/viking_cover_eyes.png" alt="Viking Covering Eyes" id="vikingCovering" class="viking-img">
             <img src="assets/viking_peek.png" alt="Viking Peeking" id="vikingPeeking" class="viking-img">
         </div>
-
-        <!-- Login Form -->
-        <form class="auth-form" id="loginForm" onsubmit="handleLogin(event)">
-            <h2>Login to Stone Label App</h2>
+        <form class="auth-form" id="loginForm">
+            <h2>Welcome to Stone Label App</h2>
             <div class="input-group">
-                <label for="loginEmail">Email</label>
-                <input type="email" id="loginEmail" name="loginEmail" required>
+                <label for="usernameEmail">Username or Email</label>
+                <input type="text" id="usernameEmail" name="usernameEmail" required>
             </div>
             <div class="input-group">
-                <label for="loginPassword">Password</label>
+                <label for="password">Password</label>
                 <div class="password-container">
-                    <input type="password" id="loginPassword" name="loginPassword" required 
-                        onfocus="handlePasswordFocus()" onblur="handlePasswordBlur()">
-                    <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                    <input type="password" id="password" name="password" required>
+                    <span class="toggle-password" onclick="togglePassword('password')">👁️</span>
                 </div>
             </div>
-            <button type="submit">Login</button>
-            <p>Don't have an account? <a href="#" onclick="toggleForms()">Create one</a></p>
+            <button style="width: auto;" type="submit">Login</button>
+            <p class="error-message" id="loginError"></p>
+            <p>Don't have an account? <a href="#" id="showRegister">Create one</a></p>
         </form>
-
-        <!-- Create Account Form -->
-        <form class="auth-form" id="createAccountForm" onsubmit="handleCreateAccount(event)" style="display: none;">
-            <h2>Create Account</h2>
+        <form class="auth-form hidden" id="registerForm">
+            <h2>Create an Account</h2>
             <div class="input-group">
-                <label for="createEmail">Email</label>
-                <input type="email" id="createEmail" name="createEmail" required>
+                <label for="newUsername">Username</label>
+                <input type="text" id="newUsername" name="newUsername" required>
             </div>
             <div class="input-group">
-                <label for="createPassword">Password</label>
+                <label for="newEmail">Email</label>
+                <input type="email" id="newEmail" name="newEmail" required>
+            </div>
+            <div class="input-group">
+                <label for="newPassword">Password</label>
                 <div class="password-container">
-                    <input type="password" id="createPassword" name="createPassword" required 
-                        onfocus="handlePasswordFocus()" onblur="handlePasswordBlur()">
-                    <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                    <input type="password" id="newPassword" name="newPassword" required>
+                    <span class="toggle-password" onclick="togglePassword('newPassword')">👁️</span>
                 </div>
             </div>
-            <button type="submit">Create Account</button>
-            <p>Already have an account? <a href="#" onclick="toggleForms()">Login</a></p>
+            <button style="width: auto;" type="submit">Create Account</button>
+            <p class="error-message" id="registerError"></p>
+            <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
         </form>
-    </div>
-
-    <!-- Label Creation Section -->
-    <div class="container">
-        <!-- Job Name Input -->
-        <div class="input-group">
-            <label for="jobName">Job Name:</label>
-            <input type="text" id="jobName" name="jobName" required>
-        </div>
-
-        <!-- Form Section for Parts -->
-        <div id="formsContainer">
-            <div class="form-section" id="formSection1">
-                <label for="partName1">Part Name:</label>
-                <input type="text" id="partName1" name="partName1" required>
-                <label for="partNumber1">Part Number: 1</label>
-                <label for="areaName1">Area Name:</label>
-                <input type="text" id="areaName1" name="areaName1" required>
-                <label for="logoUpload1">Upload Logo:</label>
-                <input type="file" id="logoUpload1" name="logoUpload1" accept="image/*" onchange="updatePreview(1)">
-                <label for="presetWidth1">Sticker Width (2 - 8 inches):</label>
-                <input type="number" id="presetWidth1" name="presetWidth1" min="2" max="8" value="6" onchange="updatePreview(1)">
-                <label for="material1">Material:</label>
-                <input type="text" id="material1" name="material1" required>
-                <label for="address1">Address:</label>
-                <input type="text" id="address1" name="address1" required>
-                <label for="additionalContent1">Additional Content:</label>
-                <textarea id="additionalContent1" name="additionalContent1" rows="3"></textarea>
-                <button type="button" onclick="toggleAdvancedSettings(this)">Advanced Settings</button>
-                <div class="advanced-options hidden">
-                    <label for="textColor1">Text Color:</label>
-                    <input type="color" id="textColor1" name="textColor1" onchange="updatePreview(1)">
-                    <label for="fontSelect1">Font:</label>
-                    <select id="fontSelect1" name="fontSelect1" onchange="updatePreview(1)">
-                        <option value="Arial">Arial</option>
-                        <option value="Verdana">Verdana</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                    </select>
-                </div>
-                <button type="button" onclick="deletePart(this)">Delete Part</button>
+        <form class="label-form hidden" id="labelForm">
+            <div class="label-header">
+                <label for="jobName">Job Name:</label>
+                <input type="text" id="jobName" name="jobName" required>
             </div>
-        </div>
-
-        <!-- Labels Preview Container -->
-        <div id="labelsContainer" class="responsive-container">
-            <!-- Preview Logic for Dynamic Labels -->
-        </div>
-
-        <!-- Add Part Button -->
-        <button style="width: auto;" type="button" id="addPartButton" onclick="addPart()">Add Part</button>
-
-        <!-- Print Labels Button -->
-        <button style="width: auto;" type="button" id="printLabelsButton" onclick="window.print()">Print Labels</button>
+            <div id="formsContainer">
+<div class="form-section" id="formSection{partId}">
+    <label for="partName{partId}">Part Name:</label>
+    <input type="text" id="partName{partId}" name="partName{partId}" required>
+    
+    <label for="logoUpload{partId}">Upload Logo:</label>
+    <input type="file" id="logoUpload{partId}" name="logoUpload{partId}" accept="image/*" onchange="updatePreview({partId})">
+    
+    <!-- Advanced Settings -->
+    <button type="button" onclick="toggleAdvancedSettings(this)">Advanced Settings</button>
+    <div class="advanced-options hidden">
+        <label for="textColor{partId}">Text Color:</label>
+        <input type="color" id="textColor{partId}" name="textColor{partId}" onchange="updatePreview({partId})">
+        
+        <label for="fontSelect{partId}">Font:</label>
+        <select id="fontSelect{partId}" name="fontSelect{partId}" onchange="updatePreview({partId})">
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Times New Roman">Times New Roman</option>
+        </select>
     </div>
+    
+    <!-- Delete Part Button -->
+    <button type="button" onclick="deletePart(this)">Delete Part</button>
+</div>
 
-    <!-- Footer -->
+    <label for="partName{partId}">Part Name:</label>
+    <input type="text" id="partName{partId}" name="partName{partId}" required>
+    
+    <label for="logoUpload{partId}">Upload Logo:</label>
+    <input type="file" id="logoUpload{partId}" name="logoUpload{partId}" accept="image/*" onchange="updatePreview({partId})">
+    
+    <!-- Advanced Settings -->
+    <button type="button" onclick="toggleAdvancedSettings(this)">Advanced Settings</button>
+    <div class="advanced-options hidden">
+        <label for="textColor{partId}">Text Color:</label>
+        <input type="color" id="textColor{partId}" name="textColor{partId}" onchange="updatePreview({partId})">
+        
+        <label for="fontSelect{partId}">Font:</label>
+        <select id="fontSelect{partId}" name="fontSelect{partId}" onchange="updatePreview({partId})">
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Times New Roman">Times New Roman</option>
+        </select>
+    </div>
+    
+    <!-- Delete Part Button -->
+    <button type="button" onclick="deletePart(this)">Delete Part</button>
+</div>
+
+    <label for="partName{partId}">Part Name:</label>
+    <input type="text" id="partName{partId}" name="partName{partId}" required>
+    
+    <label for="logoUpload{partId}">Upload Logo:</label>
+    <input type="file" id="logoUpload{partId}" name="logoUpload{partId}" accept="image/*" onchange="updatePreview({partId})">
+    
+    <!-- Advanced Settings -->
+    <div class="advanced-options hidden">
+        <label for="textColor{partId}">Text Color:</label>
+        <input type="color" id="textColor{partId}" name="textColor{partId}" onchange="updatePreview({partId})">
+        
+        <label for="fontSelect{partId}">Font:</label>
+        <select id="fontSelect{partId}" name="fontSelect{partId}" onchange="updatePreview({partId})">
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Times New Roman">Times New Roman</option>
+        </select>
+    </div>
+    
+    <!-- Delete Part Button -->
+</div>
+
+    <label for="partName{partId}">Part Name:</label>
+    <input type="text" id="partName{partId}" name="partName{partId}" required>
+    <label for="logoUpload{partId}">Upload Logo:</label>
+    <input type="file" id="logoUpload{partId}" name="logoUpload{partId}" accept="image/*" onchange="updatePreview({partId})">
+    
+    
+<div class="advanced-options hidden">
+    <label for="textColor{partId}">Text Color:</label>
+    <input type="color" id="textColor{partId}" name="textColor{partId}" onchange="updatePreview({partId})">
+    
+    <label for="fontSelect{partId}">Font:</label>
+    <select id="fontSelect{partId}" name="fontSelect{partId}" onchange="updatePreview({partId})">
+        <option value="Arial">Arial</option>
+        <option value="Verdana">Verdana</option>
+        <option value="Times New Roman">Times New Roman</option>
+    </select>
+</div>
+
+    
+    <!-- Delete Part Button -->
+</div>
+</div>
+
+    <label for="logoUpload">Upload Logo:</label>
+    <input type="file" id="logoUpload" name="logoUpload" accept="image/*" onchange="updatePreview(1)">
+    
+            <button style="width: auto;" type="button" id="addPartButton">Add Part</button>
+            <button style="width: auto;" type="button" id="printLabelsButton">Print Labels</button>
+        </form>
+    
+    <div id="labelsContainer"></div>
+    </div>
     <footer>
         <p>Created By <a href="http://thormarblegranite.com" target="_blank">Thor Marble & Granite</a></p>
         <img src="assets/thorlogo.png" alt="Thor Logo" class="footer-logo">
     </footer>
-
+    
+    <!-- Include JS Libraries -->
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="script.js"></script>
+
+<script>
+function updatePreview(partId) {
+    const previewElement = document.getElementById('preview' + partId);
+    const imageInput = document.getElementById('logoUpload');
+    const defaultLogo = "assets/thorlogo.png";
+
+    if (previewElement) {
+        if (imageInput && imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewElement.innerHTML = `<img src="${e.target.result}" alt="Preview Image" style="max-width: 100%;">`;
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            previewElement.innerHTML = `<img src="${defaultLogo}" alt="Default Logo" style="max-width: 100%;">`;
+        }
+    } else {
+        console.error(`Preview element not found for part ${partId}`);
+    }
+}
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    
+    <script>
+            if (partSection) {
+                partSection.remove();
+                updatePreview(partSection.id.replace('formSection', ''));
+            } else {
+                console.error('Part section not found.');
+            }
+        }
+
+            const advancedSettings = button.nextElementSibling;
+            if (advancedSettings) {
+                advancedSettings.classList.toggle('hidden');
+            } else {
+                console.error('Advanced settings not found.');
+            }
+        }
+
+        function updatePreview(partId) {
+            const previewElement = document.getElementById('preview' + partId);
+            const imageInput = document.getElementById('logoUpload');
+            if (previewElement) {
+                if (imageInput && imageInput.files && imageInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewElement.innerHTML = `<img src="\${e.target.result}" alt="Preview Image" style="max-width: 100%;">`;
+                    };
+                    reader.readAsDataURL(imageInput.files[0]);
+                } else {
+                    console.log(`Updating preview for part ${partId}`);
+                    previewElement.textContent = `Preview: Part ${partId}`;
+                }
+            } else {
+                console.error(`Preview element not found for part ${partId}`);
+            }
+        }
+    </script>
+<script src="script.js"></script>
+
+<script>
+function updatePreview(partId) {
+    const previewElement = document.getElementById('preview' + partId);
+    const imageInput = document.getElementById('logoUpload');
+    const defaultLogo = "assets/thorlogo.png";
+
+    if (previewElement) {
+        if (imageInput && imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewElement.innerHTML = `<img src="${e.target.result}" alt="Preview Image" style="max-width: 100%;">`;
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            previewElement.innerHTML = `<img src="${defaultLogo}" alt="Default Logo" style="max-width: 100%;">`;
+        }
+    } else {
+        console.error(`Preview element not found for part ${partId}`);
+    }
+}
+</script>
+
 </body>
 </html>
+
+
+
