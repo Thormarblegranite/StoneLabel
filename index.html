@@ -99,30 +99,7 @@
     <button type="button" onclick="deletePart(this)">Delete Part</button>
 </div>
 
-    <label for="partName{partId}">Part Name:</label>
-    <input type="text" id="partName{partId}" name="partName{partId}" required>
-    
-    <label for="logoUpload{partId}">Upload Logo:</label>
-    <input type="file" id="logoUpload{partId}" name="logoUpload{partId}" accept="image/*" onchange="updatePreview({partId})">
-    
-    <!-- Advanced Settings -->
-    <button type="button" onclick="toggleAdvancedSettings(this)">Advanced Settings</button>
-    <div class="advanced-options hidden">
-        <label for="textColor{partId}">Text Color:</label>
-        <input type="color" id="textColor{partId}" name="textColor{partId}" onchange="updatePreview({partId})">
-        
-        <label for="fontSelect{partId}">Font:</label>
-        <select id="fontSelect{partId}" name="fontSelect{partId}" onchange="updatePreview({partId})">
-            <option value="Arial">Arial</option>
-            <option value="Verdana">Verdana</option>
-            <option value="Times New Roman">Times New Roman</option>
-        </select>
-    </div>
-    
-    <!-- Delete Part Button -->
-    <button type="button" onclick="deletePart(this)">Delete Part</button>
-</div>
-
+<div class="form-section" id="formSection{partId}">
     <label for="partName{partId}">Part Name:</label>
     <input type="text" id="partName{partId}" name="partName{partId}" required>
     
@@ -145,6 +122,7 @@
     <!-- Delete Part Button -->
 </div>
 
+<div class="form-section" id="formSection{partId}">
     <label for="partName{partId}">Part Name:</label>
     <input type="text" id="partName{partId}" name="partName{partId}" required>
     <label for="logoUpload{partId}">Upload Logo:</label>
@@ -211,6 +189,7 @@ function updatePreview(partId) {
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     
     <script>
+            const partSection = button.closest('.form-section');
             if (partSection) {
                 partSection.remove();
                 updatePreview(partSection.id.replace('formSection', ''));
@@ -272,6 +251,5 @@ function updatePreview(partId) {
 
 </body>
 </html>
-
 
 
