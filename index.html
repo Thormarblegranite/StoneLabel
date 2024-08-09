@@ -74,57 +74,41 @@
                 <input type="text" id="jobName" name="jobName" required>
             </div>
             <div id="formsContainer">
-<div class="form-section" id="formSection{partId}">
-    <label for="partName{partId}">Part Name:</label>
-    <input type="text" id="partName{partId}" name="partName{partId}" required>
+<div class="form-section" id="formSection1">
+    <h2>Part 1</h2>
+    <label for="width1">Sticker Width (2 - 8 inches):</label>
+    <input type="number" id="width1" name="width" min="2" max="8" step="0.1" value="6" required oninput="validateWidth(1); updatePreview(1)">
     
-    <label for="logoUpload{partId}">Upload Logo:</label>
-    <input type="file" id="logoUpload{partId}" name="logoUpload{partId}" accept="image/*" onchange="updatePreview({partId})">
+    <div class="preset-buttons">
+        <button type="button" onclick="setPreset(1, 4)">4x4</button>
+        <button type="button" onclick="setPreset(1, 6)">6x4</button>
+        <button type="button" onclick="setPreset(1, 8)">8x4</button>
+    </div>
+
+    <label for="image1">Upload Image:</label>
+    <input type="file" id="image1" name="image" accept="image/*" required onchange="updatePreview(1)">
     
-    <!-- Advanced Settings -->
-    <button type="button" onclick="toggleAdvancedSettings(this)">Advanced Settings</button>
-    <div class="advanced-options hidden">
-        <label for="textColor{partId}">Text Color:</label>
-        <input type="color" id="textColor{partId}" name="textColor{partId}" onchange="updatePreview({partId})">
-        
-        <label for="fontSelect{partId}">Font:</label>
-        <select id="fontSelect{partId}" name="fontSelect{partId}" onchange="updatePreview({partId})">
+    <label for="areaName1">Area Name:</label>
+    <input type="text" id="areaName1" name="areaName" required oninput="updatePreview(1)">
+    <div class="advanced-settings" id="advancedAreaName1" style="display: none;">
+        <label for="areaNameFont1">Font:</label>
+        <select id="areaNameFont1" onchange="updatePreview(1)">
+            <option value="Montserrat">Montserrat</option>
             <option value="Arial">Arial</option>
-            <option value="Verdana">Verdana</option>
             <option value="Times New Roman">Times New Roman</option>
         </select>
+        <label for="areaNameColor1">Color:</label>
+        <input type="color" id="areaNameColor1" onchange="updatePreview(1)">
     </div>
     
-    <!-- Delete Part Button -->
-    <button type="button" onclick="deletePart(this)">Delete Part</button>
+    <button type="button" onclick="toggleAdvancedSettings(1)">Toggle Advanced Settings</button>
+    <button type="button" onclick="deletePart(1)">Delete Part</button>
 </div>
-
-<div class="form-section" id="formSection{partId}">
-    <label for="partName{partId}">Part Name:</label>
-    <input type="text" id="partName{partId}" name="partName{partId}" required>
-    <label for="logoUpload{partId}">Upload Logo:</label>
-    <input type="file" id="logoUpload{partId}" name="logoUpload{partId}" accept="image/*" onchange="updatePreview({partId})">
     
+  
     
-<button type="button" onclick="toggleAdvancedSettings(this)">Advanced Settings</button>
-<div class="advanced-options hidden">
-    <label for="textColor{partId}">Text Color:</label>
-    <input type="color" id="textColor{partId}" name="textColor{partId}" onchange="updatePreview({partId})">
-    
-    <label for="fontSelect{partId}">Font:</label>
-    <select id="fontSelect{partId}" name="fontSelect{partId}" onchange="updatePreview({partId})">
-        <option value="Arial">Arial</option>
-        <option value="Verdana">Verdana</option>
-        <option value="Times New Roman">Times New Roman</option>
-    </select>
-</div>
 
     
-    <!-- Delete Part Button -->
-    <button type="button" onclick="deletePart(this)">Delete Part</button>
-</div>
-</div>
-
     <label for="logoUpload">Upload Logo:</label>
     <input type="file" id="logoUpload" name="logoUpload" accept="image/*" onchange="updatePreview(1)">
     
