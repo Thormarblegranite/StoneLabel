@@ -1,3 +1,57 @@
+
+function createLabelPreview(partId) {
+    const previewContainer = document.getElementById('labelsContainer');
+    const previewElement = document.createElement('div');
+    previewElement.id = `preview${partId}`;
+    previewElement.className = 'label-preview';
+    
+    // Check if the labelsContainer exists before appending
+    if (previewContainer) {
+        previewContainer.appendChild(previewElement);
+    } else {
+        console.error('Labels container not found.');
+    }
+}
+
+function deletePart(button) {
+    // Ensure that button.closest is working by checking for compatibility
+    const partSection = button.parentElement;
+    if (partSection) {
+        partSection.remove();
+        const partId = partSection.id.replace('formSection', '');
+        updatePreview(partId);
+    } else {
+        console.error('Part section not found.');
+    }
+}
+
+function toggleAdvancedSettings(button) {
+    const advancedSettings = button.nextElementSibling;
+    if (advancedSettings && advancedSettings.classList.contains('advanced-options')) {
+        advancedSettings.classList.toggle('hidden');
+    } else {
+        console.error('Advanced settings not found.');
+    }
+}
+
+function updatePreview(partId) {
+    const previewElement = document.getElementById('preview' + partId);
+    const imageInput = document.getElementById('logoUpload');
+    if (previewElement) {
+        if (imageInput && imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewElement.innerHTML = `<img src="\${e.target.result}" alt="Preview Image" style="max-width: 100%;">`;
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            console.log(`Updating preview for part ${partId}`);
+            previewElement.textContent = `Preview: Part ${partId}`;
+        }
+    } else {
+        console.error(`Preview element not found for part ${partId}`);
+    }
+}
 let customLogoURL = '';
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof firebase !== 'undefined') {
