@@ -445,3 +445,35 @@ footer img {
     width: 100%; /* Ensures buttons span the entire width */
     margin-top: 10px;
 }
+
+/* Center the job name input */
+#jobName {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Responsive container for the preview */
+.responsive-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.label-preview img {
+    max-width: 100%;
+    height: auto;
+}
+
+.label-preview div {
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+}
