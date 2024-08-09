@@ -74,6 +74,10 @@
                 <input type="text" id="jobName" name="jobName" required>
             </div>
             <div id="formsContainer"></div>
+
+    <label for="logoUpload">Upload Logo:</label>
+    <input type="file" id="logoUpload" name="logoUpload" accept="image/*" onchange="updatePreview(1)">
+    
             <button style="width: auto;" type="button" id="addPartButton">Add Part</button>
             <button style="width: auto;" type="button" id="printLabelsButton">Print Labels</button>
         </form>
@@ -86,6 +90,29 @@
     <!-- Include JS Libraries -->
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="script.js"></script>
+
+<script>
+function updatePreview(partId) {
+    const previewElement = document.getElementById('preview' + partId);
+    const imageInput = document.getElementById('logoUpload');
+    const defaultLogo = "assets/thorlogo.png";
+
+    if (previewElement) {
+        if (imageInput && imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewElement.innerHTML = `<img src="${e.target.result}" alt="Preview Image" style="max-width: 100%;">`;
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            previewElement.innerHTML = `<img src="${defaultLogo}" alt="Default Logo" style="max-width: 100%;">`;
+        }
+    } else {
+        console.error(`Preview element not found for part ${partId}`);
+    }
+}
+</script>
+
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     
     <!-- Additional Script for deletePart and advanced options -->
@@ -129,5 +156,28 @@
         }
     </script>
 <script src="script.js"></script>
+
+<script>
+function updatePreview(partId) {
+    const previewElement = document.getElementById('preview' + partId);
+    const imageInput = document.getElementById('logoUpload');
+    const defaultLogo = "assets/thorlogo.png";
+
+    if (previewElement) {
+        if (imageInput && imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewElement.innerHTML = `<img src="${e.target.result}" alt="Preview Image" style="max-width: 100%;">`;
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            previewElement.innerHTML = `<img src="${defaultLogo}" alt="Default Logo" style="max-width: 100%;">`;
+        }
+    } else {
+        console.error(`Preview element not found for part ${partId}`);
+    }
+}
+</script>
+
 </body>
 </html>
