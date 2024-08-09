@@ -81,6 +81,80 @@
             document.getElementById('vikingCovering').classList.remove('active');
             document.getElementById('viking').classList.add('active');
         }
+
+        // Add part logic
+        function addPart() {
+            const formsContainer = document.getElementById('formsContainer');
+            const partId = formsContainer.children.length + 1;
+            const newPart = `
+                <div class="form-section" id="formSection${partId}">
+                    <label for="partName${partId}">Part Name:</label>
+                    <input type="text" id="partName${partId}" name="partName${partId}" required>
+                    <label for="partNumber${partId}">Part Number: ${partId}</label>
+                    <label for="areaName${partId}">Area Name:</label>
+                    <input type="text" id="areaName${partId}" name="areaName${partId}" required>
+                    <label for="logoUpload${partId}">Upload Logo:</label>
+                    <input type="file" id="logoUpload${partId}" name="logoUpload${partId}" accept="image/*" onchange="updatePreview(${partId})">
+                    <label for="presetWidth${partId}">Preset Width:</label>
+                    <select id="presetWidth${partId}" name="presetWidth${partId}" onchange="updatePreview(${partId})">
+                        <option value="Small">Small</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Large">Large</option>
+                    </select>
+                    <button type="button" onclick="toggleAdvancedSettings(this)">Advanced Settings</button>
+                    <div class="advanced-options hidden">
+                        <label for="textColor${partId}">Text Color:</label>
+                        <input type="color" id="textColor${partId}" name="textColor${partId}" onchange="updatePreview(${partId})">
+                        <label for="fontSelect${partId}">Font:</label>
+                        <select id="fontSelect${partId}" name="fontSelect${partId}" onchange="updatePreview(${partId})">
+                            <option value="Arial">Arial</option>
+                            <option value="Verdana">Verdana</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                        </select>
+                    </div>
+                    <button type="button" onclick="deletePart(this)">Delete Part</button>
+                </div>
+            `;
+            formsContainer.insertAdjacentHTML('beforeend', newPart);
+            updatePreview(partId);
+        }
+
+        // Update preview logic
+        function updatePreview(partId) {
+            const previewLogo = document.getElementById('previewLogo' + partId);
+            const logoUpload = document.getElementById('logoUpload' + partId).files[0];
+            const reader = new FileReader();
+
+            reader.onloadend = function() {
+                previewLogo.src = reader.result;
+            };
+
+            if (logoUpload) {
+                reader.readAsDataURL(logoUpload);
+            }
+
+            // Further preview updates based on other fields can be added here.
+        }
+
+        // Delete part logic
+        function deletePart(button) {
+            const partSection = button.closest('.form-section');
+            partSection.remove();
+            updatePreviews();
+        }
+
+        function updatePreviews() {
+            const formsContainer = document.getElementById('formsContainer');
+            const sections = formsContainer.children;
+            for (let i = 0; i < sections.length; i++) {
+                updatePreview(i + 1);
+            }
+        }
+
+        function toggleAdvancedSettings(button) {
+            const advancedOptions = button.nextElementSibling;
+            advancedOptions.classList.toggle('hidden');
+        }
     </script>
     <style>
         .container {
@@ -157,17 +231,21 @@
             <div class="form-section" id="formSection1">
                 <label for="partName1">Part Name:</label>
                 <input type="text" id="partName1" name="partName1" required>
-                <label for="partNumber1">Part Number:</label>
-                <input type="text" id="partNumber1" name="partNumber1" required>
+                <label for="partNumber1">Part Number: 1</label>
+                <label for="areaName1">Area Name:</label>
+                <input type="text" id="areaName1" name="areaName1" required>
                 <label for="logoUpload1">Upload Logo:</label>
                 <input type="file" id="logoUpload1" name="logoUpload1" accept="image/*" onchange="updatePreview(1)">
-                
-                <!-- Advanced Settings Toggle -->
+                <label for="presetWidth1">Preset Width:</label>
+                <select id="presetWidth1" name="presetWidth1" onchange="updatePreview(1)">
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                </select>
                 <button type="button" onclick="toggleAdvancedSettings(this)">Advanced Settings</button>
                 <div class="advanced-options hidden">
                     <label for="textColor1">Text Color:</label>
                     <input type="color" id="textColor1" name="textColor1" onchange="updatePreview(1)">
-                    
                     <label for="fontSelect1">Font:</label>
                     <select id="fontSelect1" name="fontSelect1" onchange="updatePreview(1)">
                         <option value="Arial">Arial</option>
@@ -175,8 +253,6 @@
                         <option value="Times New Roman">Times New Roman</option>
                     </select>
                 </div>
-                
-                <!-- Delete Part Button -->
                 <button type="button" onclick="deletePart(this)">Delete Part</button>
             </div>
         </div>
@@ -191,7 +267,7 @@
         </div>
 
         <!-- Add Part Button -->
-        <button style="width: auto;" type="button" id="addPartButton">Add Part</button>
+        <button style="width: auto;" type="button" id="addPartButton" onclick="addPart()">Add Part</button>
 
         <!-- Print Labels Button -->
         <button style="width: auto;" type="button" id="printLabelsButton" onclick="window.print()">Print Labels</button>
@@ -204,43 +280,5 @@
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        function updatePreview(partId) {
-            const fileInput = document.getElementById('logoUpload' + partId);
-            const previewLogo = document.getElementById('previewLogo' + partId);
-            
-            const file = fileInput.files[0];
-            const reader = new FileReader();
-            
-            reader.onloadend = function() {
-                previewLogo.src = reader.result;
-            }
-            
-            if (file) {
-                reader.readAsDataURL(file);
-            } else {
-                previewLogo.src = 'assets/thorlogo.png'; // default image
-            }
-        }
-
-        function togglePassword() {
-            const passwordInput = document.getElementById('loginPassword');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-            } else {
-                passwordInput.type = 'password';
-            }
-        }
-
-        function toggleAdvancedSettings(button) {
-            const advancedOptions = button.nextElementSibling;
-            advancedOptions.classList.toggle('hidden');
-        }
-
-        function deletePart(button) {
-            const partSection = button.closest('.form-section');
-            partSection.remove();
-        }
-    </script>
 </body>
 </html>
