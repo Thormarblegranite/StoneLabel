@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,26 +20,39 @@
             measurementId: "G-PY8G08328S"
         };
         firebase.initializeApp(firebaseConfig);
+
+        // Function to handle login
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent form from submitting
+            const email = document.getElementById('usernameEmail').value;
+            const password = document.getElementById('password').value;
+
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Successful login
+                    document.querySelector('.auth-section').style.display = 'none'; // Hide login
+                    document.querySelector('.container').style.display = 'block'; // Show main content
+                })
+                .catch((error) => {
+                    console.error('Login failed', error);
+                    alert('Login failed. Please check your credentials and try again.');
+                });
+        }
     </script>
     <style>
-        @media print {
-            .label-preview {
-                page-break-before: always;
-                width: 100%; /* Adjust to your desired label width */
-                height: 100%; /* Adjust to your desired label height */
-            }
+        .container {
+            display: none; /* Hide the main content initially */
         }
     </style>
 </head>
 <body>
-    <!-- Authentication Section -->
-    <div class="auth-section">
+    <div class="container">
         <div class="viking-container" id="vikingContainer">
             <img src="assets/viking.png" alt="Viking" id="viking" class="viking-img active">
             <img src="assets/viking_cover_eyes.png" alt="Viking Covering Eyes" id="vikingCovering" class="viking-img">
             <img src="assets/viking_peek.png" alt="Viking Peeking" id="vikingPeeking" class="viking-img">
         </div>
-        <form class="auth-form" id="loginForm">
+        <form class="auth-form" id="loginForm" onsubmit="handleLogin(event)">
             <h2>Welcome to Stone Label App</h2>
             <div class="input-group">
                 <label for="usernameEmail">Username or Email</label>
@@ -53,10 +67,7 @@
             </div>
             <button type="submit">Login</button>
         </form>
-    </div>
 
-    <!-- Label Creation Section -->
-    <div class="container">
         <!-- Job Name Input -->
         <div class="input-group">
             <label for="jobName">Job Name:</label>
@@ -65,7 +76,6 @@
 
         <!-- Form Section for Parts -->
         <div id="formsContainer">
-            <!-- Example of Part Form Section -->
             <div class="form-section" id="formSection1">
                 <label for="partName1">Part Name:</label>
                 <input type="text" id="partName1" name="partName1" required>
@@ -133,6 +143,25 @@
             } else {
                 previewLogo.src = 'assets/thorlogo.png'; // default image
             }
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        }
+
+        function toggleAdvancedSettings(button) {
+            const advancedOptions = button.nextElementSibling;
+            advancedOptions.classList.toggle('hidden');
+        }
+
+        function deletePart(button) {
+            const partSection = button.closest('.form-section');
+            partSection.remove();
         }
     </script>
 </body>
