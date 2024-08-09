@@ -82,6 +82,16 @@
             document.getElementById('viking').classList.add('active');
         }
 
+        function togglePassword() {
+            const passwordInput = document.getElementById('loginPassword');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+            document.getElementById('vikingPeeking').classList.toggle('active');
+        }
+
         // Add part logic
         function addPart() {
             const formsContainer = document.getElementById('formsContainer');
@@ -95,12 +105,14 @@
                     <input type="text" id="areaName${partId}" name="areaName${partId}" required>
                     <label for="logoUpload${partId}">Upload Logo:</label>
                     <input type="file" id="logoUpload${partId}" name="logoUpload${partId}" accept="image/*" onchange="updatePreview(${partId})">
-                    <label for="presetWidth${partId}">Preset Width:</label>
-                    <select id="presetWidth${partId}" name="presetWidth${partId}" onchange="updatePreview(${partId})">
-                        <option value="Small">Small</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Large">Large</option>
-                    </select>
+                    <label for="presetWidth${partId}">Sticker Width (2 - 8 inches):</label>
+                    <input type="number" id="presetWidth${partId}" name="presetWidth${partId}" min="2" max="8" value="6" onchange="updatePreview(${partId})">
+                    <label for="material${partId}">Material:</label>
+                    <input type="text" id="material${partId}" name="material${partId}" required>
+                    <label for="address${partId}">Address:</label>
+                    <input type="text" id="address${partId}" name="address${partId}" required>
+                    <label for="additionalContent${partId}">Additional Content:</label>
+                    <textarea id="additionalContent${partId}" name="additionalContent${partId}" rows="3"></textarea>
                     <button type="button" onclick="toggleAdvancedSettings(this)">Advanced Settings</button>
                     <div class="advanced-options hidden">
                         <label for="textColor${partId}">Text Color:</label>
@@ -121,34 +133,50 @@
 
         // Update preview logic
         function updatePreview(partId) {
-            const previewLogo = document.getElementById('previewLogo' + partId);
+            const previewContainer = document.getElementById('labelsContainer');
+            const existingPreview = document.getElementById('labelPreview' + partId);
+
+            if (existingPreview) {
+                previewContainer.removeChild(existingPreview);
+            }
+
+            const newPreview = document.createElement('div');
+            newPreview.className = 'label-preview';
+            newPreview.id = 'labelPreview' + partId;
+
             const logoUpload = document.getElementById('logoUpload' + partId).files[0];
             const reader = new FileReader();
 
             reader.onloadend = function() {
-                previewLogo.src = reader.result;
+                const img = document.createElement('img');
+                img.src = reader.result;
+                newPreview.appendChild(img);
             };
 
             if (logoUpload) {
                 reader.readAsDataURL(logoUpload);
             }
 
-            // Further preview updates based on other fields can be added here.
+            const textContainer = document.createElement('div');
+            textContainer.id = 'previewText' + partId;
+            textContainer.innerText = document.getElementById('partName' + partId).value;
+            newPreview.appendChild(textContainer);
+
+            newPreview.style.width = document.getElementById('presetWidth' + partId).value + 'in';
+            newPreview.style.height = '4in'; // Fixed height
+
+            previewContainer.appendChild(newPreview);
         }
 
         // Delete part logic
         function deletePart(button) {
             const partSection = button.closest('.form-section');
-            partSection.remove();
-            updatePreviews();
-        }
-
-        function updatePreviews() {
-            const formsContainer = document.getElementById('formsContainer');
-            const sections = formsContainer.children;
-            for (let i = 0; i < sections.length; i++) {
-                updatePreview(i + 1);
+            const partId = partSection.id.replace('formSection', '');
+            const preview = document.getElementById('labelPreview' + partId);
+            if (preview) {
+                preview.remove();
             }
+            partSection.remove();
         }
 
         function toggleAdvancedSettings(button) {
@@ -167,6 +195,25 @@
 
         .viking-img.active {
             display: block;
+        }
+
+        .label-preview {
+            border: 1px solid #000;
+            margin: 10px;
+            padding: 10px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .label-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .label-preview div {
+            margin-top: 10px;
+            font-size: 12px;
+            text-align: center;
         }
     </style>
 </head>
@@ -236,12 +283,14 @@
                 <input type="text" id="areaName1" name="areaName1" required>
                 <label for="logoUpload1">Upload Logo:</label>
                 <input type="file" id="logoUpload1" name="logoUpload1" accept="image/*" onchange="updatePreview(1)">
-                <label for="presetWidth1">Preset Width:</label>
-                <select id="presetWidth1" name="presetWidth1" onchange="updatePreview(1)">
-                    <option value="Small">Small</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Large">Large</option>
-                </select>
+                <label for="presetWidth1">Sticker Width (2 - 8 inches):</label>
+                <input type="number" id="presetWidth1" name="presetWidth1" min="2" max="8" value="6" onchange="updatePreview(1)">
+                <label for="material1">Material:</label>
+                <input type="text" id="material1" name="material1" required>
+                <label for="address1">Address:</label>
+                <input type="text" id="address1" name="address1" required>
+                <label for="additionalContent1">Additional Content:</label>
+                <textarea id="additionalContent1" name="additionalContent1" rows="3"></textarea>
                 <button type="button" onclick="toggleAdvancedSettings(this)">Advanced Settings</button>
                 <div class="advanced-options hidden">
                     <label for="textColor1">Text Color:</label>
@@ -260,10 +309,6 @@
         <!-- Labels Preview Container -->
         <div id="labelsContainer" class="responsive-container">
             <!-- Preview Logic for Dynamic Labels -->
-            <div class="label-preview" id="labelPreview1">
-                <img src="assets/thorlogo.png" alt="Logo" id="previewLogo1">
-                <div id="previewText1">Sample Text</div>
-            </div>
         </div>
 
         <!-- Add Part Button -->
