@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('addPartButton').addEventListener('click', addNewForm);
         document.getElementById('printLabelsButton').addEventListener('click', printLabels);
 
-        let partCount = 0;
+        if (typeof partCount === 'undefined') partCount = 0;
 
         function addNewForm() {
             partCount++;
@@ -867,5 +867,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const formsContainer = document.getElementById('formsContainer');
     if (formsContainer) {
         formsContainer.innerHTML = ''; // Clear any pre-added parts
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const closeFooterButton = document.getElementById('closeFooter');
+    if (closeFooterButton) {
+        closeFooterButton.addEventListener('click', function() {
+            const footer = document.querySelector('footer');
+            if (footer) {
+                footer.style.display = 'none';
+            }
+        });
     }
 });
