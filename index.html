@@ -9,20 +9,22 @@
     <!-- Add Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "Your API Key",
-            authDomain: "stonelabel.firebaseapp.com",
-            projectId: "stonelabel",
-            storageBucket: "stonelabel.appspot.com",
-            messagingSenderId: "13830273131",
-            appId: "1:13830273131:web:b59a20e5906641ae4e192e",
-            measurementId: "G-PY8G08328S"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-    </script>
+    
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyDQbbtZCsQwIyzSkqgjDZfNyXAyWToASgM",
+        authDomain: "stonelabel.firebaseapp.com",
+        projectId: "stonelabel",
+        storageBucket: "stonelabel.appspot.com",
+        messagingSenderId: "13830273131",
+        appId: "1:13830273131:web:b59a20e5906641ae4e192e",
+        measurementId: "G-PY8G08328S"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+</script>
+
 </head>
 <body>
     <div class="container">
@@ -75,7 +77,6 @@
                 <input type="text" id="jobName" name="jobName" required>
             </div>
             <div id="formsContainer"></div>
-            <!-- Removed hardcoded Part 1 -->
             <label for="logoUpload">Upload Logo:</label>
             <input type="file" id="logoUpload" name="logoUpload" accept="image/*" onchange="updatePreview(1)">
             <button style="width: auto;" type="button" id="addPartButton">Add Part</button>
