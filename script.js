@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('addPartButton').addEventListener('click', addNewForm);
         document.getElementById('printLabelsButton').addEventListener('click', printLabels);
 
-        if (typeof partCount === 'undefined') partCount = 0;
+        let partCount = 0;
 
         function addNewForm() {
             partCount++;
