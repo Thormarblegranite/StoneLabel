@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
-            apiKey: "AIzaSyDTFewiefHGecj2I0CamqRr06sqgCQdxnw",
+            apiKey: "Your API Key",
             authDomain: "stonelabel.firebaseapp.com",
             projectId: "stonelabel",
             storageBucket: "stonelabel.appspot.com",
@@ -74,53 +75,17 @@
                 <input type="text" id="jobName" name="jobName" required>
             </div>
             <div id="formsContainer"></div>
-<div class="form-section" id="formSection1">
-    <h2>Part 1</h2>
-    <label for="width1">Sticker Width (2 - 8 inches):</label>
-    <input type="number" id="width1" name="width" min="2" max="8" step="0.1" value="6" required oninput="validateWidth(1); updatePreview(1)">
-    
-    <div class="preset-buttons">
-        <button type="button" onclick="setPreset(1, 4)">4x4</button>
-        <button type="button" onclick="setPreset(1, 6)">6x4</button>
-        <button type="button" onclick="setPreset(1, 8)">8x4</button>
-    </div>
-
-    <label for="image1">Upload Image:</label>
-    <input type="file" id="image1" name="image" accept="image/*" required onchange="updatePreview(1)">
-    
-    <label for="areaName1">Area Name:</label>
-    <input type="text" id="areaName1" name="areaName" required oninput="updatePreview(1)">
-    <div class="advanced-settings" id="advancedAreaName1" style="display: none;">
-        <label for="areaNameFont1">Font:</label>
-        <select id="areaNameFont1" onchange="updatePreview(1)">
-            <option value="Montserrat">Montserrat</option>
-            <option value="Arial">Arial</option>
-            <option value="Times New Roman">Times New Roman</option>
-        </select>
-        <label for="areaNameColor1">Color:</label>
-        <input type="color" id="areaNameColor1" onchange="updatePreview(1)">
-    </div>
-    
-    <button type="button" onclick="toggleAdvancedSettings(1)">Toggle Advanced Settings</button>
-    <button type="button" onclick="deletePart(1)">Delete Part</button>
-</div>
-    
-  
-    
-
-    
-    <label for="logoUpload">Upload Logo:</label>
-    <input type="file" id="logoUpload" name="logoUpload" accept="image/*" onchange="updatePreview(1)">
-    
+            <!-- Removed hardcoded Part 1 -->
+            <label for="logoUpload">Upload Logo:</label>
+            <input type="file" id="logoUpload" name="logoUpload" accept="image/*" onchange="updatePreview(1)">
             <button style="width: auto;" type="button" id="addPartButton">Add Part</button>
             <button style="width: auto;" type="button" id="printLabelsButton">Print Labels</button>
         </form>
-    
     <div id="labelsContainer"></div>
     </div>
     
-<div style="position: absolute; top: 5px; right: 10px; cursor: pointer;" id="closeFooter">X</div>
-<footer>
+    <div style="position: absolute; top: 5px; right: 10px; cursor: pointer;" id="closeFooter">X</div>
+    <footer>
         <p>Created By <a href="http://thormarblegranite.com" target="_blank">Thor Marble & Granite</a></p>
         <img src="assets/thorlogo.png" alt="Thor Logo" class="footer-logo">
     </footer>
@@ -128,94 +93,5 @@
     <!-- Include JS Libraries -->
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="script.js"></script>
-
-<script>
-function updatePreview(partId) {
-    const previewElement = document.getElementById('preview' + partId);
-    const imageInput = document.getElementById('logoUpload');
-    const defaultLogo = "assets/thorlogo.png";
-
-    if (previewElement) {
-        if (imageInput && imageInput.files && imageInput.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                previewElement.innerHTML = `<img src="${e.target.result}" alt="Preview Image" style="max-width: 100%;">`;
-            };
-            reader.readAsDataURL(imageInput.files[0]);
-        } else {
-            previewElement.innerHTML = `<img src="${defaultLogo}" alt="Default Logo" style="max-width: 100%;">`;
-        }
-    } else {
-        console.error(`Preview element not found for part ${partId}`);
-    }
-}
-</script>
-
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-    
-    <!-- Additional Script for deletePart and advanced options -->
-    <script>
-        function deletePart(button) {
-            const partSection = button.closest('.form-section');
-            if (partSection) {
-                partSection.remove();
-                updatePreview(partSection.id.replace('formSection', ''));
-            } else {
-                console.error('Part section not found.');
-            }
-        }
-
-        function toggleAdvancedSettings(button) {
-            const advancedSettings = button.nextElementSibling;
-            if (advancedSettings) {
-                advancedSettings.classList.toggle('hidden');
-            } else {
-                console.error('Advanced settings not found.');
-            }
-        }
-
-        function updatePreview(partId) {
-            const previewElement = document.getElementById('preview' + partId);
-            const imageInput = document.getElementById('logoUpload');
-            if (previewElement) {
-                if (imageInput && imageInput.files && imageInput.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        previewElement.innerHTML = `<img src="\${e.target.result}" alt="Preview Image" style="max-width: 100%;">`;
-                    };
-                    reader.readAsDataURL(imageInput.files[0]);
-                } else {
-                    console.log(`Updating preview for part ${partId}`);
-                    previewElement.textContent = `Preview: Part ${partId}`;
-                }
-            } else {
-                console.error(`Preview element not found for part ${partId}`);
-            }
-        }
-    </script>
-<script src="script.js"></script>
-
-<script>
-function updatePreview(partId) {
-    const previewElement = document.getElementById('preview' + partId);
-    const imageInput = document.getElementById('logoUpload');
-    const defaultLogo = "assets/thorlogo.png";
-
-    if (previewElement) {
-        if (imageInput && imageInput.files && imageInput.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                previewElement.innerHTML = `<img src="${e.target.result}" alt="Preview Image" style="max-width: 100%;">`;
-            };
-            reader.readAsDataURL(imageInput.files[0]);
-        } else {
-            previewElement.innerHTML = `<img src="${defaultLogo}" alt="Default Logo" style="max-width: 100%;">`;
-        }
-    } else {
-        console.error(`Preview element not found for part ${partId}`);
-    }
-}
-</script>
-
 </body>
 </html>
