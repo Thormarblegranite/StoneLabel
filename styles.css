@@ -165,10 +165,24 @@ footer img {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    max-width: 500px;
+    margin-bottom: 1.5em;
 }
 
 .label-header label {
-    margin-right: 1em;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.label-header input[type="text"],
+.label-header input[type="file"] {
+    flex: 1;
+    padding: 10px;
+    font-size: 1em;
+    margin-right: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
 .form-section {
@@ -350,9 +364,9 @@ footer img {
 
     /* Adjust footer styling */
     footer {
-    position: static;
-    bottom: auto;
-    width: 100%;
+        position: static;
+        bottom: auto;
+        width: 100%;
         font-size: 0.9em;
         padding: 10px;
         text-align: center;
