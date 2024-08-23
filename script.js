@@ -280,13 +280,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
         }
 
-        /* function generateQRCode(partNumber, jobName, width, areaName, material, address, content) {
-            const qrCodeDiv = document.getElementById(`qrCode${partNumber}`);
+        /* /* function generateQRCode(partNumber, jobName, width, areaName, material, address, content) {
+            
             
 
             const qrData = `Job Name: ${jobName}\nWidth: ${width}in\nArea Name: ${areaName}\nMaterial: ${material}\nAddress: ${address}\nContent: ${content}`;
             const size = Math.max(30, 50 * (width / 8)); // Adjust size based on width
-            /* QRCode.toCanvas(qrCodeDiv, qrData, { width: size, height: size }, function(error) {
+            /* /* QRCode.toCanvas(qrCodeDiv, qrData, { width: size, height: size }, function(error) {
                 if (error) console.error(error);
                 else {
                     const img = document.createElement('img');
