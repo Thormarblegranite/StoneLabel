@@ -78,6 +78,26 @@
             <div id="formsContainer"></div>
             <label for="logoUpload">Upload Logo:</label>
             <input type="file" id="logoUpload" name="logoUpload" accept="image/*" onchange="updatePreview(1)">
+
+            <!-- Button for adding parts -->
+            <button style="width: auto;" type="button" id="addPartButton">Add Part</button>
+
+            <!-- Assuming this should toggle advanced settings for a part -->
+            <button style="width: auto;" type="button" onclick="toggleAdvancedSettings(1)">Toggle Advanced Settings</button>
+
+            <!-- Delete Part Button, assuming part 1 for example -->
+            <button style="width: auto;" type="button" onclick="deletePart(1)">Delete Part</button>
+
+            <button style="width: auto;" type="button" id="printLabelsButton">Print Labels</button>
+            <div id="labelsContainer"></div>
+        </form>
+            <div class="label-header">
+                <label for="jobName" style="font-weight: bold; font-size: 1.2em; margin-bottom: 10px;">Job Name:</label>
+                <input type="text" id="jobName" name="jobName" required>
+            </div>
+            <div id="formsContainer"></div>
+            <label for="logoUpload">Upload Logo:</label>
+            <input type="file" id="logoUpload" name="logoUpload" accept="image/*" onchange="updatePreview(1)">
             <button style="width: auto;" type="button" id="addPartButton">Add Part</button>
             <button style="width: auto;" type="button" id="printLabelsButton">Print Labels</button>
         </form>
