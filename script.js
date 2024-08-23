@@ -93,76 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             newFormSection.classList.add('form-section');
             newFormSection.id = `formSection${partCount}`;
 
-            
-    newFormSection.innerHTML = `
-
-    <h2>Part ${partCount}</h2>
-    <label for="width${partCount}">Sticker Width (2 - 8 inches):</label>
-    <input type="number" id="width${partCount}" name="width" min="2" max="8" step="0.1" value="6" required oninput="validateWidth(${partCount}); updatePreview(${partCount})">
-    
-    <button type="button" onclick="setPreset(${partCount}, 4)">4x4</button>
-    <button type="button" onclick="setPreset(${partCount}, 6)">6x4</button>
-    <button type="button" onclick="setPreset(${partCount}, 8)">8x4</button>
-
-    <label for="image${partCount}">Upload Image:</label>
-    <input type="file" id="image${partCount}" name="image" accept="image/*" required onchange="updatePreview(${partCount})">
-    
-    <label for="areaName${partCount}">Area Name:</label>
-    <input type="text" id="areaName${partCount}" name="areaName" required oninput="updatePreview(${partCount})">
-    <div class="advanced-settings hidden" id="advancedAreaName${partCount}">
-        <label for="areaNameFont${partCount}">Font:</label>
-        <select id="areaNameFont${partCount}" onchange="updatePreview(${partCount})">
-            <option value="Roboto">Roboto</option>
-            <option value="Arial">Arial</option>
-            <option value="Times New Roman">Times New Roman</option>
-        </select>
-        <label for="areaNameColor${partCount}">Color:</label>
-        <input type="color" id="areaNameColor${partCount}" onchange="updatePreview(${partCount})">
-    </div>
-    
-    <label for="material${partCount}">Material:</label>
-    <input type="text" id="material${partCount}" name="material" required oninput="updatePreview(${partCount})">
-    <div class="advanced-settings hidden" id="advancedMaterial${partCount}">
-        <label for="materialFont${partCount}">Font:</label>
-        <select id="materialFont${partCount}" onchange="updatePreview(${partCount})">
-            <option value="Roboto">Roboto</option>
-            <option value="Arial">Arial</option>
-            <option value="Times New Roman">Times New Roman</option>
-        </select>
-        <label for="materialColor${partCount}">Color:</label>
-        <input type="color" id="materialColor${partCount}" onchange="updatePreview(${partCount})">
-    </div>
-    
-    <label for="address${partCount}">Address:</label>
-    <input type="text" id="address${partCount}" name="address" required oninput="updatePreview(${partCount})">
-    <div class="advanced-settings hidden" id="advancedAddress${partCount}">
-        <label for="addressFont${partCount}">Font:</label>
-        <select id="addressFont${partCount}" onchange="updatePreview(${partCount})">
-            <option value="Roboto">Roboto</option>
-            <option value="Arial">Arial</option>
-            <option value="Times New Roman">Times New Roman</option>
-        </select>
-        <label for="addressColor${partCount}">Color:</label>
-        <input type="color" id="addressColor${partCount}" onchange="updatePreview(${partCount})">
-    </div>
-    
-    <label for="content${partCount}">Additional Content:</label>
-    <textarea id="content${partCount}" name="content" rows="4" oninput="updatePreview(${partCount})"></textarea>
-    <div class="advanced-settings hidden" id="advancedContent${partCount}">
-        <label for="contentFont${partCount}">Font:</label>
-        <select id="contentFont${partCount}" onchange="updatePreview(${partCount})">
-            <option value="Roboto">Roboto</option>
-            <option value="Arial">Arial</option>
-            <option value="Times New Roman">Times New Roman</option>
-        </select>
-        <label for="contentColor${partCount}">Color:</label>
-        <input type="color" id="contentColor${partCount}" onchange="updatePreview(${partCount})">
-    </div>
-    
-    <button type="button" onclick="toggleAdvancedSettings(${partCount})">Toggle Advanced Settings</button>
-    <button type="button" onclick="deletePart(${partCount})">Delete Part</button>
-`;
-    
+            newFormSection.innerHTML = `
                 <h2>Part ${partCount}</h2>
                 <label for="width${partCount}">Sticker Width (2 - 8 inches):</label>
                 <input type="number" id="width${partCount}" name="width" min="2" max="8" step="0.1" value="6" required oninput="validateWidth(${partCount}); updatePreview(${partCount})">
@@ -228,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 <button type="button" onclick="toggleAdvancedSettings(${partCount})">Toggle Advanced Settings</button>
                 <button type="button" onclick="deletePart(${partCount})">Delete Part</button>
-        `;
+            `;
 
             formsContainer.appendChild(newFormSection);
             createLabelPreview(partCount);
@@ -327,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span style="font-family:${materialFont}; color:${materialColor};">Material: ${material}</span>
                 <span style="font-family:${addressFont}; color:${addressColor};">Address: ${address}</span>
                 <span style="font-family:${contentFont}; color:${contentColor};">${content}</span>
-        `;
+            `;
             labelText.style.fontSize = `${0.15 * width}em`; // Adjust font size based on width
 
             const logoDiv = document.getElementById(`logo${partNumber}`);
@@ -349,13 +280,13 @@ document.addEventListener('DOMContentLoaded', function() {
             generateQRCode(partNumber, jobName, width, areaName, material, address, content);
         }
 
-        function generateQRCode(partNumber, jobName, width, areaName, material, address, content) {
+        /* function generateQRCode(partNumber, jobName, width, areaName, material, address, content) {
             const qrCodeDiv = document.getElementById(`qrCode${partNumber}`);
             qrCodeDiv.innerHTML = ''; // Clear previous QR code
 
             const qrData = `Job Name: ${jobName}\nWidth: ${width}in\nArea Name: ${areaName}\nMaterial: ${material}\nAddress: ${address}\nContent: ${content}`;
             const size = Math.max(30, 50 * (width / 8)); // Adjust size based on width
-            QRCode.toCanvas(qrCodeDiv, qrData, { width: size, height: size }, function(error) {
+            /* QRCode.toCanvas(qrCodeDiv, qrData, { width: size, height: size }, function(error) {
                 if (error) console.error(error);
                 else {
                     const img = document.createElement('img');
@@ -425,4 +356,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const closeFooterButton = document.createElement('button');
+    closeFooterButton.textContent = 'Hide Footer';
+    closeFooterButton.style.position = 'absolute';
+    closeFooterButton.style.top = '5px';
+    closeFooterButton.style.right = '5px';
+    closeFooterButton.addEventListener('click', function() {
+        document.querySelector('footer').style.display = 'none';
+    });
+    document.querySelector('footer').appendChild(closeFooterButton);
 });
