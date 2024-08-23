@@ -277,12 +277,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 reader.readAsDataURL(imageInput);
             }
 
-            generateQRCode(partNumber, jobName, width, areaName, material, address, content);
+            
         }
 
         /* function generateQRCode(partNumber, jobName, width, areaName, material, address, content) {
             const qrCodeDiv = document.getElementById(`qrCode${partNumber}`);
-            qrCodeDiv.innerHTML = ''; // Clear previous QR code
+            
 
             const qrData = `Job Name: ${jobName}\nWidth: ${width}in\nArea Name: ${areaName}\nMaterial: ${material}\nAddress: ${address}\nContent: ${content}`;
             const size = Math.max(30, 50 * (width / 8)); // Adjust size based on width
