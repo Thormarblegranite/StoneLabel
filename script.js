@@ -95,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             
     newFormSection.innerHTML = `
+
     <h2>Part ${partCount}</h2>
     <label for="width${partCount}">Sticker Width (2 - 8 inches):</label>
     <input type="number" id="width${partCount}" name="width" min="2" max="8" step="0.1" value="6" required oninput="validateWidth(${partCount}); updatePreview(${partCount})">
@@ -160,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <button type="button" onclick="toggleAdvancedSettings(${partCount})">Toggle Advanced Settings</button>
     <button type="button" onclick="deletePart(${partCount})">Delete Part</button>
-    `;
+`;
     
                 <h2>Part ${partCount}</h2>
                 <label for="width${partCount}">Sticker Width (2 - 8 inches):</label>
@@ -227,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 <button type="button" onclick="toggleAdvancedSettings(${partCount})">Toggle Advanced Settings</button>
                 <button type="button" onclick="deletePart(${partCount})">Delete Part</button>
-            `;
+        `;
 
             formsContainer.appendChild(newFormSection);
             createLabelPreview(partCount);
@@ -326,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span style="font-family:${materialFont}; color:${materialColor};">Material: ${material}</span>
                 <span style="font-family:${addressFont}; color:${addressColor};">Address: ${address}</span>
                 <span style="font-family:${contentFont}; color:${contentColor};">${content}</span>
-            `;
+        `;
             labelText.style.fontSize = `${0.15 * width}em`; // Adjust font size based on width
 
             const logoDiv = document.getElementById(`logo${partNumber}`);
