@@ -76,26 +76,76 @@
                 <input type="text" id="jobName" name="jobName" required>
             </div>
             <div id="formsContainer"></div>
-            <label for="logoUpload">Upload Logo:</label>
-            <input type="file" id="logoUpload" name="logoUpload" accept="image/*" onchange="updatePreview(1)">
 
-            <!-- Button for adding parts -->
-            <button style="width: auto;" type="button" id="addPartButton">Add Part</button>
+    <!-- Template for new form sections -->
+    <div class="form-section hidden" id="formSectionTemplate">
+        <h2>Part 0</h2>
+        <label for="width0">Sticker Width (2 - 8 inches):</label>
+        <input type="number" id="width0" name="width" min="2" max="8" step="0.1" value="6" required>
+        
+        <button type="button" onclick="setPreset(0, 4)">4x4</button>
+        <button type="button" onclick="setPreset(0, 6)">6x4</button>
+        <button type="button" onclick="setPreset(0, 8)">8x4</button>
 
-            <!-- Assuming this should toggle advanced settings for a part -->
-            <button style="width: auto;" type="button" onclick="toggleAdvancedSettings(1)">Toggle Advanced Settings</button>
-
-            <!-- Delete Part Button, assuming part 1 for example -->
-            <button style="width: auto;" type="button" onclick="deletePart(1)">Delete Part</button>
-
-            <button style="width: auto;" type="button" id="printLabelsButton">Print Labels</button>
-            <div id="labelsContainer"></div>
-        </form>
-            <div class="label-header">
-                <label for="jobName" style="font-weight: bold; font-size: 1.2em; margin-bottom: 10px;">Job Name:</label>
-                <input type="text" id="jobName" name="jobName" required>
-            </div>
-            <div id="formsContainer"></div>
+        <label for="image0">Upload Image:</label>
+        <input type="file" id="image0" name="image" accept="image/*" required>
+        
+        <label for="areaName0">Area Name:</label>
+        <input type="text" id="areaName0" name="areaName" required>
+        <div class="advanced-settings hidden" id="advancedAreaName0">
+            <label for="areaNameFont0">Font:</label>
+            <select id="areaNameFont0">
+                <option value="Roboto">Roboto</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select>
+            <label for="areaNameColor0">Color:</label>
+            <input type="color" id="areaNameColor0">
+        </div>
+        
+        <label for="material0">Material:</label>
+        <input type="text" id="material0" name="material" required>
+        <div class="advanced-settings hidden" id="advancedMaterial0">
+            <label for="materialFont0">Font:</label>
+            <select id="materialFont0">
+                <option value="Roboto">Roboto</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select>
+            <label for="materialColor0">Color:</label>
+            <input type="color" id="materialColor0">
+        </div>
+        
+        <label for="address0">Address:</label>
+        <input type="text" id="address0" name="address" required>
+        <div class="advanced-settings hidden" id="advancedAddress0">
+            <label for="addressFont0">Font:</label>
+            <select id="addressFont0">
+                <option value="Roboto">Roboto</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select>
+            <label for="addressColor0">Color:</label>
+            <input type="color" id="addressColor0">
+        </div>
+        
+        <label for="content0">Additional Content:</label>
+        <textarea id="content0" name="content" rows="4"></textarea>
+        <div class="advanced-settings hidden" id="advancedContent0">
+            <label for="contentFont0">Font:</label>
+            <select id="contentFont0">
+                <option value="Roboto">Roboto</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select>
+            <label for="contentColor0">Color:</label>
+            <input type="color" id="contentColor0">
+        </div>
+        
+        <button type="button" onclick="toggleAdvancedSettings(0)">Toggle Advanced Settings</button>
+        <button type="button" onclick="deletePart(0)">Delete Part</button>
+    </div>
+    
             <label for="logoUpload">Upload Logo:</label>
             <input type="file" id="logoUpload" name="logoUpload" accept="image/*" onchange="updatePreview(1)">
             <button style="width: auto;" type="button" id="addPartButton">Add Part</button>
