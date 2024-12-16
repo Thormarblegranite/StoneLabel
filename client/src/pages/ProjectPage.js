@@ -1,5 +1,6 @@
+
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import API from '../api';
 import ProjectDetail from '../components/ProjectDetail';
 import StickerForm from '../components/StickerForm';
@@ -8,6 +9,7 @@ import { Button, Typography } from '@mui/material';
 
 const ProjectPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [project, setProject] = useState(null);
   const [stickers, setStickers] = useState([]);
 
@@ -41,20 +43,46 @@ const ProjectPage = () => {
     setStickers(prev => [...prev, stickerRes.data]);
   };
 
+  const deleteSticker = async (stickerId) => {
+    try {
+      await API.delete(`/api/stickers/${stickerId}`);
+      setStickers(prev => prev.filter(sticker => sticker._id !== stickerId));
+    } catch (err) {
+      console.error('Error deleting sticker:', err);
+    }
+  };
+
+  const deleteProject = async () => {
+    try {
+      await API.delete(`/api/projects/${id}`);
+      navigate('/');
+    } catch (err) {
+      console.error('Error deleting project:', err);
+    }
+  };
+
   if (!project) return <div>Loading...</div>;
 
   return (
     <div>
       <ProjectDetail project={project} />
-      <Typography variant="h6" sx={{ mb:2 }}>Add Stickers</Typography>
+      <Button variant="contained" color="error" onClick={deleteProject} sx={{ mb: 4 }}>
+        Delete Project
+      </Button>
+      <Typography variant="h6" sx={{ mb: 2 }}>Add Stickers</Typography>
       <StickerForm onSubmit={addSticker} />
 
       {stickers.length > 0 && (
         <>
-          <Typography variant="h6" sx={{ mt:4 }}>Stickers</Typography>
+          <Typography variant="h6" sx={{ mt: 4 }}>Stickers</Typography>
           <div>
             {stickers.map(st => (
-              <StickerPreview key={st._id} sticker={st} project={project} />
+              <StickerPreview
+                key={st._id}
+                sticker={st}
+                project={project}
+                onDelete={() => deleteSticker(st._id)}
+              />
             ))}
           </div>
           <Button variant="contained" component={Link} to={`/project/${id}/print`} sx={{ mt: 4 }}>

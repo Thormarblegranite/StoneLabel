@@ -1,8 +1,10 @@
+
 const express = require('express');
 const router = express.Router();
 const Project = require('../models/Project');
 const Sticker = require('../models/Sticker');
 
+// Create a new project
 router.post('/', async (req, res) => {
   const { logo, customerName, jobName, address } = req.body;
   try {
@@ -15,6 +17,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Get all projects
 router.get('/', async (req, res) => {
   try {
     const projects = await Project.find().sort({ createdAt: -1 });
@@ -25,6 +28,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Get single project with stickers
 router.get('/:id', async (req, res) => {
   try {
     const project = await Project.findById(req.params.id);
@@ -32,6 +36,19 @@ router.get('/:id', async (req, res) => {
 
     const stickers = await Sticker.find({ projectId: project._id });
     res.json({ project, stickers });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Delete a project and its associated stickers
+router.delete('/:id', async (req, res) => {
+  try {
+    const projectId = req.params.id;
+    await Sticker.deleteMany({ projectId });
+    await Project.findByIdAndDelete(projectId);
+    res.json({ message: "Project and associated stickers deleted successfully" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });

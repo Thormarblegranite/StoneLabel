@@ -1,11 +1,13 @@
-import React from 'react';
 
-const StickerPreview = ({ sticker, project }) => {
+import React from 'react';
+import { Button } from '@mui/material';
+
+const StickerPreview = ({ sticker, project, onDelete }) => {
   const { partName, imageUrl, dxfUrl, widthPreset } = sticker;
 
   const heightIn = 4;
   const widthIn = parseFloat(widthPreset.split('x')[1]);
-  const scaleFactor = 40;
+  const scaleFactor = 40; // Adjust for preview size
 
   const style = {
     border: '1px solid #ccc',
@@ -50,6 +52,11 @@ const StickerPreview = ({ sticker, project }) => {
           </div>
         )}
       </div>
+      {onDelete && (
+        <Button variant="contained" color="error" onClick={onDelete} sx={{ mt: 1, display: 'block' }}>
+          Delete Sticker
+        </Button>
+      )}
     </div>
   );
 };

@@ -1,15 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import API from '../api';
 import StickerPreview from '../components/StickerPreview';
-import ProjectDetail from '../components/ProjectDetail';
 import { Button } from '@mui/material';
 
 const PrintPage = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [stickers, setStickers] = useState([]);
-  const printRef = useRef();
 
   useEffect(() => {
     API.get(`/api/projects/${id}`)
@@ -27,14 +26,26 @@ const PrintPage = () => {
   if (!project) return <div>Loading...</div>;
 
   return (
-    <div>
-      <ProjectDetail project={project} />
-      <div ref={printRef}>
+    <div style={{ padding: '20px', background: '#fff' }}>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+        gap: '20px',
+        pageBreakInside: 'avoid'
+      }}>
         {stickers.map(st => (
-          <StickerPreview key={st._id} sticker={st} project={project} />
+          <div key={st._id} style={{
+            pageBreakInside: 'avoid',
+            margin: '0 auto',
+            textAlign: 'center',
+          }}>
+            <StickerPreview sticker={st} project={project} />
+          </div>
         ))}
       </div>
-      <Button variant="contained" onClick={handlePrint}>Print Now</Button>
+      <Button variant="contained" color="primary" onClick={handlePrint} style={{ marginTop: '20px' }}>
+        Print Stickers
+      </Button>
     </div>
   );
 };
