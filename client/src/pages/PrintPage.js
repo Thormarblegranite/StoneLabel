@@ -26,23 +26,24 @@ const PrintPage = () => {
   if (!project) return <div>Loading...</div>;
 
   return (
-    <div style={{ padding: '20px', background: '#fff' }}>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-        gap: '20px',
-        pageBreakInside: 'avoid'
-      }}>
-        {stickers.map(st => (
-          <div key={st._id} style={{
-            pageBreakInside: 'avoid',
-            margin: '0 auto',
-            textAlign: 'center',
-          }}>
-            <StickerPreview sticker={st} project={project} />
-          </div>
-        ))}
-      </div>
+    <div style={{ padding: '20px', background: '#121212' }}>
+      {stickers.map(st => (
+        <div key={st._id} style={{
+          pageBreakAfter: 'always',
+          margin: '0 auto',
+          width: `${st.widthPreset.split('x')[1]}in`,
+          height: '4in',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: '1px solid #fff',
+          padding: '10px',
+          background: '#2c2c2c',
+          color: '#fff',
+        }}>
+          <StickerPreview sticker={st} project={project} />
+        </div>
+      ))}
       <Button variant="contained" color="primary" onClick={handlePrint} style={{ marginTop: '20px' }}>
         Print Stickers
       </Button>
